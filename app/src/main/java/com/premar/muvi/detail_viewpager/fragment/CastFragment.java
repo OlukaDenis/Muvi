@@ -2,6 +2,7 @@ package com.premar.muvi.detail_viewpager.fragment;
 
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,6 +26,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.premar.muvi.constants.AppConstants.ENGLISH_LANGUAGE;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -46,34 +49,11 @@ public class CastFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_cast, container, false);
         movieId = MovieCache.movieId;
-       // trailerRecyclerView = view.findViewById(R.id.trailer_recyler_view);
-        //trailer layout manager
-
-        //trailerRecyclerView.setHasFixedSize(true);
-        LinearLayoutManager trailerLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        //trailerRecyclerView.setLayoutManager(trailerLayoutManager);
 
         apiService = ApiUtils.getApiService();
-       // getTrailers();
 
         return view;
     }
 
-    public void getTrailers(){
-        apiService.getMovieTrailers(movieId, API_KEY).enqueue(new Callback<TrailerResponse>() {
-            @Override
-            public void onResponse(Call<TrailerResponse> call, Response<TrailerResponse> response) {
-                assert response.body() != null;
-                List<Trailer> movieTrailer = response.body().getResults();
-                //trailerRecyclerView.setAdapter(new MovieTrailerAdapter(getContext(), movieTrailer, R.layout.layout_trailers));
-
-            }
-
-            @Override
-            public void onFailure(Call<TrailerResponse> call, Throwable t) {
-                Log.e(TAG, t.toString());
-            }
-        });
-    }
 
 }

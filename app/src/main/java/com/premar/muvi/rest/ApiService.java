@@ -2,6 +2,7 @@ package com.premar.muvi.rest;
 
 import com.premar.muvi.model.Movie;
 import com.premar.muvi.model.MovieResponse;
+import com.premar.muvi.model.credits.Credits;
 import com.premar.muvi.model.trailers.TrailerResponse;
 
 import retrofit2.Call;
@@ -29,13 +30,18 @@ public interface ApiService {
             @Query("api_key") String apiKey,
             @Query("sort_by") String sort_by);
 
-    @GET("/movie/{id}")
-    Call<Movie> getMovie(@Path("id") int id,
+    @GET("movie/{movie_id}")
+    Call<Movie> getMovie(@Path("movie_id") int id,
                          @Query("api_key") String apiKey);
 
-    @GET("/movie/{movie_id}/videos")
-    Call<TrailerResponse> getMovieTrailers(@Path("movie_id") int id,
-                                           @Query("api_key") String apiKey);
+    @GET("movie/{movie_id}/videos")
+    Call<TrailerResponse> getMovieTrailers(@Path("movie_id") int vId,
+                                           @Query("api_key") String api_key,
+                                           @Query("language") String language);
+
+    @GET("movie/{movie_id}/credits")
+    Call<Credits> getCredits(@Path("movie_id") int cId,
+                             @Query("api_key") String key);
 
 
     //tv shows

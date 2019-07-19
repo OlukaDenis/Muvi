@@ -7,17 +7,17 @@ import java.util.List;
 
 public class TrailerResponse {
     @SerializedName("id")
-    private int id;
+    private int movieId;
 
     @SerializedName("results")
     private List<Trailer> results;
 
     public int getMovieId() {
-        return id;
+        return movieId;
     }
 
-    public void setMovieId(int id) {
-        this.id = id;
+    public void setMovieId(int movieId) {
+        this.movieId = movieId;
     }
 
     public List<Trailer> getResults() {

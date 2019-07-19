@@ -15,10 +15,12 @@ import android.widget.Toast;
 
 import com.premar.muvi.R;
 import com.premar.muvi.adapter.GenreAdapter;
+import com.premar.muvi.adapter.MovieHomeAdapter;
 import com.premar.muvi.adapter.MovieTrailerAdapter;
 import com.premar.muvi.constants.AppConstants;
 import com.premar.muvi.model.Genre;
 import com.premar.muvi.model.Movie;
+import com.premar.muvi.model.MovieResponse;
 import com.premar.muvi.model.trailers.Trailer;
 import com.premar.muvi.model.trailers.TrailerResponse;
 import com.premar.muvi.rest.ApiService;
@@ -31,6 +33,8 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.premar.muvi.constants.AppConstants.ENGLISH_LANGUAGE;
 
 public class InfoFragment extends Fragment {
     private TextView overview;
@@ -60,9 +64,6 @@ public class InfoFragment extends Fragment {
 
         movieId = MovieCache.movieId;
         apiService = ApiUtils.getApiService();
-        Toast.makeText(getContext(), API_KEY, Toast.LENGTH_SHORT).show();
-
-
 
         genreRecyclerView = view.findViewById(R.id.genre_recycler_view);
         trailerRecyclerView = view.findViewById(R.id.trailer_recyler_view);
@@ -86,19 +87,20 @@ public class InfoFragment extends Fragment {
     private void fetchMovieDetails() {
         apiService.getMovie(movieId, API_KEY).enqueue(new Callback<Movie>() {
             @Override
-            public void onResponse(Call<Movie> call, Response<Movie> response) {
-                // assert response.body() != null;
+            public void onResponse(@NonNull Call<Movie> call, Response<Movie> response) {
+                assert response.body() != null;
 
-                List<Genre> genres = response.body().getGenres();
+                Movie movieDetails = response.body();
+
+                 overview.setText(movieDetails.getOverview());
+                 double mRating = movieDetails.getVoteAverage();
+                 int rate = (int) mRating;
+                 rating.setProgress(rate);
+                 progress_text.setText(String.valueOf(mRating));
+
+                List<Genre> genres = movieDetails.getGenres();
                 GenreAdapter adapter = new GenreAdapter(getActivity(), genres, R.layout.layout_genre);
                 genreRecyclerView.setAdapter(adapter);
-                overview.setText(response.body().getOverview());
-
-                double mRating = response.body().getVoteAverage();
-                int rate = (int) mRating;
-                rating.setProgress(rate);
-
-                progress_text.setText(String.valueOf(mRating));
 
             }
 
@@ -111,12 +113,19 @@ public class InfoFragment extends Fragment {
     }
 
     public void getTrailers() {
-        apiService.getMovieTrailers(movieId, API_KEY).enqueue(new Callback<TrailerResponse>() {
+        apiService.getMovieTrailers(movieId, API_KEY, ENGLISH_LANGUAGE).enqueue(new Callback<TrailerResponse>() {
             @Override
             public void onResponse(Call<TrailerResponse> call, Response<TrailerResponse> response) {
                 assert response.body() != null;
-                List<Trailer> movieTrailer = response.body().getResults();
-                trailerRecyclerView.setAdapter(new MovieTrailerAdapter(getContext(), movieTrailer, R.layout.layout_trailers));
+
+                TrailerResponse trailers = response.body();
+
+                List<Trailer> trailerList = trailers.getResults();
+                MovieTrailerAdapter adapter = new MovieTrailerAdapter(getActivity(), trailerList, R.layout.layout_trailers);
+                trailerRecyclerView.setAdapter(adapter);
+
+                Log.i(TAG, String.valueOf(trailers.getMovieId()));
+                Toast.makeText(getActivity(), String.valueOf(trailers.getMovieId()), Toast.LENGTH_SHORT).show();
             }
 
             @Override
