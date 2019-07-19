@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">Muvi: The Movie Guide</string>
+
+    <string name="enter_no">Enter your mobile number</string>
+    <string name="phone_hint">Enter your mobile number</string>
+    <string name="get_moving">Get moving with Uber</string>
+    <string name="transition_arrow">transition_arrow</string>
+    <string name="transition_tvMoving">transition_tvMoving</string>
+    <string name="transition_ivFlag">transition_ivFlag</string>
+    <string name="transition_tvCode">transition_tvCode</string>
+    <string name="transition_tvPhoneNo">transition_tvPhoneNo</string>
+    <string name="transition_llPhone">transition_llPhone</string>
+    <string name="welcome_back">Welcome back, sign in to continue</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="movie_description">During a life-threatening rescue mission in space, Jean is hit by a cosmic force that transforms her into one of the most powerful mutants of all. Wrestling with this increasingly</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="muvi">Muvi</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
