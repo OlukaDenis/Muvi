@@ -1,6 +1,6 @@
-# TMDb
+# Muvi: The Movie Guide
 
-**Muvi** is an app displays detailed information on Movies and TV Shows App based on The Movie Database [API](https://developers.themoviedb.org/3).
+This is an app that displays detailed information on Movies and TV Shows App based on The Movie Database [API](https://developers.themoviedb.org/3).
 
 ## Features
 
