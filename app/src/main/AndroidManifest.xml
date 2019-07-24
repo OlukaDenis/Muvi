@@ -13,25 +13,20 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".activity.AllCastActivity"></activity>
         <activity
-            android:name="com.premar.muvi.activity.MovieDetailActivity"
-            android:theme="@style/WithNoActionBar">
-
-        </activity>
+            android:name=".activity.MovieDetailActivity"
+            android:theme="@style/WithNoActionBar"></activity>
         <activity
-            android:name="com.premar.muvi.activity.HomeActivity"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:name=".activity.HomeActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.premar.muvi.activity.TodoActivity" />
-        <activity android:name="com.premar.muvi.activity.MainActivity" />
-        <activity android:name="com.premar.muvi.activity.WelcomeActivity">
-        </activity>
-        <activity android:name="com.premar.muvi.activity.NewsActivity" />
+        <activity android:name=".activity.MainActivity" />
     </application>
 
 </manifest>

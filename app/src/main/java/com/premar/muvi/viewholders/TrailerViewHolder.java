@@ -16,13 +16,14 @@ public class TrailerViewHolder extends RecyclerView.ViewHolder implements View.O
     public LinearLayout rootLayout;
     public TextView trailerType;
     public ImageView trailerImage;
-    public ItemClickListener itemClickListener;
+    private ItemClickListener itemClickListener;
 
     public TrailerViewHolder(@NonNull View itemView) {
         super(itemView);
         rootLayout = (LinearLayout) itemView.findViewById(R.id.trailer_layout);
         trailerImage = itemView.findViewById(R.id.trailer_image);
         trailerType = itemView.findViewById(R.id.trailer_type);
+        itemView.setOnClickListener(this);
     }
 
     public void setItemClickListener(ItemClickListener itemClickListener) {

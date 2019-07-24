@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.premar.muvi.Interface.ItemClickListener;
 import com.premar.muvi.R;
@@ -65,7 +66,9 @@ public class MovieHomeAdapter extends RecyclerView.Adapter<MovieHomeViewHolder> 
                 detailIntent.putExtra("movie_backdrop", backdrop_url);
                 detailIntent.putExtra("movie_duration", movies.get(position).getRuntime());
                 detailIntent.putExtra("movie_votes", movies.get(position).getVoteCount());
+                detailIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
+                Toast.makeText(context, movies.get(position).getOriginalTitle(), Toast.LENGTH_SHORT).show();
                 context.startActivity(detailIntent);
             }
         });
