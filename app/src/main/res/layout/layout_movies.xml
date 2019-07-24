@@ -31,18 +31,19 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="9"
-                android:padding="2dp"
+                android:padding="5dp"
+
                 tools:text="Title"
-                android:textColor="@color/black"
+                android:textColor="#333"
                 app:autoSizeTextType="uniform"
-                app:autoSizeMinTextSize="18sp"
-                app:autoSizeMaxTextSize="20sp"/>
+                app:autoSizeMinTextSize="14sp"
+                app:autoSizeMaxTextSize="16sp"/>
 
             <ImageView
                 android:layout_width="0dp"
                 android:layout_height="20dp"
                 android:layout_weight="1"
-                android:gravity="end"
+                android:gravity="end|center"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_menu" />
 

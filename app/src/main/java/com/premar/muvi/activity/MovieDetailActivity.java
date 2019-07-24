@@ -1,5 +1,6 @@
 package com.premar.muvi.activity;
 
+import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.NestedScrollView;
@@ -7,21 +8,41 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.premar.muvi.R;
+import com.premar.muvi.adapter.CastAdapter;
+import com.premar.muvi.adapter.GenreAdapter;
+import com.premar.muvi.constants.AppConstants;
 import com.premar.muvi.detail_viewpager.MovieDetailPagerAdapter;
+import com.premar.muvi.model.Genre;
+import com.premar.muvi.model.Movie;
+import com.premar.muvi.model.credits.Cast;
+import com.premar.muvi.model.credits.Credits;
+import com.premar.muvi.rest.ApiService;
+import com.premar.muvi.rest.ApiUtils;
+import com.premar.muvi.temporary_storage.MovieCache;
 import com.squareup.picasso.Picasso;
 
+import java.util.List;
 import java.util.Objects;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static com.premar.muvi.constants.AppConstants.API_KEY;
+
 public class MovieDetailActivity extends AppCompatActivity {
+    private static String TAG = MovieDetailActivity.class.getSimpleName();
    private MovieDetailPagerAdapter moviePager;
     private ViewPager viewPager;
     private TabLayout tabLayout;
     Bundle bundle;
-    private int movieId = -1;
+    private int movieId;
+    private ApiService apiService;
 
     private TextView title, release_date, duration, votes;
     private ImageView mPoster, mBackdrop;
@@ -33,6 +54,9 @@ public class MovieDetailActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+
+        movieId = MovieCache.movieId;
+        apiService = ApiUtils.getApiService();
 
         moviePager = new MovieDetailPagerAdapter(getSupportFragmentManager());
         moviePager.setPageTitles(initPagesTitles());
@@ -70,19 +94,17 @@ public class MovieDetailActivity extends AppCompatActivity {
             int movie_votes = (int) bundle.get("movie_votes");
             setTitle(movie_title);
 
-            populateDetails(movie_title, date, poster, backdrop, movie_duration, movie_votes);
+            populateDetails(movie_title, date, poster, backdrop);
         }
 
-
+        fetchMovieDetails();
 
     }
 
     private void populateDetails(String movie_title,
                                  String date,
                                  String poster,
-                                 String backdrop,
-                                 int movie_duration,
-                                 int movie_votes) {
+                                 String backdrop) {
 
         title.setText(movie_title);
         release_date.setText(date);
@@ -99,10 +121,6 @@ public class MovieDetailActivity extends AppCompatActivity {
                 .error(R.drawable.ic_picture)
                 .into(mBackdrop);
 
-        String mDuration = String.valueOf(movie_votes);
-        duration.setText(String.valueOf(movie_duration ));
-
-        votes.setText(String.valueOf(movie_duration));
     }
 
 
@@ -113,5 +131,29 @@ public class MovieDetailActivity extends AppCompatActivity {
         pageTitles[2] = "Comments";
         pageTitles[3] = "Reviews";
         return pageTitles;
+
+    }
+
+    private void fetchMovieDetails() {
+        apiService.getMovie(movieId, API_KEY).enqueue(new Callback<Movie>() {
+            @Override
+            public void onResponse(@NonNull Call<Movie> call, Response<Movie> response) {
+                assert response.body() != null;
+
+                Movie movieDetails = response.body();
+
+                String mDuration = String.valueOf(movieDetails.getRuntime());
+                duration.setText(mDuration + getString(R.string.minutes));
+
+                votes.setText(String.valueOf(movieDetails.getVoteCount()));
+
+            }
+
+            @Override
+            public void onFailure(Call<Movie> call, Throwable throwable) {
+                Log.e(TAG, throwable.toString());
+            }
+        });
+
     }
 }

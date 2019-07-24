@@ -1,7 +1,9 @@
 package com.premar.muvi.activity;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -34,10 +36,10 @@ import retrofit2.Response;
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = MainActivity.class.getSimpleName();
-    //private static final String BASE_URL = "http://api.themoviedb.org/3/";
     RecyclerView recyclerview_trendiing_shows = null;
     RecyclerView recyclerview_upcoming = null;
     RecyclerView recyclerView_trending = null;
+    private SwipeRefreshLayout refreshLayout;
     private static final String API_KEY = AppConstants.API_KEY;
     private ApiService apiService;
     MovieHomeAdapter movieHomeAdapter;
@@ -60,9 +62,12 @@ public class HomeActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        //init views
         recyclerview_trendiing_shows = findViewById(R.id.home_recyclerview_popular);
         recyclerview_upcoming = findViewById(R.id.home_recyclerview_upcoming);
         recyclerView_trending = findViewById(R.id.home_recyclerview_trending);
+        refreshLayout = findViewById(R.id.pull_to_refresh);
+
         //trending shows layout manager
         recyclerview_trendiing_shows.setHasFixedSize(true);
         LinearLayoutManager popularLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
@@ -75,6 +80,15 @@ public class HomeActivity extends AppCompatActivity
         recyclerView_trending.setLayoutManager(trendingLayoutManager);
 
         apiService = ApiUtils.getApiService();
+
+        refreshLayout.setOnRefreshListener(() -> {
+            new Handler().postDelayed(() -> {
+                connectAndGetApiData();
+                refreshLayout.setRefreshing(false);
+            }, 2000);
+
+        refreshLayout.setColorSchemeResources(R.color.colorPrimaryDark);
+        });
         connectAndGetApiData();
     }
 
@@ -97,7 +111,7 @@ public class HomeActivity extends AppCompatActivity
             }
         });
 
-        apiService.getUpcomingMovies(API_KEY).enqueue(new Callback<MovieResponse>() {
+        apiService.getPlayingMovies(API_KEY).enqueue(new Callback<MovieResponse>() {
             @Override
             public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
                 assert response.body() != null;
