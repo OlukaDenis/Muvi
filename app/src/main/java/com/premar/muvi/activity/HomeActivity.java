@@ -16,9 +16,12 @@ import android.view.MenuItem;
 
 import com.premar.muvi.R;
 import com.premar.muvi.adapter.MovieHomeAdapter;
+import com.premar.muvi.adapter.MovieTrailerAdapter;
 import com.premar.muvi.constants.AppConstants;
 import com.premar.muvi.model.Movie;
 import com.premar.muvi.model.MovieResponse;
+import com.premar.muvi.model.trailers.Trailer;
+import com.premar.muvi.model.trailers.TrailerResponse;
 import com.premar.muvi.rest.ApiService;
 import com.premar.muvi.rest.ApiUtils;
 
