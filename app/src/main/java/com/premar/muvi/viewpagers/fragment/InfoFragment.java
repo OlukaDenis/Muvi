@@ -1,4 +1,4 @@
-package com.premar.muvi.detail_viewpager.fragment;
+package com.premar.muvi.viewpagers.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -15,19 +15,16 @@ import android.widget.Toast;
 
 import com.premar.muvi.R;
 import com.premar.muvi.adapter.GenreAdapter;
-import com.premar.muvi.adapter.MovieHomeAdapter;
 import com.premar.muvi.adapter.MovieTrailerAdapter;
 import com.premar.muvi.constants.AppConstants;
 import com.premar.muvi.model.Genre;
 import com.premar.muvi.model.Movie;
-import com.premar.muvi.model.MovieResponse;
 import com.premar.muvi.model.trailers.Trailer;
 import com.premar.muvi.model.trailers.TrailerResponse;
 import com.premar.muvi.rest.ApiService;
 import com.premar.muvi.rest.ApiUtils;
 import com.premar.muvi.temporary_storage.MovieCache;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;

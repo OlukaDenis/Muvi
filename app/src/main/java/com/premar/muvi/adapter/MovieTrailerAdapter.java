@@ -41,6 +41,7 @@ public class MovieTrailerAdapter extends RecyclerView.Adapter<TrailerViewHolder>
 
     @Override
     public void onBindViewHolder(@NonNull TrailerViewHolder trailerViewHolder, int position) {
+
         String trailer_image_key = trailers.get(position).getTrailer_key();
         String image_url = YOUTUBE_VIDEO_URL + trailer_image_key + YOUTUBE_SUFFIX;
 
@@ -50,7 +51,8 @@ public class MovieTrailerAdapter extends RecyclerView.Adapter<TrailerViewHolder>
                 .error(R.drawable.ic_picture)
                 .into(trailerViewHolder.trailerImage);
 
-        trailerViewHolder.trailerType.setText(trailers.get(position).getName());
+
+        trailerViewHolder.trailerType.setText(trailers.get(position).getType());
     }
 
     @Override

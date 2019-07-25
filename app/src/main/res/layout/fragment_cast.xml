@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:orientation="vertical"
-    tools:context=".detail_viewpager.fragment.CastFragment">
+    tools:context=".viewpagers.fragment.CastFragment">
 
     <TextView
         android:id="@+id/more_cast"

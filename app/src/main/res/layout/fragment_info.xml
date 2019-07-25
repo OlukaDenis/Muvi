@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        tools:context=".detail_viewpager.fragment.InfoFragment">
+        tools:context=".viewpagers.fragment.InfoFragment">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -22,7 +22,8 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_centerInParent="true">
 
                 <FrameLayout
                     android:id="@+id/progress_frame_layout"
@@ -66,20 +67,15 @@
         </RelativeLayout>
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:text="Overview"
-            android:textAppearance="?android:textAppearanceLarge"
-            android:textStyle="bold" />
+            style="@style/InfoTitles"
+            android:text="Overview"/>
 
         <TextView
             android:id="@+id/detail_overview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="This is the overview"
-            android:textAppearance="?android:textAppearanceMedium"
-            android:textColor="@color/black" />
+            android:textColor="#333" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -88,12 +84,8 @@
             android:orientation="vertical">
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="Genres"
-                android:textAppearance="?android:textAppearanceLarge"
-                android:textStyle="bold" />
+                style="@style/InfoTitles"
+                android:text="Genres" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -112,17 +104,13 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="230dp"
             android:layout_marginTop="16dp"
             android:orientation="vertical">
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="Trailers"
-                android:textAppearance="?android:textAppearanceLarge"
-                android:textStyle="bold" />
+                style="@style/InfoTitles"
+                android:text="Trailers" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/trailer_recyler_view"
@@ -139,12 +127,8 @@
             android:orientation="vertical">
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="Production companies"
-                android:textAppearance="?android:textAppearanceLarge"
-                android:textStyle="bold" />
+                style="@style/InfoTitles"
+                android:text="Images" />
 
             <LinearLayout
                 android:layout_width="match_parent"

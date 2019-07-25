@@ -4,5 +4,7 @@ public class MovieCache {
     public static int movieId;
     public static String movieTitle;
 
+    public static int personId;
+
 
 }

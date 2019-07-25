@@ -5,12 +5,10 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.widget.TextView;
 
 import com.premar.muvi.R;
 import com.premar.muvi.adapter.AllCastAdapter;
-import com.premar.muvi.adapter.CastAdapter;
-import com.premar.muvi.detail_viewpager.fragment.InfoFragment;
+import com.premar.muvi.viewpagers.fragment.InfoFragment;
 import com.premar.muvi.model.credits.Cast;
 import com.premar.muvi.model.credits.Credits;
 import com.premar.muvi.rest.ApiService;

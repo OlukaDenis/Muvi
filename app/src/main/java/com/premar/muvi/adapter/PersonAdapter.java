@@ -12,53 +12,56 @@ import android.widget.Toast;
 import com.premar.muvi.Interface.ItemClickListener;
 import com.premar.muvi.R;
 import com.premar.muvi.activity.PersonDetailActivity;
-import com.premar.muvi.model.credits.Cast;
+import com.premar.muvi.constants.AppConstants;
+import com.premar.muvi.model.people.Person;
 import com.premar.muvi.temporary_storage.MovieCache;
-import com.premar.muvi.viewholders.CastViewHolder;
+import com.premar.muvi.viewholders.PersonViewHolder;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 import static com.premar.muvi.constants.AppConstants.IMAGE_URL_BASE_PATH;
 
-public class AllCastAdapter extends RecyclerView.Adapter<CastViewHolder> {
+public class PersonAdapter extends RecyclerView.Adapter<PersonViewHolder> {
     private Context context;
-    private List<Cast> castList;
+    private List<Person> personList;
     private int rowLayout;
 
-    public AllCastAdapter(Context context, List<Cast> castList, int rowLayout) {
+    public PersonAdapter(Context context, List<Person> personList, int rowLayout) {
         this.context = context;
-        this.castList = castList;
+        this.personList = personList;
         this.rowLayout = rowLayout;
     }
 
     @NonNull
     @Override
-    public CastViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
+    public PersonViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         View view = LayoutInflater.from(parent.getContext()).inflate(rowLayout, parent, false);
-        return new CastViewHolder(view);
+        return new PersonViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CastViewHolder holder, int position) {
-        holder.castName.setText(castList.get(position).getName());
-        holder.castCharacter.setText(castList.get(position).getCharacter());
-
-        String image_url = IMAGE_URL_BASE_PATH + castList.get(position).getProfile_path();
+    public void onBindViewHolder(@NonNull PersonViewHolder holder, int position) {
+        String image_url = IMAGE_URL_BASE_PATH + personList.get(position).getProfile_path();
         Picasso.with(context)
                 .load(image_url)
-                .noFade()
                 .placeholder(R.drawable.ic_picture)
                 .error(R.drawable.ic_picture)
-                .into(holder.castImage);
+                .into(holder.personImage);
+
+        holder.personName.setText(personList.get(position).getName());
+
+        double popularity = personList.get(position).getPopularity();
+        double pop = AppConstants.round(popularity, 1);
+        holder.personPopularity.setText(String.valueOf(pop));
 
         holder.setItemClickListener((view, i, isLongClick) -> {
-            MovieCache.personId = castList.get(i).getCast_id();
+            MovieCache.personId = personList.get(i).getId();
 
             Intent personIntent = new Intent(context, PersonDetailActivity.class);
             personIntent.putExtra("poster", image_url);
             personIntent.putExtra("backdrop", image_url);
-            personIntent.putExtra("name", castList.get(i).getName());
+            personIntent.putExtra("name", personList.get(i).getName());
             personIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(personIntent);
 
@@ -67,6 +70,6 @@ public class AllCastAdapter extends RecyclerView.Adapter<CastViewHolder> {
 
     @Override
     public int getItemCount() {
-        return castList.size();
+        return personList.size();
     }
 }

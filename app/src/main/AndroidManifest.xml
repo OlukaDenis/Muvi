@@ -13,10 +13,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activity.AllCastActivity"></activity>
+        <activity android:name=".activity.PersonDetailActivity"
+            android:theme="@style/WithNoActionBar">
+
+        </activity>
+        <activity android:name=".activity.AllCastActivity" />
         <activity
             android:name=".activity.MovieDetailActivity"
-            android:theme="@style/WithNoActionBar"></activity>
+            android:theme="@style/WithNoActionBar" />
         <activity
             android:name=".activity.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar">

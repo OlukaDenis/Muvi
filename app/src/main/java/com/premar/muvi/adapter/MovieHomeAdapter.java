@@ -67,8 +67,6 @@ public class MovieHomeAdapter extends RecyclerView.Adapter<MovieHomeViewHolder> 
                 detailIntent.putExtra("movie_duration", movies.get(position).getRuntime());
                 detailIntent.putExtra("movie_votes", movies.get(position).getVoteCount());
                 detailIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
-                Toast.makeText(context, movies.get(position).getOriginalTitle(), Toast.LENGTH_SHORT).show();
                 context.startActivity(detailIntent);
             }
         });

@@ -1,4 +1,4 @@
-package com.premar.muvi.detail_viewpager.fragment;
+package com.premar.muvi.viewpagers.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

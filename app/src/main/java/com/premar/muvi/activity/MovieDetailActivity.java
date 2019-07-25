@@ -13,20 +13,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.premar.muvi.R;
-import com.premar.muvi.adapter.CastAdapter;
-import com.premar.muvi.adapter.GenreAdapter;
-import com.premar.muvi.constants.AppConstants;
-import com.premar.muvi.detail_viewpager.MovieDetailPagerAdapter;
-import com.premar.muvi.model.Genre;
+import com.premar.muvi.viewpagers.MovieDetailPagerAdapter;
 import com.premar.muvi.model.Movie;
-import com.premar.muvi.model.credits.Cast;
-import com.premar.muvi.model.credits.Credits;
 import com.premar.muvi.rest.ApiService;
 import com.premar.muvi.rest.ApiUtils;
 import com.premar.muvi.temporary_storage.MovieCache;
 import com.squareup.picasso.Picasso;
 
-import java.util.List;
 import java.util.Objects;
 
 import retrofit2.Call;
@@ -37,7 +30,7 @@ import static com.premar.muvi.constants.AppConstants.API_KEY;
 
 public class MovieDetailActivity extends AppCompatActivity {
     private static String TAG = MovieDetailActivity.class.getSimpleName();
-   private MovieDetailPagerAdapter moviePager;
+    private MovieDetailPagerAdapter moviePager;
     private ViewPager viewPager;
     private TabLayout tabLayout;
     Bundle bundle;

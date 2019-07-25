@@ -160,7 +160,7 @@
                         tools:text="Captain Marvel"
                         android:textColor="@color/black"
                         app:autoSizeTextType="uniform"
-                        app:autoSizeMaxTextSize="25sp"
+                        app:autoSizeMaxTextSize="20sp"
                         app:autoSizeMinTextSize="12sp"
                         android:textSize="25sp" />
                 </LinearLayout>

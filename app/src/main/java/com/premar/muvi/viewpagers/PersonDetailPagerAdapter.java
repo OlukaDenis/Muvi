@@ -1,20 +1,17 @@
-package com.premar.muvi.detail_viewpager;
-
+package com.premar.muvi.viewpagers;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.premar.muvi.detail_viewpager.fragment.CastFragment;
-import com.premar.muvi.detail_viewpager.fragment.CommentsFragment;
-import com.premar.muvi.detail_viewpager.fragment.InfoFragment;
-import com.premar.muvi.detail_viewpager.fragment.ReviewsFragment;
+import com.premar.muvi.viewpagers.person_detail_fragments.PersonInfoFragment;
+import com.premar.muvi.viewpagers.person_detail_fragments.PersonMoviesFragment;
 
-public class MovieDetailPagerAdapter extends FragmentPagerAdapter {
-    public static final int tabCount = 4;
+public class PersonDetailPagerAdapter extends FragmentPagerAdapter {
+    public static final int tabCount = 2;
     private String[] pageTitles;
 
-    public MovieDetailPagerAdapter(FragmentManager fragmentManager){
+    public PersonDetailPagerAdapter(FragmentManager fragmentManager){
         super(fragmentManager);
     }
 
@@ -27,13 +24,9 @@ public class MovieDetailPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return new InfoFragment();
+                return new PersonInfoFragment();
             case 1:
-                return new CastFragment();
-            case 2:
-                return new CommentsFragment();
-            case 3:
-                return new ReviewsFragment();
+                return new PersonMoviesFragment();
         }
         return null;
 

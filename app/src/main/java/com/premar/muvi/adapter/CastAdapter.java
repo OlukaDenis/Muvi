@@ -1,6 +1,7 @@
 package com.premar.muvi.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,7 +11,9 @@ import android.widget.Toast;
 
 import com.premar.muvi.Interface.ItemClickListener;
 import com.premar.muvi.R;
+import com.premar.muvi.activity.PersonDetailActivity;
 import com.premar.muvi.model.credits.Cast;
+import com.premar.muvi.temporary_storage.MovieCache;
 import com.premar.muvi.viewholders.CastViewHolder;
 import com.squareup.picasso.Picasso;
 
@@ -50,11 +53,16 @@ public class CastAdapter extends RecyclerView.Adapter<CastViewHolder> {
                 .error(R.drawable.ic_picture)
                 .into(holder.castImage);
 
-        holder.setItemClickListener(new ItemClickListener() {
-            @Override
-            public void onClick(View view, int position, boolean isLongClick) {
-                Toast.makeText(context, String.valueOf( castList.get(position).getId()), Toast.LENGTH_SHORT).show();
-            }
+        holder.setItemClickListener((view, i, isLongClick) -> {
+            MovieCache.personId = castList.get(i).getCast_id();
+
+            Intent personIntent = new Intent(context, PersonDetailActivity.class);
+            personIntent.putExtra("poster", image_url);
+            personIntent.putExtra("backdrop", image_url);
+            personIntent.putExtra("name", castList.get(i).getName());
+            personIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(personIntent);
+
         });
     }
 

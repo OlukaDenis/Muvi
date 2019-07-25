@@ -1,9 +1,8 @@
-package com.premar.muvi.detail_viewpager.fragment;
+package com.premar.muvi.viewpagers.fragment;
 
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,17 +11,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.premar.muvi.R;
 import com.premar.muvi.activity.AllCastActivity;
 import com.premar.muvi.adapter.CastAdapter;
-import com.premar.muvi.adapter.MovieTrailerAdapter;
 import com.premar.muvi.constants.AppConstants;
 import com.premar.muvi.model.credits.Cast;
 import com.premar.muvi.model.credits.Credits;
-import com.premar.muvi.model.trailers.Trailer;
-import com.premar.muvi.model.trailers.TrailerResponse;
 import com.premar.muvi.rest.ApiService;
 import com.premar.muvi.rest.ApiUtils;
 import com.premar.muvi.temporary_storage.MovieCache;
@@ -32,8 +27,6 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static com.premar.muvi.constants.AppConstants.ENGLISH_LANGUAGE;
 
 /**
  * A simple {@link Fragment} subclass.

@@ -3,6 +3,7 @@ package com.premar.muvi.rest;
 import com.premar.muvi.model.Movie;
 import com.premar.muvi.model.MovieResponse;
 import com.premar.muvi.model.credits.Credits;
+import com.premar.muvi.model.people.PersonResponse;
 import com.premar.muvi.model.trailers.TrailerResponse;
 
 import retrofit2.Call;
@@ -25,11 +26,6 @@ public interface ApiService {
     @GET("movie/popular")
     Call<MovieResponse> getPopularMovies(@Query("api_key") String apiKey);
 
-    @GET("discover/movie")
-    Call<MovieResponse> getTrendingMovies(
-            @Query("api_key") String apiKey,
-            @Query("sort_by") String sort_by);
-
     @GET("movie/{movie_id}")
     Call<Movie> getMovie(@Path("movie_id") int id,
                          @Query("api_key") String apiKey);
@@ -43,16 +39,21 @@ public interface ApiService {
     Call<Credits> getCredits(@Path("movie_id") int cId,
                              @Query("api_key") String key);
 
+    @GET("trending/movie/week")
+    Call<MovieResponse> getTrendingMovies(@Query("api_key") String apiKey);
+
 
     //tv shows
 
     @GET("tv/popular")
     Call<MovieResponse> getPopularShows(@Query("api_key") String apiKey);
 
-    @GET("discover/tv")
-    Call<MovieResponse> getTrendingShows(
-            @Query("api_key") String apiKey,
-            @Query("sort_by") String sort_by);
+    @GET("trending/tv/week")
+    Call<MovieResponse> getTrendingShows(@Query("api_key") String apiKey);
 
+
+    //people
+    @GET("trending/person/week")
+    Call<PersonResponse> getTrendingPeople(@Query("api_key") String apiKey);
 
 }

@@ -19,9 +19,12 @@ import android.view.MenuItem;
 import com.premar.muvi.R;
 import com.premar.muvi.adapter.MovieHomeAdapter;
 import com.premar.muvi.adapter.MovieTrailerAdapter;
+import com.premar.muvi.adapter.PersonAdapter;
 import com.premar.muvi.constants.AppConstants;
 import com.premar.muvi.model.Movie;
 import com.premar.muvi.model.MovieResponse;
+import com.premar.muvi.model.people.Person;
+import com.premar.muvi.model.people.PersonResponse;
 import com.premar.muvi.model.trailers.Trailer;
 import com.premar.muvi.model.trailers.TrailerResponse;
 import com.premar.muvi.rest.ApiService;
@@ -39,6 +42,7 @@ public class HomeActivity extends AppCompatActivity
     RecyclerView recyclerview_trendiing_shows = null;
     RecyclerView recyclerview_upcoming = null;
     RecyclerView recyclerView_trending = null;
+    RecyclerView recyclerView_trending_people = null;
     private SwipeRefreshLayout refreshLayout;
     private static final String API_KEY = AppConstants.API_KEY;
     private ApiService apiService;
@@ -66,6 +70,7 @@ public class HomeActivity extends AppCompatActivity
         recyclerview_trendiing_shows = findViewById(R.id.home_recyclerview_popular);
         recyclerview_upcoming = findViewById(R.id.home_recyclerview_upcoming);
         recyclerView_trending = findViewById(R.id.home_recyclerview_trending);
+        recyclerView_trending_people = findViewById(R.id.home_recyclerview_trending_people);
         refreshLayout = findViewById(R.id.pull_to_refresh);
 
         //trending shows layout manager
@@ -75,9 +80,15 @@ public class HomeActivity extends AppCompatActivity
         //upcoming layout manager
         LinearLayoutManager upcomingLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerview_upcoming.setLayoutManager(upcomingLayoutManager);
+
         //upcoming layout manager
         LinearLayoutManager trendingLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView_trending.setLayoutManager(trendingLayoutManager);
+
+        //trending people layout manager
+        recyclerView_trending_people.setHasFixedSize(true);
+        LinearLayoutManager trendingPeopleLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        recyclerView_trending_people.setLayoutManager(trendingPeopleLayoutManager);
 
         apiService = ApiUtils.getApiService();
 
@@ -128,7 +139,7 @@ public class HomeActivity extends AppCompatActivity
             }
         });
 
-        apiService.getPopularMovies(API_KEY).enqueue(new Callback<MovieResponse>() {
+        apiService.getTrendingMovies(API_KEY).enqueue(new Callback<MovieResponse>() {
             @Override
             public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
                 assert response.body() != null;
@@ -141,6 +152,25 @@ public class HomeActivity extends AppCompatActivity
 
             @Override
             public void onFailure(Call<MovieResponse> call, Throwable t) {
+                Log.e(TAG, t.toString());
+            }
+        });
+
+        apiService.getTrendingPeople(API_KEY).enqueue(new Callback<PersonResponse>() {
+            @Override
+            public void onResponse(Call<PersonResponse> call, Response<PersonResponse> response) {
+                assert response.body() != null;
+                PersonResponse people = response.body();
+
+                List<Person> personList = people.getResults();
+                PersonAdapter adapter = new PersonAdapter(getApplicationContext(), personList, R.layout.layout_person);
+                recyclerView_trending_people.setAdapter(adapter);
+
+                Log.d(TAG, "Number of trending people received:" + personList.size());
+            }
+
+            @Override
+            public void onFailure(Call<PersonResponse> call, Throwable t) {
                 Log.e(TAG, t.toString());
             }
         });
