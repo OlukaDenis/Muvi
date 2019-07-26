@@ -11,8 +11,8 @@ import com.premar.muvi.adapter.AllCastAdapter;
 import com.premar.muvi.viewpagers.fragment.InfoFragment;
 import com.premar.muvi.model.credits.Cast;
 import com.premar.muvi.model.credits.Credits;
-import com.premar.muvi.rest.ApiService;
-import com.premar.muvi.rest.ApiUtils;
+import com.premar.muvi.api.ApiService;
+import com.premar.muvi.api.ApiUtils;
 import com.premar.muvi.temporary_storage.MovieCache;
 
 import java.util.List;
@@ -35,7 +35,8 @@ public class AllCastActivity extends AppCompatActivity {
         setContentView(R.layout.activity_all_cast);
         setTitle("Cast");
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        this.getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
 
         movieId = MovieCache.movieId;
 

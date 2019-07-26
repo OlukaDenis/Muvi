@@ -15,14 +15,17 @@ import android.widget.Toast;
 
 import com.premar.muvi.R;
 import com.premar.muvi.adapter.GenreAdapter;
+import com.premar.muvi.adapter.ImageAdapter;
 import com.premar.muvi.adapter.MovieTrailerAdapter;
 import com.premar.muvi.constants.AppConstants;
 import com.premar.muvi.model.Genre;
 import com.premar.muvi.model.Movie;
+import com.premar.muvi.model.images.Backdrops;
+import com.premar.muvi.model.images.ImageResponse;
 import com.premar.muvi.model.trailers.Trailer;
 import com.premar.muvi.model.trailers.TrailerResponse;
-import com.premar.muvi.rest.ApiService;
-import com.premar.muvi.rest.ApiUtils;
+import com.premar.muvi.api.ApiService;
+import com.premar.muvi.api.ApiUtils;
 import com.premar.muvi.temporary_storage.MovieCache;
 
 import java.util.List;
@@ -34,7 +37,7 @@ import retrofit2.Response;
 import static com.premar.muvi.constants.AppConstants.ENGLISH_LANGUAGE;
 
 public class InfoFragment extends Fragment {
-    private TextView overview;
+    private TextView overview, originalTitle, originalLanguage, budget, homepage, revenue, status, releaseDate;
     private TextView progress_text;
     private ProgressBar rating;
     private int movieId;
@@ -44,6 +47,7 @@ public class InfoFragment extends Fragment {
 
     private RecyclerView genreRecyclerView;
     private RecyclerView trailerRecyclerView;
+    private RecyclerView imageRecyclerview;
 
     public InfoFragment() {
         // Required empty public constructor
@@ -58,12 +62,21 @@ public class InfoFragment extends Fragment {
         overview = view.findViewById(R.id.detail_overview);
         progress_text = view.findViewById(R.id.progress_text);
         rating = view.findViewById(R.id.progressBar);
+        originalLanguage = view.findViewById(R.id.detail_original_language);
+        originalTitle = view.findViewById(R.id.detail_original_title);
+        budget = view.findViewById(R.id.detail_budget);
+        revenue = view.findViewById(R.id.detail_revenue);
+        status = view.findViewById(R.id.detail_status);
+        releaseDate = view.findViewById(R.id.detail_release_date);
+        homepage = view.findViewById(R.id.detail_homepage);
 
         movieId = MovieCache.movieId;
         apiService = ApiUtils.getApiService();
 
         genreRecyclerView = view.findViewById(R.id.genre_recycler_view);
         trailerRecyclerView = view.findViewById(R.id.trailer_recyler_view);
+        imageRecyclerview = view.findViewById(R.id.image_recycler_view);
+
 
         //genre layout manager
         genreRecyclerView.setHasFixedSize(true);
@@ -75,9 +88,13 @@ public class InfoFragment extends Fragment {
         LinearLayoutManager trailerLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         trailerRecyclerView.setLayoutManager(trailerLayoutManager);
 
+        //trailer layout manager
+        imageRecyclerview.setHasFixedSize(true);
+        LinearLayoutManager imageLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        imageRecyclerview.setLayoutManager(imageLayoutManager);
+
         //Background API methods
         fetchMovieDetails();
-        getTrailers();
         return view;
     }
 
@@ -95,6 +112,23 @@ public class InfoFragment extends Fragment {
                  rating.setProgress(rate);
                  progress_text.setText(String.valueOf(mRating));
 
+                 String budgetCurr = AppConstants.formatCurrency(movieDetails.getBudget());
+                 budget.setText(budgetCurr);
+
+                 String revenueCurr = AppConstants.formatCurrency(movieDetails.getRevenue());
+                 revenue.setText(revenueCurr);
+
+                 releaseDate.setText(movieDetails.getReleaseDate());
+
+                 status.setText(movieDetails.getStatus());
+
+                 String lang = AppConstants.formatLanguage(movieDetails.getOriginalLanguage());
+                 originalLanguage.setText(lang);
+
+                 originalTitle.setText(movieDetails.getOriginalTitle());
+
+                 homepage.setText(movieDetails.getHomepage());
+
                 List<Genre> genres = movieDetails.getGenres();
                 GenreAdapter adapter = new GenreAdapter(getActivity(), genres, R.layout.layout_genre);
                 genreRecyclerView.setAdapter(adapter);
@@ -107,9 +141,6 @@ public class InfoFragment extends Fragment {
             }
         });
 
-    }
-
-    public void getTrailers() {
         apiService.getMovieTrailers(movieId, API_KEY, ENGLISH_LANGUAGE).enqueue(new Callback<TrailerResponse>() {
             @Override
             public void onResponse(Call<TrailerResponse> call, Response<TrailerResponse> response) {
@@ -130,6 +161,28 @@ public class InfoFragment extends Fragment {
                 Log.e(TAG, t.toString());
             }
         });
+
+        apiService.getMovieImages(movieId, API_KEY).enqueue(new Callback<ImageResponse>() {
+            @Override
+            public void onResponse(Call<ImageResponse> call, Response<ImageResponse> response) {
+                assert response.body() != null;
+
+                ImageResponse images = response.body();
+
+                List<Backdrops> backdrops = images.getBackdrops();
+                ImageAdapter adapter = new ImageAdapter(getActivity(), backdrops, R.layout.layout_image);
+                imageRecyclerview.setAdapter(adapter);
+
+                Log.i(TAG, String.valueOf(images.getId()));
+            }
+
+            @Override
+            public void onFailure(Call<ImageResponse> call, Throwable t) {
+                Log.e(TAG, t.toString());
+            }
+        });
+
     }
+
 
 }

@@ -1,4 +1,4 @@
-package com.premar.muvi.rest;
+package com.premar.muvi.api;
 
 public class ApiUtils {
     private ApiUtils(){}

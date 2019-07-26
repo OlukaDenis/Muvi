@@ -18,8 +18,8 @@ import com.premar.muvi.adapter.CastAdapter;
 import com.premar.muvi.constants.AppConstants;
 import com.premar.muvi.model.credits.Cast;
 import com.premar.muvi.model.credits.Credits;
-import com.premar.muvi.rest.ApiService;
-import com.premar.muvi.rest.ApiUtils;
+import com.premar.muvi.api.ApiService;
+import com.premar.muvi.api.ApiUtils;
 import com.premar.muvi.temporary_storage.MovieCache;
 
 import java.util.List;

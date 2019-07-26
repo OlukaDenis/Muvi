@@ -6,7 +6,7 @@
 
     <color name="button_color">#FFAF30</color>
 
-    <color name="genre_backgrouind">#81d6fe</color>
+    <color name="light_blue"> #e6f7ff</color>
 
     <color name="tabIndicatorColor">#FFFFFF</color>
     <color name="tabSelectedTextColor">#FFFFFF</color>

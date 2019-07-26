@@ -11,8 +11,8 @@ import com.premar.muvi.R;
 import com.premar.muvi.adapter.MovieAdapter;
 import com.premar.muvi.model.Movie;
 import com.premar.muvi.model.MovieResponse;
-import com.premar.muvi.rest.ApiService;
-import com.premar.muvi.rest.ApiUtils;
+import com.premar.muvi.api.ApiService;
+import com.premar.muvi.api.ApiUtils;
 
 import java.util.List;
 import java.util.Objects;

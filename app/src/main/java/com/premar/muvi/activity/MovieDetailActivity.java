@@ -13,13 +13,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.premar.muvi.R;
+import com.premar.muvi.constants.AppConstants;
 import com.premar.muvi.viewpagers.MovieDetailPagerAdapter;
 import com.premar.muvi.model.Movie;
-import com.premar.muvi.rest.ApiService;
-import com.premar.muvi.rest.ApiUtils;
+import com.premar.muvi.api.ApiService;
+import com.premar.muvi.api.ApiUtils;
 import com.premar.muvi.temporary_storage.MovieCache;
 import com.squareup.picasso.Picasso;
 
+import java.text.ParseException;
 import java.util.Objects;
 
 import retrofit2.Call;
@@ -37,7 +39,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     private int movieId;
     private ApiService apiService;
 
-    private TextView title, release_date, duration, votes;
+    private TextView title, release_date, duration, votes, year;
     private ImageView mPoster, mBackdrop;
     NestedScrollView scrollView;
     @Override
@@ -61,12 +63,13 @@ public class MovieDetailActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
 
         title = findViewById(R.id.detail_title);
-        release_date = findViewById(R.id.detail_release_date);
+        //release_date = findViewById(R.id.detail_release_date);
         duration = findViewById(R.id.detail_duration);
         votes = findViewById(R.id.detail_votes);
         mPoster = findViewById(R.id.detail_small_poster);
         mBackdrop = findViewById(R.id.detail_backdrop);
         scrollView = (NestedScrollView) findViewById(R.id.nested_scroll);
+        year = findViewById(R.id.movie_release_year);
 
 
         scrollView.setFillViewport(true);
@@ -83,11 +86,13 @@ public class MovieDetailActivity extends AppCompatActivity {
             String date = (String) bundle.get("movie_date");
             String poster = (String) bundle.get("movie_poster");
             String backdrop = (String) bundle.get("movie_backdrop");
-            int movie_duration = (int) bundle.get("movie_duration");
-            int movie_votes = (int) bundle.get("movie_votes");
             setTitle(movie_title);
 
-            populateDetails(movie_title, date, poster, backdrop);
+            try {
+                populateDetails(movie_title, date, poster, backdrop);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         }
 
         fetchMovieDetails();
@@ -97,10 +102,14 @@ public class MovieDetailActivity extends AppCompatActivity {
     private void populateDetails(String movie_title,
                                  String date,
                                  String poster,
-                                 String backdrop) {
+                                 String backdrop) throws ParseException {
 
         title.setText(movie_title);
-        release_date.setText(date);
+       // release_date.setText(date);
+
+        String release_year = AppConstants.getYear(date);
+        Log.i(TAG, "Release year: " + release_year);
+        year.setText(release_year);
 
         Picasso.with(this)
                 .load(poster)
@@ -136,7 +145,10 @@ public class MovieDetailActivity extends AppCompatActivity {
                 Movie movieDetails = response.body();
 
                 String mDuration = String.valueOf(movieDetails.getRuntime());
-                duration.setText(mDuration + getString(R.string.minutes));
+
+                String hours = AppConstants.formatHoursAndMinutes(movieDetails.getRuntime());
+                Log.i(TAG, "Movie duration: " + hours);
+                duration.setText(hours);
 
                 votes.setText(String.valueOf(movieDetails.getVoteCount()));
 

@@ -17,18 +17,21 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.premar.muvi.R;
+import com.premar.muvi.adapter.ImageAdapter;
 import com.premar.muvi.adapter.MovieHomeAdapter;
-import com.premar.muvi.adapter.MovieTrailerAdapter;
 import com.premar.muvi.adapter.PersonAdapter;
+import com.premar.muvi.adapter.TvAdapter;
 import com.premar.muvi.constants.AppConstants;
 import com.premar.muvi.model.Movie;
 import com.premar.muvi.model.MovieResponse;
+import com.premar.muvi.model.images.Backdrops;
+import com.premar.muvi.model.images.ImageResponse;
 import com.premar.muvi.model.people.Person;
 import com.premar.muvi.model.people.PersonResponse;
-import com.premar.muvi.model.trailers.Trailer;
-import com.premar.muvi.model.trailers.TrailerResponse;
-import com.premar.muvi.rest.ApiService;
-import com.premar.muvi.rest.ApiUtils;
+import com.premar.muvi.api.ApiService;
+import com.premar.muvi.api.ApiUtils;
+import com.premar.muvi.model.tv.Tv;
+import com.premar.muvi.model.tv.TvResponse;
 
 import java.util.List;
 
@@ -106,18 +109,38 @@ public class HomeActivity extends AppCompatActivity
 
     //this method creates an instance of retrofit
     private void connectAndGetApiData() {
-        apiService.getPopularShows(API_KEY).enqueue(new Callback<MovieResponse>() {
+
+        apiService.getTrendingMovies(API_KEY).enqueue(new Callback<MovieResponse>() {
             @Override
-            public void onResponse(@NonNull Call<MovieResponse> call, Response<MovieResponse> response) {
+            public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
                 assert response.body() != null;
                 List<Movie> movies = response.body().getResults();
-                movieHomeAdapter = new MovieHomeAdapter(movies, R.layout.layout_movies, getApplicationContext());
-                recyclerview_trendiing_shows.setAdapter(movieHomeAdapter);
-                Log.d(TAG, "Number of movies received:" + movies.size());
+                recyclerView_trending.setAdapter(new MovieHomeAdapter(movies,
+                        R.layout.layout_movies,
+                        getApplicationContext()));
+                Log.d(TAG, "Number of trending movies received:" + movies.size());
             }
 
             @Override
-            public void onFailure(Call<MovieResponse> call, Throwable throwable) {
+            public void onFailure(Call<MovieResponse> call, Throwable t) {
+                Log.e(TAG, t.toString());
+            }
+        });
+
+        apiService.getTrendingShows(API_KEY).enqueue(new Callback<TvResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<TvResponse> call, Response<TvResponse> response) {
+                assert response.body() != null;
+                TvResponse tvShows = response.body();
+
+                List<Tv> tv = tvShows.getResults();
+                TvAdapter adapter = new TvAdapter(tv, R.layout.layout_movies, getApplicationContext());
+                recyclerview_trendiing_shows.setAdapter(adapter);
+                Log.d(TAG, "Number of movies received:" + tv.size());
+            }
+
+            @Override
+            public void onFailure(Call<TvResponse> call, Throwable throwable) {
                 Log.e(TAG, throwable.toString());
             }
         });
@@ -139,22 +162,6 @@ public class HomeActivity extends AppCompatActivity
             }
         });
 
-        apiService.getTrendingMovies(API_KEY).enqueue(new Callback<MovieResponse>() {
-            @Override
-            public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
-                assert response.body() != null;
-                List<Movie> movies = response.body().getResults();
-                recyclerView_trending.setAdapter(new MovieHomeAdapter(movies,
-                        R.layout.layout_movies,
-                        getApplicationContext()));
-                Log.d(TAG, "Number of trending movies received:" + movies.size());
-            }
-
-            @Override
-            public void onFailure(Call<MovieResponse> call, Throwable t) {
-                Log.e(TAG, t.toString());
-            }
-        });
 
         apiService.getTrendingPeople(API_KEY).enqueue(new Callback<PersonResponse>() {
             @Override
@@ -174,6 +181,7 @@ public class HomeActivity extends AppCompatActivity
                 Log.e(TAG, t.toString());
             }
         });
+
     }
 
     @Override

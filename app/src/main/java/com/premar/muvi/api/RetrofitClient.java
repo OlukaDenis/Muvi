@@ -1,4 +1,4 @@
-package com.premar.muvi.rest;
+package com.premar.muvi.api;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

@@ -11,10 +11,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.premar.muvi.R;
-import com.premar.muvi.rest.ApiService;
-import com.premar.muvi.rest.ApiUtils;
+import com.premar.muvi.api.ApiService;
+import com.premar.muvi.api.ApiUtils;
 import com.premar.muvi.temporary_storage.MovieCache;
-import com.premar.muvi.viewpagers.MovieDetailPagerAdapter;
 import com.premar.muvi.viewpagers.PersonDetailPagerAdapter;
 import com.squareup.picasso.Picasso;
 
