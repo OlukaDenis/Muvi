@@ -1,5 +1,6 @@
 package com.premar.muvi.viewpagers.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.premar.muvi.R;
+import com.premar.muvi.activity.WikipediaProfile;
 import com.premar.muvi.adapter.GenreAdapter;
 import com.premar.muvi.adapter.ImageAdapter;
 import com.premar.muvi.adapter.MovieTrailerAdapter;
@@ -38,7 +40,7 @@ import static com.premar.muvi.constants.AppConstants.ENGLISH_LANGUAGE;
 
 public class InfoFragment extends Fragment {
     private TextView overview, originalTitle, originalLanguage, budget, homepage, revenue, status, releaseDate;
-    private TextView progress_text;
+    private TextView progress_text, viewWikipedia;
     private ProgressBar rating;
     private int movieId;
     private static final String API_KEY = AppConstants.API_KEY;
@@ -69,6 +71,7 @@ public class InfoFragment extends Fragment {
         status = view.findViewById(R.id.detail_status);
         releaseDate = view.findViewById(R.id.detail_release_date);
         homepage = view.findViewById(R.id.detail_homepage);
+        viewWikipedia = view.findViewById(R.id.textview_read_wikipedia);
 
         movieId = MovieCache.movieId;
         apiService = ApiUtils.getApiService();
@@ -76,6 +79,8 @@ public class InfoFragment extends Fragment {
         genreRecyclerView = view.findViewById(R.id.genre_recycler_view);
         trailerRecyclerView = view.findViewById(R.id.trailer_recyler_view);
         imageRecyclerview = view.findViewById(R.id.image_recycler_view);
+
+
 
 
         //genre layout manager
@@ -106,7 +111,20 @@ public class InfoFragment extends Fragment {
 
                 Movie movieDetails = response.body();
 
+
+                String title = movieDetails.getTitle();
+                MovieCache.wiki_profile_url = AppConstants.formatStringtoUnderscore(title);
+                Log.i(TAG, "Wiki url: " + MovieCache.wiki_profile_url);
+                viewWikipedia.setOnClickListener(view -> {
+                    Intent wikiIntent = new Intent(getContext(), WikipediaProfile.class);
+                    wikiIntent.putExtra("title", title);
+                    startActivity(wikiIntent);
+                });
+
+
                  overview.setText(movieDetails.getOverview());
+
+
                  double mRating = movieDetails.getVoteAverage();
                  int rate = (int) mRating;
                  rating.setProgress(rate);

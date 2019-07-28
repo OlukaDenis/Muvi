@@ -47,6 +47,7 @@
                             android:textSize="18sp" />
 
                         <TextView
+                            android:id="@+id/more_trending_movies"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="3"
@@ -57,13 +58,22 @@
                             android:textStyle="bold" />
                     </LinearLayout>
 
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/home_recyclerview_trending"
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:layout_height="wrap_content">
 
-                    </android.support.v7.widget.RecyclerView>
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/home_recyclerview_trending"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"/>
+
+                        <ProgressBar
+                            android:id="@+id/home_trending_movies_progressbar"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"/>
+                    </RelativeLayout>
 
                 </LinearLayout>
 
@@ -100,13 +110,22 @@
                             android:textStyle="bold" />
                     </LinearLayout>
 
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/home_recyclerview_popular"
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:layout_height="wrap_content">
 
-                    </android.support.v7.widget.RecyclerView>
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/home_recyclerview_popular"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"/>
+
+                        <ProgressBar
+                            android:id="@+id/home_trending_tv_progressbar"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"/>
+                    </RelativeLayout>
 
                 </LinearLayout>
 
@@ -142,13 +161,23 @@
                             android:textStyle="bold" />
                     </LinearLayout>
 
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/home_recyclerview_upcoming"
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:layout_height="wrap_content">
 
-                    </android.support.v7.widget.RecyclerView>
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/home_recyclerview_upcoming"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"/>
+
+                        <ProgressBar
+                            android:id="@+id/playing_movies_progressbar"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"/>
+                    </RelativeLayout>
+
 
                 </LinearLayout>
 
@@ -185,13 +214,24 @@
                             android:textStyle="bold" />
                     </LinearLayout>
 
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/home_recyclerview_trending_people"
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:layout_height="wrap_content">
 
-                    </android.support.v7.widget.RecyclerView>
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/home_recyclerview_trending_people"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"/>
+
+                        <ProgressBar
+                            android:id="@+id/trending_people_progressbar"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"/>
+                    </RelativeLayout>
+
+
 
                 </LinearLayout>
 

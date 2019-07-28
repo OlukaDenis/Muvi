@@ -49,12 +49,12 @@ public class CastAdapter extends RecyclerView.Adapter<CastViewHolder> {
         Picasso.with(context)
                 .load(image_url)
                 .noFade()
-                .placeholder(R.drawable.ic_picture)
-                .error(R.drawable.ic_picture)
+                .placeholder(R.drawable.ic_person_blue)
+                .error(R.drawable.ic_person_blue)
                 .into(holder.castImage);
 
         holder.setItemClickListener((view, i, isLongClick) -> {
-            MovieCache.personId = castList.get(i).getCast_id();
+            MovieCache.personId = castList.get(i).getId();
 
             Intent personIntent = new Intent(context, PersonDetailActivity.class);
             personIntent.putExtra("poster", image_url);

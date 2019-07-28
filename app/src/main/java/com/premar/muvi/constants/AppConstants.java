@@ -13,6 +13,7 @@ public class AppConstants {
     public static final String YOUTUBE_VIDEO_URL = "http://img.youtube.com/vi/";
     public static final String YOUTUBE_SUFFIX = "/0.jpg";
     public static final String ENGLISH_LANGUAGE = "en-US";
+    public static final String WIKIPEDIA_PAGE_URL = "https://en.m.wikipedia.org/wiki/";
 
     public static final String POPULARITY_DESC = "popularity.desc";
 
@@ -52,17 +53,36 @@ public class AppConstants {
         return "$"+formattedCurrency;
     }
 
+
+
     public static String formatLanguage(String language){
         if (language.equals("en")){
-            String ln = "English";
-            return ln;
+            return "English";
         }
         else if(language.equals("fr")){
-            String ln = "French";
-            return ln;
+            return "French";
         }
         else {
-            return null;
+            return "-";
         }
+    }
+
+
+    public static String formatGender(int gender){
+        if (gender == 1){
+            return "Female";
+        }
+        else if(gender == 2){
+            return "Male";
+        }
+        else {
+            return "-";
+        }
+    }
+
+
+    public static String formatStringtoUnderscore(String word){
+
+        return word.replaceAll(" ", "_");
     }
 }

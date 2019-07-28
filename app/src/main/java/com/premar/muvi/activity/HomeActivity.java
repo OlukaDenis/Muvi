@@ -1,5 +1,6 @@
 package com.premar.muvi.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -15,6 +16,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.premar.muvi.R;
 import com.premar.muvi.adapter.ImageAdapter;
@@ -32,6 +36,7 @@ import com.premar.muvi.api.ApiService;
 import com.premar.muvi.api.ApiUtils;
 import com.premar.muvi.model.tv.Tv;
 import com.premar.muvi.model.tv.TvResponse;
+import com.premar.muvi.viewpagers.AllMoviesPagerAdapter;
 
 import java.util.List;
 
@@ -46,10 +51,14 @@ public class HomeActivity extends AppCompatActivity
     RecyclerView recyclerview_upcoming = null;
     RecyclerView recyclerView_trending = null;
     RecyclerView recyclerView_trending_people = null;
+
+    private ProgressBar movieProgress, tvProgress, peopleProgress, playingProgress;
+
     private SwipeRefreshLayout refreshLayout;
     private static final String API_KEY = AppConstants.API_KEY;
     private ApiService apiService;
     MovieHomeAdapter movieHomeAdapter;
+    private TextView more_trending;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +84,11 @@ public class HomeActivity extends AppCompatActivity
         recyclerView_trending = findViewById(R.id.home_recyclerview_trending);
         recyclerView_trending_people = findViewById(R.id.home_recyclerview_trending_people);
         refreshLayout = findViewById(R.id.pull_to_refresh);
+        more_trending = findViewById(R.id.more_trending_movies);
+        movieProgress = findViewById(R.id.home_trending_movies_progressbar);
+        tvProgress = findViewById(R.id.home_trending_tv_progressbar);
+        peopleProgress = findViewById(R.id.trending_people_progressbar);
+        playingProgress  = findViewById(R.id.playing_movies_progressbar);
 
         //trending shows layout manager
         recyclerview_trendiing_shows.setHasFixedSize(true);
@@ -104,6 +118,14 @@ public class HomeActivity extends AppCompatActivity
         refreshLayout.setColorSchemeResources(R.color.colorPrimaryDark);
         });
         connectAndGetApiData();
+        moreTrendingMovies();
+    }
+
+    private void moreTrendingMovies() {
+        more_trending.setOnClickListener(view -> {
+            Intent intent = new Intent(getApplicationContext(), AllMoviesActivity.class);
+            startActivity(intent);
+        });
     }
 
 
@@ -113,12 +135,19 @@ public class HomeActivity extends AppCompatActivity
         apiService.getTrendingMovies(API_KEY).enqueue(new Callback<MovieResponse>() {
             @Override
             public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
-                assert response.body() != null;
-                List<Movie> movies = response.body().getResults();
-                recyclerView_trending.setAdapter(new MovieHomeAdapter(movies,
-                        R.layout.layout_movies,
-                        getApplicationContext()));
-                Log.d(TAG, "Number of trending movies received:" + movies.size());
+                if (response.isSuccessful()){
+                    if (response.body() != null){
+                        List<Movie> movies = response.body().getResults();
+                        recyclerView_trending.setAdapter(new MovieHomeAdapter(movies,
+                                R.layout.layout_movies,
+                                getApplicationContext()));
+                        movieProgress.setVisibility(View.INVISIBLE);
+                        Log.d(TAG, "Number of trending movies received:" + movies.size());
+                    } else {
+                        movieProgress.setVisibility(View.VISIBLE);
+                    }
+                }
+
             }
 
             @Override
@@ -130,13 +159,21 @@ public class HomeActivity extends AppCompatActivity
         apiService.getTrendingShows(API_KEY).enqueue(new Callback<TvResponse>() {
             @Override
             public void onResponse(@NonNull Call<TvResponse> call, Response<TvResponse> response) {
-                assert response.body() != null;
-                TvResponse tvShows = response.body();
+                if (response.isSuccessful()){
+                    if (response.body() != null){
+                        TvResponse tvShows = response.body();
 
-                List<Tv> tv = tvShows.getResults();
-                TvAdapter adapter = new TvAdapter(tv, R.layout.layout_movies, getApplicationContext());
-                recyclerview_trendiing_shows.setAdapter(adapter);
-                Log.d(TAG, "Number of movies received:" + tv.size());
+                        List<Tv> tv = tvShows.getResults();
+                        TvAdapter adapter = new TvAdapter(tv, R.layout.layout_movies, getApplicationContext());
+                        recyclerview_trendiing_shows.setAdapter(adapter);
+
+                        tvProgress.setVisibility(View.INVISIBLE);
+                        Log.d(TAG, "Number of movies received:" + tv.size());
+                    } else {
+                        tvProgress.setVisibility(View.VISIBLE);
+                    }
+                }
+
             }
 
             @Override
@@ -148,17 +185,24 @@ public class HomeActivity extends AppCompatActivity
         apiService.getPlayingMovies(API_KEY).enqueue(new Callback<MovieResponse>() {
             @Override
             public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
-                assert response.body() != null;
-                List<Movie> movies = response.body().getResults();
-                recyclerview_upcoming.setAdapter(new MovieHomeAdapter(movies,
-                        R.layout.layout_movies,
-                        getApplicationContext()));
-                Log.d(TAG, "Number of upcoming movies received:" + movies.size());
+               if (response.isSuccessful()){
+                   if (response.body() != null){
+                       List<Movie> movies = response.body().getResults();
+                       recyclerview_upcoming.setAdapter(new MovieHomeAdapter(movies,
+                               R.layout.layout_movies,
+                               getApplicationContext()));
+                       playingProgress.setVisibility(View.INVISIBLE);
+                       Log.d(TAG, "Number of upcoming movies received:" + movies.size());
+                   } else {
+                       playingProgress.setVisibility(View.VISIBLE);
+                   }
+               }
+
             }
 
             @Override
             public void onFailure(Call<MovieResponse> call, Throwable t) {
-
+                Log.e(TAG, "onFailure: " + t.toString() );
             }
         });
 
@@ -166,14 +210,21 @@ public class HomeActivity extends AppCompatActivity
         apiService.getTrendingPeople(API_KEY).enqueue(new Callback<PersonResponse>() {
             @Override
             public void onResponse(Call<PersonResponse> call, Response<PersonResponse> response) {
-                assert response.body() != null;
-                PersonResponse people = response.body();
+                if (response.isSuccessful()){
+                    if (response.body() != null){
+                        PersonResponse people = response.body();
 
-                List<Person> personList = people.getResults();
-                PersonAdapter adapter = new PersonAdapter(getApplicationContext(), personList, R.layout.layout_person);
-                recyclerView_trending_people.setAdapter(adapter);
+                        List<Person> personList = people.getResults();
+                        PersonAdapter adapter = new PersonAdapter(getApplicationContext(), personList, R.layout.layout_person);
+                        recyclerView_trending_people.setAdapter(adapter);
+                        peopleProgress.setVisibility(View.INVISIBLE);
 
-                Log.d(TAG, "Number of trending people received:" + personList.size());
+                        Log.d(TAG, "Number of trending people received:" + personList.size());
+                    } else {
+                        peopleProgress.setVisibility(View.VISIBLE);
+                    }
+                }
+
             }
 
             @Override

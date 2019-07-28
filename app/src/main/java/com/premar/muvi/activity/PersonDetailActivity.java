@@ -7,6 +7,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -65,7 +66,7 @@ public class PersonDetailActivity extends AppCompatActivity {
 
 
         bundle = getIntent().getExtras();
-        if (bundle!=null){
+        if (bundle != null) {
             String person_name = (String) bundle.get("name");
             String backdrop = (String) bundle.get("backdrop");
             String poster = (String) bundle.get("poster");
@@ -97,6 +98,17 @@ public class PersonDetailActivity extends AppCompatActivity {
         pageTitles[0] = "Info";
         pageTitles[1] = "Movies";
         return pageTitles;
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id =  item.getItemId();
+        if (id == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
 
     }
 }

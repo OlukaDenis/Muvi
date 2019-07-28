@@ -81,6 +81,15 @@
             android:justificationMode="inter_word"
             android:text="This is the overview"
             android:textColor="#333" />
+        <TextView
+            android:id="@+id/textview_read_wikipedia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Read  more on wikipedia"
+            android:gravity="end"
+            android:layout_marginEnd="18dp"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimary"/>
 
         <LinearLayout
             android:layout_width="match_parent"

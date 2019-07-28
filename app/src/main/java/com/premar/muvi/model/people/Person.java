@@ -28,6 +28,15 @@ public class Person {
     @SerializedName("popularity")
     private double popularity;
 
+    @SerializedName("birthday")
+    private String birthday;
+
+    @SerializedName("biography")
+    private String biography;
+
+    @SerializedName("place_of_birth")
+    private String place_of_birth;
+
     public boolean isAdult() {
         return adult;
     }
@@ -82,5 +91,29 @@ public class Person {
 
     public void setPopularity(double popularity) {
         this.popularity = popularity;
+    }
+
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getBiography() {
+        return biography;
+    }
+
+    public void setBiography(String biography) {
+        this.biography = biography;
+    }
+
+    public String getPlace_of_birth() {
+        return place_of_birth;
+    }
+
+    public void setPlace_of_birth(String place_of_birth) {
+        this.place_of_birth = place_of_birth;
     }
 }

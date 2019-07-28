@@ -42,7 +42,7 @@
                         android:layout_width="150dp"
                         android:layout_height="150dp"
                         android:layout_gravity="center"
-                        android:layout_marginTop="40dp"
+                        android:layout_marginTop="35dp"
                         android:src="@drawable/marvel"
                         app:civ_border_color="@color/white"
                         app:civ_border_width="2dp" />
@@ -53,7 +53,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom"
                         android:padding="10dp"
-                        android:gravity="center"
+                        android:gravity="center|bottom"
                         android:text="Name"
                         android:layout_marginTop="50dp"
                         android:textColor="@color/black"
@@ -104,8 +104,7 @@
             <android.support.v4.view.ViewPager
                 android:id="@+id/person_detail_viewpager"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="16dp" />
+                android:layout_height="match_parent"/>
         </RelativeLayout>
 
     </android.support.v4.widget.NestedScrollView>

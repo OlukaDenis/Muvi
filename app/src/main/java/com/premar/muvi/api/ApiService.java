@@ -2,8 +2,10 @@ package com.premar.muvi.api;
 
 import com.premar.muvi.model.Movie;
 import com.premar.muvi.model.MovieResponse;
+import com.premar.muvi.model.PersonMovieResponse;
 import com.premar.muvi.model.credits.Credits;
 import com.premar.muvi.model.images.ImageResponse;
+import com.premar.muvi.model.people.Person;
 import com.premar.muvi.model.people.PersonResponse;
 import com.premar.muvi.model.trailers.TrailerResponse;
 import com.premar.muvi.model.tv.TvResponse;
@@ -18,6 +20,9 @@ public interface ApiService {
     //movies
     @GET("movie/top_rated")
     Call<MovieResponse> getTopRatedMovies(@Query("api_key") String apiKey);
+
+    @GET("movie/latest")
+    Call<Movie> getLatestMovies(@Query("api_key") String apiKey);
 
     @GET("movie/now_playing")
     Call<MovieResponse> getPlayingMovies(@Query("api_key") String apiKey);
@@ -62,4 +67,12 @@ public interface ApiService {
     @GET("trending/person/week")
     Call<PersonResponse> getTrendingPeople(@Query("api_key") String apiKey);
 
+    @GET("person/{person_id}/movie_credits")
+    Call<PersonMovieResponse> getPersonMovies (@Path("person_id") int personId,
+                                               @Query("api_key") String apiKey);
+
+
+    @GET("person/{person_id}")
+    Call<Person> getPersonDetails (@Path("person_id") int personId,
+                                   @Query("api_key") String apiKey);
 }

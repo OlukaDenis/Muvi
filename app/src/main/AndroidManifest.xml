@@ -13,10 +13,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activity.PersonDetailActivity"
-            android:theme="@style/WithNoActionBar">
-
+        <activity android:name=".activity.WikipediaProfile"></activity>
+        <activity android:name=".activity.AllMoviesActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.HomeActivity" />
         </activity>
+        <activity
+            android:name=".activity.PersonDetailActivity"
+            android:theme="@style/WithNoActionBar" />
         <activity android:name=".activity.AllCastActivity" />
         <activity
             android:name=".activity.MovieDetailActivity"
