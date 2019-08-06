@@ -1,11 +1,13 @@
 package com.premar.muvi.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,17 +17,23 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.premar.muvi.R;
 import com.premar.muvi.adapter.MovieHomeAdapter;
-import com.premar.muvi.adapter.MovieTrailerAdapter;
+import com.premar.muvi.adapter.PersonAdapter;
+import com.premar.muvi.adapter.TvAdapter;
 import com.premar.muvi.constants.AppConstants;
 import com.premar.muvi.model.Movie;
 import com.premar.muvi.model.MovieResponse;
-import com.premar.muvi.model.trailers.Trailer;
-import com.premar.muvi.model.trailers.TrailerResponse;
-import com.premar.muvi.rest.ApiService;
-import com.premar.muvi.rest.ApiUtils;
+import com.premar.muvi.model.people.Person;
+import com.premar.muvi.model.people.PersonResponse;
+import com.premar.muvi.api.ApiService;
+import com.premar.muvi.api.ApiUtils;
+import com.premar.muvi.model.tv.Tv;
+import com.premar.muvi.model.tv.TvResponse;
 
 import java.util.List;
 
@@ -39,10 +47,15 @@ public class HomeActivity extends AppCompatActivity
     RecyclerView recyclerview_trendiing_shows = null;
     RecyclerView recyclerview_upcoming = null;
     RecyclerView recyclerView_trending = null;
+    RecyclerView recyclerView_trending_people = null;
+
+    private ProgressBar movieProgress, tvProgress, peopleProgress, playingProgress;
+
     private SwipeRefreshLayout refreshLayout;
     private static final String API_KEY = AppConstants.API_KEY;
     private ApiService apiService;
     MovieHomeAdapter movieHomeAdapter;
+    private TextView more_trending, more_upcoming;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +79,14 @@ public class HomeActivity extends AppCompatActivity
         recyclerview_trendiing_shows = findViewById(R.id.home_recyclerview_popular);
         recyclerview_upcoming = findViewById(R.id.home_recyclerview_upcoming);
         recyclerView_trending = findViewById(R.id.home_recyclerview_trending);
+        recyclerView_trending_people = findViewById(R.id.home_recyclerview_trending_people);
         refreshLayout = findViewById(R.id.pull_to_refresh);
+        more_trending = findViewById(R.id.more_trending_movies);
+        more_upcoming = findViewById(R.id.tv_more_upcoming_movies);
+        movieProgress = findViewById(R.id.home_trending_movies_progressbar);
+        tvProgress = findViewById(R.id.home_trending_tv_progressbar);
+        peopleProgress = findViewById(R.id.trending_people_progressbar);
+        playingProgress  = findViewById(R.id.playing_movies_progressbar);
 
         //trending shows layout manager
         recyclerview_trendiing_shows.setHasFixedSize(true);
@@ -75,9 +95,15 @@ public class HomeActivity extends AppCompatActivity
         //upcoming layout manager
         LinearLayoutManager upcomingLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerview_upcoming.setLayoutManager(upcomingLayoutManager);
+
         //upcoming layout manager
         LinearLayoutManager trendingLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView_trending.setLayoutManager(trendingLayoutManager);
+
+        //trending people layout manager
+        recyclerView_trending_people.setHasFixedSize(true);
+        LinearLayoutManager trendingPeopleLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        recyclerView_trending_people.setLayoutManager(trendingPeopleLayoutManager);
 
         apiService = ApiUtils.getApiService();
 
@@ -90,53 +116,44 @@ public class HomeActivity extends AppCompatActivity
         refreshLayout.setColorSchemeResources(R.color.colorPrimaryDark);
         });
         connectAndGetApiData();
+        moreTrendingMovies();
+        moreUpcoming();
+    }
+
+    private void moreTrendingMovies() {
+        more_trending.setOnClickListener(view -> {
+            Intent intent = new Intent(getApplicationContext(), AllMoviesActivity.class);
+            startActivity(intent);
+        });
+    }
+
+    private void moreUpcoming() {
+        more_upcoming.setOnClickListener(view -> {
+            Intent intent = new Intent(getApplicationContext(), AllMoviesActivity.class);
+            startActivity(intent);
+        });
     }
 
 
     //this method creates an instance of retrofit
     private void connectAndGetApiData() {
-        apiService.getPopularShows(API_KEY).enqueue(new Callback<MovieResponse>() {
-            @Override
-            public void onResponse(@NonNull Call<MovieResponse> call, Response<MovieResponse> response) {
-                assert response.body() != null;
-                List<Movie> movies = response.body().getResults();
-                movieHomeAdapter = new MovieHomeAdapter(movies, R.layout.layout_movies, getApplicationContext());
-                recyclerview_trendiing_shows.setAdapter(movieHomeAdapter);
-                Log.d(TAG, "Number of movies received:" + movies.size());
-            }
 
-            @Override
-            public void onFailure(Call<MovieResponse> call, Throwable throwable) {
-                Log.e(TAG, throwable.toString());
-            }
-        });
-
-        apiService.getPlayingMovies(API_KEY).enqueue(new Callback<MovieResponse>() {
+        apiService.getTrendingMovies(API_KEY, 1).enqueue(new Callback<MovieResponse>() {
             @Override
             public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
-                assert response.body() != null;
-                List<Movie> movies = response.body().getResults();
-                recyclerview_upcoming.setAdapter(new MovieHomeAdapter(movies,
-                        R.layout.layout_movies,
-                        getApplicationContext()));
-                Log.d(TAG, "Number of upcoming movies received:" + movies.size());
-            }
+                if (response.isSuccessful()){
+                    if (response.body() != null){
+                        List<Movie> movies = response.body().getResults();
+                        recyclerView_trending.setAdapter(new MovieHomeAdapter(movies,
+                                R.layout.layout_movies,
+                                getApplicationContext()));
+                        movieProgress.setVisibility(View.INVISIBLE);
+                        Log.d(TAG, "Number of trending movies received:" + movies.size());
+                    } else {
+                        movieProgress.setVisibility(View.VISIBLE);
+                    }
+                }
 
-            @Override
-            public void onFailure(Call<MovieResponse> call, Throwable t) {
-
-            }
-        });
-
-        apiService.getPopularMovies(API_KEY).enqueue(new Callback<MovieResponse>() {
-            @Override
-            public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
-                assert response.body() != null;
-                List<Movie> movies = response.body().getResults();
-                recyclerView_trending.setAdapter(new MovieHomeAdapter(movies,
-                        R.layout.layout_movies,
-                        getApplicationContext()));
-                Log.d(TAG, "Number of trending movies received:" + movies.size());
             }
 
             @Override
@@ -144,6 +161,84 @@ public class HomeActivity extends AppCompatActivity
                 Log.e(TAG, t.toString());
             }
         });
+
+        apiService.getTrendingShows(API_KEY).enqueue(new Callback<TvResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<TvResponse> call, Response<TvResponse> response) {
+                if (response.isSuccessful()){
+                    if (response.body() != null){
+                        TvResponse tvShows = response.body();
+
+                        List<Tv> tv = tvShows.getResults();
+                        TvAdapter adapter = new TvAdapter(tv, R.layout.layout_movies, getApplicationContext());
+                        recyclerview_trendiing_shows.setAdapter(adapter);
+
+                        tvProgress.setVisibility(View.INVISIBLE);
+                        Log.d(TAG, "Number of movies received:" + tv.size());
+                    } else {
+                        tvProgress.setVisibility(View.VISIBLE);
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<TvResponse> call, Throwable throwable) {
+                Log.e(TAG, throwable.toString());
+            }
+        });
+
+        apiService.getPlayingMovies(API_KEY, 1).enqueue(new Callback<MovieResponse>() {
+            @Override
+            public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
+               if (response.isSuccessful()){
+                   if (response.body() != null){
+                       List<Movie> movies = response.body().getResults();
+                       recyclerview_upcoming.setAdapter(new MovieHomeAdapter(movies,
+                               R.layout.layout_movies,
+                               getApplicationContext()));
+                       playingProgress.setVisibility(View.INVISIBLE);
+                       Log.d(TAG, "Number of upcoming movies received:" + movies.size());
+                   } else {
+                       playingProgress.setVisibility(View.VISIBLE);
+                   }
+               }
+
+            }
+
+            @Override
+            public void onFailure(Call<MovieResponse> call, Throwable t) {
+                Log.e(TAG, "onFailure: " + t.toString() );
+            }
+        });
+
+
+        apiService.getTrendingPeople(API_KEY).enqueue(new Callback<PersonResponse>() {
+            @Override
+            public void onResponse(Call<PersonResponse> call, Response<PersonResponse> response) {
+                if (response.isSuccessful()){
+                    if (response.body() != null){
+                        PersonResponse people = response.body();
+
+                        List<Person> personList = people.getResults();
+                        PersonAdapter adapter = new PersonAdapter(getApplicationContext(), personList, R.layout.layout_person);
+                        recyclerView_trending_people.setAdapter(adapter);
+                        peopleProgress.setVisibility(View.INVISIBLE);
+
+                        Log.d(TAG, "Number of trending people received:" + personList.size());
+                    } else {
+                        peopleProgress.setVisibility(View.VISIBLE);
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<PersonResponse> call, Throwable t) {
+                Log.e(TAG, t.toString());
+            }
+        });
+
     }
 
     @Override
@@ -159,19 +254,23 @@ public class HomeActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.home, menu);
+        getMenuInflater().inflate(R.menu.search_menu, menu);
+        MenuItem menuItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) menuItem.getActionView();
+        searchView.setQueryHint("Search");
+       // searchView.setOnQueryTextListener(this);
+        searchView.setIconified(false);
+      //  search(searchView);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+
+        if (id == R.id.action_search) {
+
             return true;
         }
 

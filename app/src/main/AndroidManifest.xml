@@ -13,10 +13,28 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activity.AllCastActivity"></activity>
+
+        <activity android:name=".activity.SearchActivity"
+            android:theme="@style/WithNoActionBar">
+        </activity>
+
+        <activity android:name=".activity.TvDetailActivity"
+            android:theme="@style/WithNoActionBar">
+        </activity>
+
+        <activity android:name=".activity.WikipediaProfile" />
+        <activity android:name=".activity.AllMoviesActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".activity.PersonDetailActivity"
+            android:theme="@style/WithNoActionBar" />
+        <activity android:name=".activity.AllCastActivity" />
         <activity
             android:name=".activity.MovieDetailActivity"
-            android:theme="@style/WithNoActionBar"></activity>
+            android:theme="@style/WithNoActionBar" />
         <activity
             android:name=".activity.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar">

@@ -52,31 +52,21 @@ public class MovieHomeAdapter extends RecyclerView.Adapter<MovieHomeViewHolder> 
                 .into(movieHomeViewHolder.movieImage);
         movieHomeViewHolder.movieTitle.setText(movies.get(position).getTitle());
 
-        movieHomeViewHolder.setItemClickListener(new ItemClickListener() {
-            @Override
-            public void onClick(View view, int position, boolean isLongClick) {
-                Intent detailIntent = new Intent(context, MovieDetailActivity.class);
-                //save temporary the movie details
-               MovieCache.movieId = movies.get(position).getId();
-               MovieCache.movieTitle = movies.get(position).getTitle();
+        movieHomeViewHolder.setItemClickListener((view, i, isLongClick) -> {
+            Movie selectedMovie = movies.get(position);
+            Intent detailIntent = new Intent(context, MovieDetailActivity.class);
+            //save temporary the movie details
+           MovieCache.movieId = movies.get(i).getId();
 
-                detailIntent.putExtra("movie_title", movies.get(position).getTitle());
-                detailIntent.putExtra("movie_date", movies.get(position).getReleaseDate());
-                detailIntent.putExtra("movie_poster", image_url);
-                detailIntent.putExtra("movie_backdrop", backdrop_url);
-                detailIntent.putExtra("movie_duration", movies.get(position).getRuntime());
-                detailIntent.putExtra("movie_votes", movies.get(position).getVoteCount());
-                detailIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
-                Toast.makeText(context, movies.get(position).getOriginalTitle(), Toast.LENGTH_SHORT).show();
-                context.startActivity(detailIntent);
-            }
+            detailIntent.putExtra("movie", selectedMovie);
+            detailIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(detailIntent);
         });
     }
 
     @Override
     public int getItemCount() {
-        return movies.size();
+        return movies==null?0 : movies.size();
     }
 }
 

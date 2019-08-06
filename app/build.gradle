@@ -49,4 +49,8 @@ dependencies {
 
     //circled picture
     implementation 'de.hdodenhof:circleimageview:3.0.0'
+
+    //material searchbar
+    implementation 'com.github.mancj:MaterialSearchBar:0.8.2'
+
 }

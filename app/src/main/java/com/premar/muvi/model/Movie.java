@@ -1,10 +1,11 @@
 package com.premar.muvi.model;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Movie {
+public class Movie implements Serializable {
     @SerializedName("poster_path")
     private String posterPath;
 
@@ -39,7 +40,7 @@ public class Movie {
     private double popularity;
 
     @SerializedName("vote_count")
-    private Integer voteCount;
+    private int voteCount;
 
     @SerializedName("video")
     private boolean video;

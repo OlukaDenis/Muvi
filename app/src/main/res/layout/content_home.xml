@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-    <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/rootRelativeLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:context=".activity.HomeActivity"
-        tools:showIn="@layout/app_bar_home">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootRelativeLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/background"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".activity.HomeActivity"
+    tools:showIn="@layout/app_bar_home">
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/pull_to_refresh"
@@ -18,15 +18,18 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <LinearLayout
                     android:id="@+id/layout_trending_movies"
                     android:layout_width="match_parent"
-                    android:layout_height="240dp"
+                    android:layout_height="245dp"
                     android:layout_marginTop="16dp"
                     android:orientation="vertical">
 
@@ -45,30 +48,41 @@
                             android:textSize="18sp" />
 
                         <TextView
+                            android:id="@+id/more_trending_movies"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="3"
-                            android:text="MORE..."
                             android:gravity="center"
-                            android:textColor="@color/colorPrimaryDark"
+                            android:text="MORE..."
+                            android:textColor="@color/colorAccent"
                             android:textSize="14sp"
                             android:textStyle="bold" />
                     </LinearLayout>
 
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/home_recyclerview_trending"
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:layout_height="wrap_content">
 
-                    </android.support.v7.widget.RecyclerView>
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/home_recyclerview_trending"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"/>
+
+                        <ProgressBar
+                            android:id="@+id/home_trending_movies_progressbar"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:layout_alignParentBottom="true"
+                            android:layout_centerInParent="true"/>
+                    </RelativeLayout>
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/layout_trending_shows"
                     android:layout_width="match_parent"
-                    android:layout_height="240dp"
+                    android:layout_height="245dp"
                     android:layout_below="@id/layout_trending_movies"
                     android:layout_marginTop="16dp"
                     android:orientation="vertical">
@@ -93,25 +107,35 @@
                             android:layout_weight="3"
                             android:gravity="center"
                             android:text="MORE..."
-                            android:textColor="@color/colorPrimaryDark"
+                            android:textColor="@color/colorAccent"
                             android:textSize="14sp"
                             android:textStyle="bold" />
                     </LinearLayout>
 
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/home_recyclerview_popular"
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:layout_height="wrap_content">
 
-                    </android.support.v7.widget.RecyclerView>
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/home_recyclerview_popular"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"/>
+
+                        <ProgressBar
+                            android:id="@+id/home_trending_tv_progressbar"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:layout_alignParentBottom="true"
+                            android:layout_centerInParent="true"/>
+                    </RelativeLayout>
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/layout_upcoming_movies"
                     android:layout_width="match_parent"
-                    android:layout_height="240dp"
+                    android:layout_height="245dp"
                     android:layout_marginTop="16dp"
                     android:orientation="vertical">
 
@@ -130,32 +154,44 @@
                             android:textSize="18sp" />
 
                         <TextView
+                            android:id="@+id/tv_more_upcoming_movies"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="3"
-                            android:text="MORE..."
                             android:gravity="center"
-                            android:textColor="@color/colorPrimaryDark"
+                            android:text="MORE..."
+                            android:textColor="@color/colorAccent"
                             android:textSize="14sp"
                             android:textStyle="bold" />
                     </LinearLayout>
 
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/home_recyclerview_upcoming"
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:layout_height="wrap_content">
 
-                    </android.support.v7.widget.RecyclerView>
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/home_recyclerview_upcoming"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"/>
+
+                        <ProgressBar
+                            android:id="@+id/playing_movies_progressbar"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:layout_alignParentBottom="true"
+                            android:layout_centerInParent="true"/>
+                    </RelativeLayout>
+
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/layout_playing_movies"
                     android:layout_width="match_parent"
-                    android:layout_height="240dp"
-                    android:layout_below="@id/layout_upcoming_movies"
+                    android:layout_height="250dp"
                     android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
                     android:orientation="vertical">
 
                     <LinearLayout
@@ -168,7 +204,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="7"
-                            android:text="Popula people"
+                            android:text="Trending People"
                             android:textColor="@color/black"
                             android:textSize="18sp" />
 
@@ -176,20 +212,32 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="3"
-                            android:text="MORE..."
                             android:gravity="center"
-                            android:textColor="@color/colorPrimaryDark"
+                            android:text="MORE..."
+                            android:textColor="@color/colorAccent"
                             android:textSize="14sp"
                             android:textStyle="bold" />
                     </LinearLayout>
 
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/home_recyclerview_playing"
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:layout_height="wrap_content">
 
-                    </android.support.v7.widget.RecyclerView>
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/home_recyclerview_trending_people"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"/>
+
+                        <ProgressBar
+                            android:id="@+id/trending_people_progressbar"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:layout_alignParentBottom="true"
+                            android:layout_centerInParent="true"/>
+                    </RelativeLayout>
+
+
 
                 </LinearLayout>
 
@@ -201,6 +249,4 @@
     </android.support.v4.widget.SwipeRefreshLayout>
 
 
-
-
-    </RelativeLayout>
+</RelativeLayout>

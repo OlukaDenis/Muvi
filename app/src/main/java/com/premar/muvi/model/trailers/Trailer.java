@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class Trailer {
     @SerializedName("id")
-    private int trailer_id;
+    private String trailer_id;
 
     @SerializedName("key")
     private String trailer_key;
@@ -23,24 +23,11 @@ public class Trailer {
     @SerializedName("type")
     private String type;
 
-
-    public Trailer() {
-    }
-
-    public Trailer(int trailer_id, String trailer_key, String name, String site, int size, String type) {
-        this.trailer_id = trailer_id;
-        this.trailer_key = trailer_key;
-        this.name = name;
-        this.site = site;
-        this.size = size;
-        this.type = type;
-    }
-
-    public int getTrailer_id() {
+    public String getTrailer_id() {
         return trailer_id;
     }
 
-    public void setTrailer_id(int trailer_id) {
+    public void setTrailer_id(String trailer_id) {
         this.trailer_id = trailer_id;
     }
 

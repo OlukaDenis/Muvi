@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#03a9f4</color>
-    <color name="colorPrimaryDark">#028bca</color>
-    <color name="colorAccent">#00ace6</color>
+    <color name="colorPrimary">#0277bd</color>
+    <color name="colorPrimaryDark">#004c8c</color>
+    <color name="colorAccent">#f57f17</color>
+    <color name="primaryLightColor">#58a5f0</color>
+    <color name="secondaryLightColor">#fff263</color>
+    <color name="secondaryDarkColor">#c49000</color>
+    <color name="primaryTextColor">#ffffff</color>
+    <color name="secondaryTextColor">#000000</color>
 
-    <color name="button_color">#FFAF30</color>
+    <color name="light_blue"> #e6f7ff</color>
 
-    <color name="genre_backgrouind">#81d6fe</color>
+    <color name="background">#eee</color>
+    <color name="title_color">#222</color>
 
     <color name="tabIndicatorColor">#FFFFFF</color>
     <color name="tabSelectedTextColor">#FFFFFF</color>
     <color name="tabTextColor">#000000</color>
-    <color name="colorNormal">#252525</color>
-    <color name="colorPressed">#202020</color>
-    <color name="colorRipple">#555555</color>
-    <color name="chipBackground">#c8f36a21</color>
     <color name="orange">#f36a21</color>
     <color name="green">#0ecf48</color>
     <color name="blue">#21bff3</color>
     <color name="red">#e21c0e</color>
-    <color name="ripple_color">#555555</color>
     <color name="divider">#f2f2f2</color>
-    <color name="background_color">#f2f2f2</color>
-    <color name="text_color">#525252</color>
     <color name="black">#000000</color>
     <color name="shadow">#202020</color>
     <color name="white">#ffffff</color>
     <color name="hint">#767676</color>
+
 </resources>

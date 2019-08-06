@@ -5,16 +5,15 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.widget.TextView;
+import android.view.MenuItem;
 
 import com.premar.muvi.R;
 import com.premar.muvi.adapter.AllCastAdapter;
-import com.premar.muvi.adapter.CastAdapter;
-import com.premar.muvi.detail_viewpager.fragment.InfoFragment;
+import com.premar.muvi.fragments.movie_fragment.InfoFragment;
 import com.premar.muvi.model.credits.Cast;
 import com.premar.muvi.model.credits.Credits;
-import com.premar.muvi.rest.ApiService;
-import com.premar.muvi.rest.ApiUtils;
+import com.premar.muvi.api.ApiService;
+import com.premar.muvi.api.ApiUtils;
 import com.premar.muvi.temporary_storage.MovieCache;
 
 import java.util.List;
@@ -37,7 +36,8 @@ public class AllCastActivity extends AppCompatActivity {
         setContentView(R.layout.activity_all_cast);
         setTitle("Cast");
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        this.getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
 
         movieId = MovieCache.movieId;
 
@@ -74,5 +74,16 @@ public class AllCastActivity extends AppCompatActivity {
                 Log.e(TAG, t.toString());
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id =  item.getItemId();
+        if (id == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+
     }
 }
