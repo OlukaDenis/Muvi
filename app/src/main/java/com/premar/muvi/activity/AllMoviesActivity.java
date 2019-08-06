@@ -9,8 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.premar.muvi.R;
-import com.premar.muvi.viewpagers.AllMoviesPagerAdapter;
-import com.premar.muvi.viewpagers.MovieDetailPagerAdapter;
+import com.premar.muvi.fragments.AllMoviesPagerAdapter;
 
 public class AllMoviesActivity extends AppCompatActivity {
     private static String TAG = MovieDetailActivity.class.getSimpleName();

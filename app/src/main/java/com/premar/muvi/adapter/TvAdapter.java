@@ -7,10 +7,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.premar.muvi.Interface.ItemClickListener;
 import com.premar.muvi.R;
 import com.premar.muvi.activity.MovieDetailActivity;
+import com.premar.muvi.activity.TvDetailActivity;
 import com.premar.muvi.model.Movie;
 import com.premar.muvi.model.tv.Tv;
 import com.premar.muvi.temporary_storage.MovieCache;
@@ -54,9 +56,11 @@ public class TvAdapter extends RecyclerView.Adapter<TvViewHolder> {
         holder.movieTitle.setText(shows.get(position).getName());
 
         holder.setItemClickListener((view, i, isLongClick) -> {
-            Intent detailIntent = new Intent(context, MovieDetailActivity.class);
+            Intent detailIntent = new Intent(context, TvDetailActivity.class);
+
             //save temporary the movie details
-            MovieCache.movieId = shows.get(i).getId();
+           // MovieCache.movieId = shows.get(i).getId();
+            MovieCache.setTvId(shows.get(i).getId());
             MovieCache.movieTitle = shows.get(i).getName();
 
             detailIntent.putExtra("movie_title", shows.get(i).getName());

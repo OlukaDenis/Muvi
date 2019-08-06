@@ -9,7 +9,7 @@ import android.view.MenuItem;
 
 import com.premar.muvi.R;
 import com.premar.muvi.adapter.AllCastAdapter;
-import com.premar.muvi.viewpagers.fragment.InfoFragment;
+import com.premar.muvi.fragments.movie_fragment.InfoFragment;
 import com.premar.muvi.model.credits.Cast;
 import com.premar.muvi.model.credits.Credits;
 import com.premar.muvi.api.ApiService;

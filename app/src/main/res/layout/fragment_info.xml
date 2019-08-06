@@ -10,7 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        tools:context=".viewpagers.fragment.InfoFragment">
+        android:layout_marginTop="16dp"
+        tools:context=".fragments.movie_fragment.InfoFragment">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -26,18 +27,18 @@
 
                 <FrameLayout
                     android:id="@+id/progress_frame_layout"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp">
+                    android:layout_width="60dp"
+                    android:layout_height="60dp">
 
                     <ProgressBar
                         android:id="@+id/progressBar"
                         style="?android:attr/progressBarStyleHorizontal"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
                         android:layout_marginStart="0dp"
                         android:indeterminate="false"
                         android:max="10"
-                        android:progress="6"
+                        android:progress="0"
                         android:progressDrawable="@drawable/circular_progress" />
 
                     <TextView
@@ -48,8 +49,8 @@
                         android:layout_marginEnd="8dp"
                         android:layout_marginBottom="5dp"
                         android:gravity="center"
-                        android:text="7.0"
-                        android:textColor="@color/colorPrimary"
+                        android:text="0.0"
+                        android:textColor="@color/colorAccent"
                         android:textSize="16sp"
                         android:textStyle="bold" />
                 </FrameLayout>
@@ -172,7 +173,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="2dp"
-                        android:text="yyy-ddd-dddd"
+                        android:text="-"
                         android:textColor="#555" />
                 </LinearLayout>
 
@@ -191,7 +192,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="2dp"
-                        android:text="Released"
+                        android:text="-"
                         android:textColor="#555" />
                 </LinearLayout>
 
@@ -223,7 +224,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="2dp"
-                        android:text="Title"
+                        android:text="-"
                         android:textColor="#555" />
                 </LinearLayout>
 
@@ -244,7 +245,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="2dp"
-                        android:text="English"
+                        android:text="-"
                         android:textColor="#555" />
                 </LinearLayout>
 
@@ -276,7 +277,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="2dp"
-                        android:text="000000"
+                        android:text="-"
                         android:textColor="#555" />
                 </LinearLayout>
 
@@ -297,7 +298,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="2dp"
-                        android:text="000000"
+                        android:text="-"
                         android:textColor="#555" />
                 </LinearLayout>
 

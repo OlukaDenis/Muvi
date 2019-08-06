@@ -55,11 +55,14 @@ public class CastAdapter extends RecyclerView.Adapter<CastViewHolder> {
 
         holder.setItemClickListener((view, i, isLongClick) -> {
             MovieCache.personId = castList.get(i).getId();
+            Cast selectedCast = castList.get(position);
 
             Intent personIntent = new Intent(context, PersonDetailActivity.class);
             personIntent.putExtra("poster", image_url);
             personIntent.putExtra("backdrop", image_url);
             personIntent.putExtra("name", castList.get(i).getName());
+            personIntent.putExtra("cast", selectedCast);
+
             personIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(personIntent);
 

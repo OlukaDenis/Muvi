@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -21,22 +22,18 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.premar.muvi.R;
-import com.premar.muvi.adapter.ImageAdapter;
 import com.premar.muvi.adapter.MovieHomeAdapter;
 import com.premar.muvi.adapter.PersonAdapter;
 import com.premar.muvi.adapter.TvAdapter;
 import com.premar.muvi.constants.AppConstants;
 import com.premar.muvi.model.Movie;
 import com.premar.muvi.model.MovieResponse;
-import com.premar.muvi.model.images.Backdrops;
-import com.premar.muvi.model.images.ImageResponse;
 import com.premar.muvi.model.people.Person;
 import com.premar.muvi.model.people.PersonResponse;
 import com.premar.muvi.api.ApiService;
 import com.premar.muvi.api.ApiUtils;
 import com.premar.muvi.model.tv.Tv;
 import com.premar.muvi.model.tv.TvResponse;
-import com.premar.muvi.viewpagers.AllMoviesPagerAdapter;
 
 import java.util.List;
 
@@ -58,7 +55,7 @@ public class HomeActivity extends AppCompatActivity
     private static final String API_KEY = AppConstants.API_KEY;
     private ApiService apiService;
     MovieHomeAdapter movieHomeAdapter;
-    private TextView more_trending;
+    private TextView more_trending, more_upcoming;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +82,7 @@ public class HomeActivity extends AppCompatActivity
         recyclerView_trending_people = findViewById(R.id.home_recyclerview_trending_people);
         refreshLayout = findViewById(R.id.pull_to_refresh);
         more_trending = findViewById(R.id.more_trending_movies);
+        more_upcoming = findViewById(R.id.tv_more_upcoming_movies);
         movieProgress = findViewById(R.id.home_trending_movies_progressbar);
         tvProgress = findViewById(R.id.home_trending_tv_progressbar);
         peopleProgress = findViewById(R.id.trending_people_progressbar);
@@ -119,6 +117,7 @@ public class HomeActivity extends AppCompatActivity
         });
         connectAndGetApiData();
         moreTrendingMovies();
+        moreUpcoming();
     }
 
     private void moreTrendingMovies() {
@@ -128,11 +127,18 @@ public class HomeActivity extends AppCompatActivity
         });
     }
 
+    private void moreUpcoming() {
+        more_upcoming.setOnClickListener(view -> {
+            Intent intent = new Intent(getApplicationContext(), AllMoviesActivity.class);
+            startActivity(intent);
+        });
+    }
+
 
     //this method creates an instance of retrofit
     private void connectAndGetApiData() {
 
-        apiService.getTrendingMovies(API_KEY).enqueue(new Callback<MovieResponse>() {
+        apiService.getTrendingMovies(API_KEY, 1).enqueue(new Callback<MovieResponse>() {
             @Override
             public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
                 if (response.isSuccessful()){
@@ -182,7 +188,7 @@ public class HomeActivity extends AppCompatActivity
             }
         });
 
-        apiService.getPlayingMovies(API_KEY).enqueue(new Callback<MovieResponse>() {
+        apiService.getPlayingMovies(API_KEY, 1).enqueue(new Callback<MovieResponse>() {
             @Override
             public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
                if (response.isSuccessful()){
@@ -248,19 +254,23 @@ public class HomeActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.home, menu);
+        getMenuInflater().inflate(R.menu.search_menu, menu);
+        MenuItem menuItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) menuItem.getActionView();
+        searchView.setQueryHint("Search");
+       // searchView.setOnQueryTextListener(this);
+        searchView.setIconified(false);
+      //  search(searchView);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+
+        if (id == R.id.action_search) {
+
             return true;
         }
 

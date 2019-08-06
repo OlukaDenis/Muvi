@@ -6,17 +6,18 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:orientation="vertical"
-    tools:context=".viewpagers.fragment.CastFragment">
+    tools:context=".fragments.movie_fragment.CastFragment">
 
     <TextView
         android:id="@+id/more_cast"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="5dp"
+        android:textStyle="bold"
         android:gravity="end"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="@color/colorAccent"
         android:layout_marginEnd="16dp"
-        android:text="View More"/>
+        android:text="@string/view_more"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/cast_recycleView"

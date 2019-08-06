@@ -1,11 +1,11 @@
-package com.premar.muvi.viewpagers;
+package com.premar.muvi.fragments;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.premar.muvi.viewpagers.person_detail_fragments.PersonInfoFragment;
-import com.premar.muvi.viewpagers.person_detail_fragments.PersonMoviesFragment;
+import com.premar.muvi.fragments.person_detail_fragments.PersonInfoFragment;
+import com.premar.muvi.fragments.person_detail_fragments.PersonMoviesFragment;
 
 public class PersonDetailPagerAdapter extends FragmentPagerAdapter {
     public static final int tabCount = 2;

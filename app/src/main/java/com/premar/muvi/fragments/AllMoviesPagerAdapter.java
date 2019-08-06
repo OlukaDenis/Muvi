@@ -1,15 +1,14 @@
-package com.premar.muvi.viewpagers;
+package com.premar.muvi.fragments;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.premar.muvi.viewpagers.allmovies.LatestMoviesFragment;
-import com.premar.muvi.viewpagers.allmovies.NowPlayingMoviesFragment;
-import com.premar.muvi.viewpagers.allmovies.PopularMoviesFragment;
-import com.premar.muvi.viewpagers.allmovies.TopRatedMoviesFragment;
-import com.premar.muvi.viewpagers.allmovies.TrendingMoviesFragment;
-import com.premar.muvi.viewpagers.allmovies.UpcomingMoviesFragment;
+import com.premar.muvi.fragments.allmovies.NowPlayingMoviesFragment;
+import com.premar.muvi.fragments.allmovies.PopularMoviesFragment;
+import com.premar.muvi.fragments.allmovies.TopRatedMoviesFragment;
+import com.premar.muvi.fragments.allmovies.TrendingMoviesFragment;
+import com.premar.muvi.fragments.allmovies.UpcomingMoviesFragment;
 
 public class AllMoviesPagerAdapter extends FragmentPagerAdapter {
     public static final int tabCount = 5;

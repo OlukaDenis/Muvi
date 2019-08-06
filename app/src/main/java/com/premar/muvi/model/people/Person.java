@@ -22,6 +22,9 @@ public class Person {
     @SerializedName("known_for")
     private List<Movie> movies;
 
+    @SerializedName("also_known_as")
+    private List<String> alsoKnownAs;
+
     @SerializedName("profile_path")
     private String profile_path;
 
@@ -83,6 +86,14 @@ public class Person {
 
     public void setProfile_path(String profile_path) {
         this.profile_path = profile_path;
+    }
+
+    public List<String> getAlsoKnownAs() {
+        return alsoKnownAs;
+    }
+
+    public void setAlsoKnownAs(List<String> alsoKnownAs) {
+        this.alsoKnownAs = alsoKnownAs;
     }
 
     public double getPopularity() {

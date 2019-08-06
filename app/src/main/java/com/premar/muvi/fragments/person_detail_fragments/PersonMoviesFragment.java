@@ -1,7 +1,5 @@
-package com.premar.muvi.viewpagers.person_detail_fragments;
+package com.premar.muvi.fragments.person_detail_fragments;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;

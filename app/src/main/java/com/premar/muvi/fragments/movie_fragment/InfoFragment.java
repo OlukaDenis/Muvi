@@ -1,4 +1,4 @@
-package com.premar.muvi.viewpagers.fragment;
+package com.premar.muvi.fragments.movie_fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -30,6 +30,7 @@ import com.premar.muvi.api.ApiService;
 import com.premar.muvi.api.ApiUtils;
 import com.premar.muvi.temporary_storage.MovieCache;
 
+import java.text.ParseException;
 import java.util.List;
 
 import retrofit2.Call;
@@ -79,8 +80,6 @@ public class InfoFragment extends Fragment {
         genreRecyclerView = view.findViewById(R.id.genre_recycler_view);
         trailerRecyclerView = view.findViewById(R.id.trailer_recyler_view);
         imageRecyclerview = view.findViewById(R.id.image_recycler_view);
-
-
 
 
         //genre layout manager
@@ -136,7 +135,14 @@ public class InfoFragment extends Fragment {
                  String revenueCurr = AppConstants.formatCurrency(movieDetails.getRevenue());
                  revenue.setText(revenueCurr);
 
-                 releaseDate.setText(movieDetails.getReleaseDate());
+
+                String releasedate = null;
+                try {
+                    releasedate = AppConstants.formatDate(movieDetails.getReleaseDate());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                releaseDate.setText(releasedate);
 
                  status.setText(movieDetails.getStatus());
 
@@ -171,7 +177,7 @@ public class InfoFragment extends Fragment {
                 trailerRecyclerView.setAdapter(adapter);
 
                 Log.i(TAG, String.valueOf(trailers.getMovieId()));
-                Toast.makeText(getActivity(), String.valueOf(trailers.getMovieId()), Toast.LENGTH_SHORT).show();
+               // Toast.makeText(getActivity(), String.valueOf(trailers.getMovieId()), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -183,15 +189,19 @@ public class InfoFragment extends Fragment {
         apiService.getMovieImages(movieId, API_KEY).enqueue(new Callback<ImageResponse>() {
             @Override
             public void onResponse(Call<ImageResponse> call, Response<ImageResponse> response) {
-                assert response.body() != null;
+                if (response.isSuccessful()){
+                    if(response.body() != null){
+                        ImageResponse images = response.body();
 
-                ImageResponse images = response.body();
+                        List<Backdrops> backdrops = images.getBackdrops();
+                        ImageAdapter adapter = new ImageAdapter(getActivity(), backdrops, R.layout.layout_image);
+                        imageRecyclerview.setAdapter(adapter);
 
-                List<Backdrops> backdrops = images.getBackdrops();
-                ImageAdapter adapter = new ImageAdapter(getActivity(), backdrops, R.layout.layout_image);
-                imageRecyclerview.setAdapter(adapter);
+                        Log.i(TAG, String.valueOf(images.getId()));
+                    }
+                }
 
-                Log.i(TAG, String.valueOf(images.getId()));
+
             }
 
             @Override

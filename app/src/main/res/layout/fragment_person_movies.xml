@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".viewpagers.person_detail_fragments.PersonMoviesFragment">
+    tools:context=".fragments.person_detail_fragments.PersonMoviesFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/person_movies_recycler_view"

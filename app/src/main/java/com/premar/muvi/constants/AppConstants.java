@@ -1,5 +1,6 @@
 package com.premar.muvi.constants;
 
+import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
@@ -40,6 +41,14 @@ public class AppConstants {
         return year;
     }
 
+
+
+    public static String formatDate(String date) throws ParseException {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date dt = dateFormat.parse(date);
+        return DateFormat.getDateInstance(DateFormat.LONG).format(dt);
+    }
+
     public static String formatHoursAndMinutes(int totalMinutes) {
         String minutes = Integer.toString(totalMinutes % 60);
         minutes = minutes.length() == 1 ? "0" + minutes : minutes;
@@ -61,6 +70,12 @@ public class AppConstants {
         }
         else if(language.equals("fr")){
             return "French";
+        }
+        else if(language.equals("es")){
+            return "Spanish";
+        }
+        else if(language.equals("kr")){
+            return "Korean";
         }
         else {
             return "-";
@@ -85,4 +100,5 @@ public class AppConstants {
 
         return word.replaceAll(" ", "_");
     }
+
 }

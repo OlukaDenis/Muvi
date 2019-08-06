@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
     //this method creates an instance of retrofit
     private void connectAndGetApiData() {
-        apiService.getPopularMovies(API_KEY).enqueue(new Callback<MovieResponse>() {
+        apiService.getPopularMovies(API_KEY, 1).enqueue(new Callback<MovieResponse>() {
             @Override
             public void onResponse(@NonNull Call<MovieResponse> call, Response<MovieResponse> response) {
                 assert response.body() != null;

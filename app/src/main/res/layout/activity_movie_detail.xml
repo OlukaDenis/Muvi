@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/background"
     android:layout_height="match_parent"
     tools:context=".activity.MovieDetailActivity">
 
@@ -10,14 +11,14 @@
         android:id="@+id/app_bar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@color/background"
         android:fitsSystemWindows="true"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="350dp"
+            android:layout_height="380dp"
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
@@ -25,7 +26,7 @@
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="320dp"
+                android:layout_height="350dp"
                 android:fitsSystemWindows="true"
                 app:layout_collapseMode="parallax">
 
@@ -34,7 +35,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/darkphoenix" />
+                    android:src="@drawable/ic_picture" />
 
                 <FrameLayout
                     android:layout_width="match_parent"
@@ -69,7 +70,7 @@
                                         android:id="@+id/detail_votes"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="2890"
+                                        android:text="--"
                                         android:textColor="@color/white"
                                         android:textSize="18sp" />
 
@@ -142,7 +143,7 @@
                         android:layout_marginStart="16dp"
                         app:civ_border_width="2dp"
                         app:civ_border_color="@color/colorPrimary"
-                        android:src="@drawable/marvel" />
+                        android:src="@drawable/ic_picture" />
                 </FrameLayout>
 
                 <LinearLayout
@@ -157,17 +158,17 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:layout_marginBottom="2dp">
+                        android:layout_marginBottom="5dp">
 
                         <TextView
                             android:id="@+id/movie_release_year"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Year"
-                            android:background="@drawable/light_blue_background"
+                            android:text="-"
+                            android:background="@drawable/light_yellow_background"
                             android:layout_marginStart="8dp"
                             android:textStyle="bold"
-                            android:textColor="@color/colorPrimaryDark"
+                            android:textColor="#555"
                             android:textSize="16sp"/>
 
                         <TextView
@@ -175,9 +176,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
-                            android:text="122 "
-                            android:background="@drawable/light_blue_background"
-                            android:textColor="@color/colorPrimaryDark"
+                            android:text="-"
+                            android:background="@drawable/light_yellow_background"
+                            android:textColor="#555"
                             android:textSize="16sp" />
 
                     </LinearLayout>
@@ -185,8 +186,10 @@
                         android:id="@+id/detail_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        tools:text="Captain Marvel"
-                        android:textColor="@color/black"
+                        tools:text="-"
+                        android:paddingTop="8dp"
+                        android:paddingBottom="8dp"
+                        android:textColor="@color/title_color"
                         android:textSize="18sp"
                         android:layout_marginStart="8dp"
                         android:textStyle="bold"/>
@@ -209,15 +212,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                android:minHeight="?actionBarSize"
-                app:tabBackground="@color/white"
-                app:tabGravity="fill"
-                app:tabIndicatorColor="@color/colorPrimary"
-                app:tabIndicatorHeight="5dp"
-                app:tabMode="fixed"
-                app:tabSelectedTextColor="@color/colorPrimary"
-                app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
-                app:tabTextColor="@color/colorPrimary" />
+                style="@style/MovieTabLayout" />
 
         </android.support.design.widget.CollapsingToolbarLayout>
 

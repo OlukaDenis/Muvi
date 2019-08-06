@@ -10,4 +10,13 @@ public class MovieCache {
     public static int personId;
 
     public static String wiki_profile_url;
+
+
+    public static int getTvId() {
+        return tvId;
+    }
+
+    public static void setTvId(int tvId) {
+        MovieCache.tvId = tvId;
+    }
 }

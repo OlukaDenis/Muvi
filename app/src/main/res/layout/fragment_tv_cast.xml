@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_marginTop="8dp"
+    tools:context=".fragments.tv_fragments.TvCastFragment">
+
+    <TextView
+        android:id="@+id/tv_more_cast"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:gravity="end"
+        android:textColor="@color/colorPrimaryDark"
+        android:layout_marginEnd="16dp"
+        android:text="View More"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/tv_info_cast_recycleView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

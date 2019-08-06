@@ -1,30 +1,18 @@
-package com.premar.muvi.viewpagers.allmovies;
+package com.premar.muvi.fragments.allmovies;
 
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.premar.muvi.R;
 import com.premar.muvi.activity.MainActivity;
-import com.premar.muvi.adapter.MovieHomeAdapter;
 import com.premar.muvi.api.ApiService;
 import com.premar.muvi.api.ApiUtils;
-import com.premar.muvi.model.Movie;
-import com.premar.muvi.model.MovieResponse;
-
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-import static com.premar.muvi.constants.AppConstants.API_KEY;
 
 /**
  * A simple {@link Fragment} subclass.

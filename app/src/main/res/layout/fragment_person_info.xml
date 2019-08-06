@@ -13,7 +13,39 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:orientation="vertical"
-        tools:context=".viewpagers.person_detail_fragments.PersonInfoFragment">
+        tools:context=".fragments.person_detail_fragments.PersonInfoFragment">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_person"
+                android:tint="@color/colorAccent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:text="Also known as:"
+                android:layout_gravity="center_vertical"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/person_other_names"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="hhhh"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -26,7 +58,7 @@
                 android:layout_height="16dp"
                 android:layout_gravity="center_vertical"
                 android:src="@drawable/ic_home"
-                android:tint="@color/colorPrimary" />
+                android:tint="@color/colorAccent" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -57,8 +89,8 @@
                 android:layout_width="16dp"
                 android:layout_height="16dp"
                 android:layout_gravity="center_vertical"
-                android:src="@drawable/ic_person"
-                android:tint="@color/colorPrimary" />
+                android:src="@drawable/ic_birthday"
+                android:tint="@color/colorAccent" />
 
             <TextView
                 android:layout_width="wrap_content"

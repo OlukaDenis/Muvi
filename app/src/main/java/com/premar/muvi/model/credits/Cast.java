@@ -2,7 +2,9 @@ package com.premar.muvi.model.credits;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Cast {
+import java.io.Serializable;
+
+public class Cast implements Serializable {
     @SerializedName("cast_id")
     private int cast_id;
 
