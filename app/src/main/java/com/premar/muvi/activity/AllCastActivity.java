@@ -1,9 +1,9 @@
 package com.premar.muvi.activity;
 
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
 
@@ -22,7 +22,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.premar.muvi.constants.AppConstants.API_KEY;
+import static com.premar.muvi.utils.AppConstants.API_KEY;
 
 public class AllCastActivity extends AppCompatActivity {
     private ApiService apiService;

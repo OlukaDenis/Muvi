@@ -1,24 +1,21 @@
 package com.premar.muvi.adapter;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.premar.muvi.R;
-import com.premar.muvi.constants.AppConstants;
-import com.premar.muvi.model.Movie;
 import com.premar.muvi.model.trailers.Trailer;
 import com.premar.muvi.viewholders.TrailerViewHolder;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import static com.premar.muvi.constants.AppConstants.YOUTUBE_SUFFIX;
-import static com.premar.muvi.constants.AppConstants.YOUTUBE_VIDEO_URL;
+import static com.premar.muvi.utils.AppConstants.YOUTUBE_SUFFIX;
+import static com.premar.muvi.utils.AppConstants.YOUTUBE_VIDEO_URL;
 
 public class MovieTrailerAdapter extends RecyclerView.Adapter<TrailerViewHolder> {
     private Context context;
@@ -45,7 +42,7 @@ public class MovieTrailerAdapter extends RecyclerView.Adapter<TrailerViewHolder>
         String trailer_image_key = trailers.get(position).getTrailer_key();
         String image_url = YOUTUBE_VIDEO_URL + trailer_image_key + YOUTUBE_SUFFIX;
 
-        Picasso.with(context)
+        Picasso.get()
                 .load(image_url)
                 .placeholder(R.drawable.ic_picture)
                 .error(R.drawable.ic_picture)

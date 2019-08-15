@@ -1,40 +1,58 @@
 package com.premar.muvi.activity;
 
 import android.content.Intent;
+import android.database.MatrixCursor;
+import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
+import androidx.annotation.NonNull;
+import androidx.databinding.ViewDataBinding;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.widget.LinearLayout;
+import android.widget.SearchView;
 import android.util.Log;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import com.google.android.material.navigation.NavigationView;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
 
 import com.premar.muvi.R;
 import com.premar.muvi.adapter.MovieHomeAdapter;
 import com.premar.muvi.adapter.PersonAdapter;
+import com.premar.muvi.adapter.SearchAdapter;
 import com.premar.muvi.adapter.TvAdapter;
-import com.premar.muvi.constants.AppConstants;
+import com.premar.muvi.databinding.ActivityHomeBinding;
+import com.premar.muvi.fragments.SearchFragment;
+import com.premar.muvi.room.viewmodel.FavoritesViewModel;
+import com.premar.muvi.utils.AppConstants;
 import com.premar.muvi.model.Movie;
 import com.premar.muvi.model.MovieResponse;
 import com.premar.muvi.model.people.Person;
 import com.premar.muvi.model.people.PersonResponse;
 import com.premar.muvi.api.ApiService;
 import com.premar.muvi.api.ApiUtils;
+import com.premar.muvi.model.search.Search;
+import com.premar.muvi.model.search.SearchResponse;
 import com.premar.muvi.model.tv.Tv;
 import com.premar.muvi.model.tv.TvResponse;
+import com.premar.muvi.utils.SearchToMovie;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -48,6 +66,7 @@ public class HomeActivity extends AppCompatActivity
     RecyclerView recyclerview_upcoming = null;
     RecyclerView recyclerView_trending = null;
     RecyclerView recyclerView_trending_people = null;
+    private LinearLayout searchLayout;
 
     private ProgressBar movieProgress, tvProgress, peopleProgress, playingProgress;
 
@@ -56,6 +75,18 @@ public class HomeActivity extends AppCompatActivity
     private ApiService apiService;
     MovieHomeAdapter movieHomeAdapter;
     private TextView more_trending, more_upcoming;
+
+    private ArrayList<Search> searchList;
+    private ArrayList<Search> mSearches;
+    public static ArrayList<Movie> movieList=new ArrayList<>();
+    public static ArrayList<Movie> moviesearch;
+    public static SearchFragment searchFragment = new SearchFragment();
+    public static FragmentManager fragmentManager;
+    public static FragmentTransaction fragmentTransaction;
+    public static String queryM;
+    private MatrixCursor cursor;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,7 +144,7 @@ public class HomeActivity extends AppCompatActivity
                 refreshLayout.setRefreshing(false);
             }, 2000);
 
-        refreshLayout.setColorSchemeResources(R.color.colorPrimaryDark);
+            refreshLayout.setColorSchemeResources(R.color.colorPrimaryDark);
         });
         connectAndGetApiData();
         moreTrendingMovies();
@@ -144,9 +175,7 @@ public class HomeActivity extends AppCompatActivity
                 if (response.isSuccessful()){
                     if (response.body() != null){
                         List<Movie> movies = response.body().getResults();
-                        recyclerView_trending.setAdapter(new MovieHomeAdapter(movies,
-                                R.layout.layout_movies,
-                                getApplicationContext()));
+                        recyclerView_trending.setAdapter(new MovieHomeAdapter( getApplicationContext(),movies));
                         movieProgress.setVisibility(View.INVISIBLE);
                         Log.d(TAG, "Number of trending movies received:" + movies.size());
                     } else {
@@ -194,9 +223,7 @@ public class HomeActivity extends AppCompatActivity
                if (response.isSuccessful()){
                    if (response.body() != null){
                        List<Movie> movies = response.body().getResults();
-                       recyclerview_upcoming.setAdapter(new MovieHomeAdapter(movies,
-                               R.layout.layout_movies,
-                               getApplicationContext()));
+                       recyclerview_upcoming.setAdapter(new MovieHomeAdapter(getApplicationContext(), movies));
                        playingProgress.setVisibility(View.INVISIBLE);
                        Log.d(TAG, "Number of upcoming movies received:" + movies.size());
                    } else {
@@ -241,13 +268,117 @@ public class HomeActivity extends AppCompatActivity
 
     }
 
+    private void search(SearchView searchView) {
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                if (!query.isEmpty()) {
+                    searchView.setQuery("",false);
+                    searchView.clearFocus();
+                    searchView.setIconified(false);
+
+                    apiService.searchMovies(API_KEY, false, query).enqueue(new Callback<SearchResponse>() {
+                        @Override
+                        public void onResponse(@NonNull Call<SearchResponse> call, @NonNull Response<SearchResponse> response) {
+                            if (response.isSuccessful() && response.body().getResults()!=null){
+                                SearchResponse searches = response.body();
+                                searchList = (ArrayList<Search>) searches.getResults();
+                                SearchToMovie searchToMovie = new SearchToMovie(searchList);
+                                movieList = searchToMovie.getMovies();
+
+                                Intent searchIntent = new Intent(getApplicationContext(), SearchActivity.class);
+                                searchIntent.putExtra("search", query);
+                                startActivity(searchIntent);
+                                /*
+                                if(fragmentManager.getFragments().isEmpty()) {
+                                   // refreshLayout.setVisibility(View.GONE);
+                                    searchLayout.setVisibility(View.VISIBLE);
+                                    fragmentTransaction = fragmentManager.beginTransaction();
+                                    fragmentTransaction.addToBackStack(null);
+                                    fragmentTransaction.add(R.id.frame_layout, searchFragment).commitAllowingStateLoss();
+                                } else {
+                                    //refreshLayout.setVisibility(View.GONE);
+                                    fragmentTransaction = fragmentManager.beginTransaction();
+                                    fragmentTransaction.addToBackStack(null);
+                                    fragmentTransaction.replace(R.id.frame_layout, searchFragment).commitAllowingStateLoss();
+                                }*/
+
+                            }
+
+
+                        }
+
+                        @Override
+                        public void onFailure(Call<SearchResponse> call, Throwable t) {
+
+                        }
+                    });
+
+                }
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                queryM = newText;
+
+                apiService.searchMovies(API_KEY, false, queryM).enqueue(new Callback<SearchResponse>() {
+                    @Override
+                    public void onResponse(Call<SearchResponse> call, Response<SearchResponse> response) {
+                        if (response.isSuccessful() && response.body().getResults()!=null) {
+                            SearchResponse searches = response.body();
+                            mSearches = (ArrayList<Search>) searches.getResults();
+                            SearchToMovie searchToMovie = new SearchToMovie(mSearches);
+                            moviesearch = searchToMovie.getMovies();
+
+                            String a[] = new String[moviesearch.size()];
+                            for (int i = 0; i < a.length; i++) {
+                                a[i] = moviesearch.get(i).getTitle();
+                            }
+                            ArrayAdapter<String> Adapter = new ArrayAdapter<String>(HomeActivity.this, R.layout.layout_search_list, a);
+                            String[] columnNames = {"_id", "text"};
+                            cursor = new MatrixCursor(columnNames);
+                            String[] temp = new String[2];
+                            int id = 0;
+                            for (String item : a) {
+                                temp[0] = Integer.toString(id++);
+                                temp[1] = item;
+                                cursor.addRow(temp);
+                            }
+
+                            SearchAdapter searchAdapter=new SearchAdapter(HomeActivity.this, cursor,true,searchView,moviesearch);
+                            searchView.setSuggestionsAdapter(searchAdapter);
+
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<SearchResponse> call, Throwable t) {
+
+                    }
+                });
+                return false;
+            }
+        });
+    }
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            int fragments = getSupportFragmentManager().getBackStackEntryCount();
+            if (fragments == 1) {
+                //finish();
+                getFragmentManager().popBackStack();
+                //searchLayout.setVisibility(View.GONE);
+            } else if (getFragmentManager().getBackStackEntryCount() > 1) {
+                getFragmentManager().popBackStack();
+            } else {
+                super.onBackPressed();
+            }
         }
     }
 
@@ -260,9 +391,11 @@ public class HomeActivity extends AppCompatActivity
         searchView.setQueryHint("Search");
        // searchView.setOnQueryTextListener(this);
         searchView.setIconified(false);
-      //  search(searchView);
+        search(searchView);
         return true;
     }
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

@@ -1,15 +1,13 @@
 package com.premar.muvi.activity;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
-import android.support.v4.widget.NestedScrollView;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
+import com.google.android.material.tabs.TabLayout;
+import androidx.viewpager.widget.ViewPager;
+import androidx.core.widget.NestedScrollView;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import androidx.appcompat.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -17,23 +15,14 @@ import android.widget.TextView;
 import com.premar.muvi.R;
 import com.premar.muvi.api.ApiService;
 import com.premar.muvi.api.ApiUtils;
-import com.premar.muvi.constants.AppConstants;
-import com.premar.muvi.model.Movie;
 import com.premar.muvi.model.credits.Cast;
-import com.premar.muvi.model.tv.Tv;
 import com.premar.muvi.temporary_storage.MovieCache;
 import com.premar.muvi.fragments.PersonDetailPagerAdapter;
 import com.squareup.picasso.Picasso;
 
-import java.util.List;
 import java.util.Objects;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-import static com.premar.muvi.constants.AppConstants.API_KEY;
-import static com.premar.muvi.constants.AppConstants.IMAGE_URL_BASE_PATH;
+import static com.premar.muvi.utils.AppConstants.IMAGE_URL_BASE_PATH;
 
 public class PersonDetailActivity extends AppCompatActivity {
     private static String TAG = PersonDetailActivity.class.getSimpleName();
@@ -105,13 +94,13 @@ public class PersonDetailActivity extends AppCompatActivity {
 
         String image_url = IMAGE_URL_BASE_PATH + poster;
 
-        Picasso.with(this)
+        Picasso.get()
                 .load(poster)
                 .placeholder(R.drawable.ic_picture)
                 .error(R.drawable.ic_picture)
                 .into(mPoster);
 
-        Picasso.with(this)
+        Picasso.get()
                 .load(backdrop)
                 .placeholder(R.drawable.ic_picture)
                 .error(R.drawable.ic_picture)

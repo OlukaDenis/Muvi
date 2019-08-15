@@ -1,13 +1,13 @@
 package com.premar.muvi.activity;
 
-import android.support.annotation.NonNull;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
-import android.support.v4.widget.NestedScrollView;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import com.google.android.material.tabs.TabLayout;
+import androidx.viewpager.widget.ViewPager;
+import androidx.core.widget.NestedScrollView;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -17,7 +17,7 @@ import android.widget.Toast;
 import com.premar.muvi.R;
 import com.premar.muvi.api.ApiService;
 import com.premar.muvi.api.ApiUtils;
-import com.premar.muvi.constants.AppConstants;
+import com.premar.muvi.utils.AppConstants;
 import com.premar.muvi.model.tv.Tv;
 import com.premar.muvi.temporary_storage.MovieCache;
 import com.premar.muvi.fragments.TvDetailPagerAdapter;
@@ -31,7 +31,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.premar.muvi.constants.AppConstants.API_KEY;
+import static com.premar.muvi.utils.AppConstants.API_KEY;
 
 public class TvDetailActivity extends AppCompatActivity {
     private static String TAG = MovieDetailActivity.class.getSimpleName();
@@ -116,13 +116,13 @@ public class TvDetailActivity extends AppCompatActivity {
         Log.i(TAG, "Release year: " + release_year);
         year.setText(release_year);
 
-        Picasso.with(this)
+        Picasso.get()
                 .load(poster)
                 .placeholder(R.drawable.ic_picture)
                 .error(R.drawable.ic_picture)
                 .into(mPoster);
 
-        Picasso.with(this)
+        Picasso.get()
                 .load(backdrop)
                 .placeholder(R.drawable.ic_picture)
                 .error(R.drawable.ic_picture)

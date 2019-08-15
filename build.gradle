@@ -8,6 +8,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.4.1'
+        classpath 'com.android.tools.build.jetifier:jetifier-processor:1.0.0-beta05'
         
 
         // NOTE: Do not place your application dependencies here; they belong
@@ -20,6 +21,12 @@ allprojects {
         google()
         jcenter()
         maven { url "https://jitpack.io" }
+    }
+
+    gradle.projectsEvaluated {
+        tasks.withType(JavaCompile) {
+            options.compilerArgs << "-Xlint:unchecked"
+        }
     }
 }
 

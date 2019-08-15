@@ -2,17 +2,15 @@ package com.premar.muvi.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.premar.muvi.Interface.ItemClickListener;
 import com.premar.muvi.R;
 import com.premar.muvi.activity.PersonDetailActivity;
-import com.premar.muvi.constants.AppConstants;
+import com.premar.muvi.utils.AppConstants;
 import com.premar.muvi.model.people.Person;
 import com.premar.muvi.temporary_storage.MovieCache;
 import com.premar.muvi.viewholders.PersonViewHolder;
@@ -20,7 +18,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import static com.premar.muvi.constants.AppConstants.IMAGE_URL_BASE_PATH;
+import static com.premar.muvi.utils.AppConstants.IMAGE_URL_BASE_PATH;
 
 public class PersonAdapter extends RecyclerView.Adapter<PersonViewHolder> {
     private Context context;
@@ -43,7 +41,7 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull PersonViewHolder holder, int position) {
         String image_url = IMAGE_URL_BASE_PATH + personList.get(position).getProfile_path();
-        Picasso.with(context)
+        Picasso.get()
                 .load(image_url)
                 .placeholder(R.drawable.ic_picture)
                 .error(R.drawable.ic_picture)

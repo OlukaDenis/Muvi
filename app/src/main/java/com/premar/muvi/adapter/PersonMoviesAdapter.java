@@ -2,8 +2,8 @@ package com.premar.muvi.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +17,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import static com.premar.muvi.constants.AppConstants.BACKDROP_URL_BASE_PATH;
-import static com.premar.muvi.constants.AppConstants.IMAGE_URL_BASE_PATH;
+import static com.premar.muvi.utils.AppConstants.BACKDROP_URL_BASE_PATH;
+import static com.premar.muvi.utils.AppConstants.IMAGE_URL_BASE_PATH;
 
 public class PersonMoviesAdapter extends RecyclerView.Adapter<MovieHomeViewHolder> {
     private Context context;
@@ -43,7 +43,7 @@ public class PersonMoviesAdapter extends RecyclerView.Adapter<MovieHomeViewHolde
         String image_url = IMAGE_URL_BASE_PATH + personMovies.get(position).getPoster_path();
         String backdrop_url = BACKDROP_URL_BASE_PATH + personMovies.get(position).getBackdrop_path();
 
-        Picasso.with(context)
+        Picasso.get()
                 .load(image_url)
                 .placeholder(R.drawable.ic_picture)
                 .error(R.drawable.ic_picture)

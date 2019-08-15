@@ -34,7 +34,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/social/ic_person_black_24dp.xml" />
+                                                <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_favorite_black_24dp.xml" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -44,9 +44,9 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="outputName" value="ic_person_blue" />
+                                      <entry key="outputName" value="ic_favorite_orange" />
                                       <entry key="theme" value="CUSTOM" />
-                                      <entry key="themeColor" value="cdeffe" />
+                                      <entry key="themeColor" value="f57f17" />
                                     </map>
                                   </option>
                                 </PersistentState>

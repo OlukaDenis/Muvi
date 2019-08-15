@@ -28,7 +28,7 @@
         </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
-    -->
+
 
     <com.mancj.materialsearchbar.MaterialSearchBar
         android:id="@+id/searchBar"
@@ -39,9 +39,9 @@
         app:mt_maxSuggestionsCount="10"
         app:mt_speechMode="false"
         android:focusable="true"/>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/search_recyleview"
+    -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/search_results_recycleview"
         android:layout_marginTop="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

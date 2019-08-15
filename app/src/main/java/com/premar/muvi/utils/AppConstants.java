@@ -1,4 +1,4 @@
-package com.premar.muvi.constants;
+package com.premar.muvi.utils;
 
 import java.text.DateFormat;
 import java.text.DecimalFormat;

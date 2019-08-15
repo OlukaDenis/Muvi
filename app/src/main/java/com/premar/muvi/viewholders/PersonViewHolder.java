@@ -1,15 +1,13 @@
 package com.premar.muvi.viewholders;
 
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.premar.muvi.Interface.ItemClickListener;
 import com.premar.muvi.R;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class PersonViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     private ItemClickListener itemClickListener;

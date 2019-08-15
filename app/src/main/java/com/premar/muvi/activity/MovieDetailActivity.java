@@ -1,41 +1,48 @@
 package com.premar.muvi.activity;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
-import android.support.v4.widget.NestedScrollView;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import com.google.android.material.tabs.TabLayout;
+
+import androidx.core.content.ContextCompat;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.viewpager.widget.ViewPager;
+import androidx.core.widget.NestedScrollView;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.premar.muvi.R;
-import com.premar.muvi.constants.AppConstants;
+import com.premar.muvi.databinding.ActivityMovieDetailBinding;
+import com.premar.muvi.room.viewmodel.FavoritesViewModel;
+import com.premar.muvi.utils.AppConstants;
 import com.premar.muvi.fragments.MovieDetailPagerAdapter;
 import com.premar.muvi.model.Movie;
 import com.premar.muvi.api.ApiService;
 import com.premar.muvi.api.ApiUtils;
-import com.premar.muvi.model.tv.Tv;
 import com.premar.muvi.temporary_storage.MovieCache;
 import com.squareup.picasso.Picasso;
+import com.varunest.sparkbutton.SparkButton;
+import com.varunest.sparkbutton.SparkButtonBuilder;
 
 import java.text.ParseException;
-import java.util.List;
 import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.premar.muvi.constants.AppConstants.API_KEY;
-import static com.premar.muvi.constants.AppConstants.BACKDROP_URL_BASE_PATH;
-import static com.premar.muvi.constants.AppConstants.IMAGE_URL_BASE_PATH;
+import static com.premar.muvi.utils.AppConstants.API_KEY;
+import static com.premar.muvi.utils.AppConstants.BACKDROP_URL_BASE_PATH;
+import static com.premar.muvi.utils.AppConstants.IMAGE_URL_BASE_PATH;
 
 public class MovieDetailActivity extends AppCompatActivity {
     private static String TAG = MovieDetailActivity.class.getSimpleName();
@@ -49,14 +56,23 @@ public class MovieDetailActivity extends AppCompatActivity {
 
     private TextView title, release_date, duration, votes, year;
     private ImageView mPoster, mBackdrop;
-    NestedScrollView scrollView;
+    private NestedScrollView scrollView;
+    private SparkButton btnAddRemoveFavorite;
+
+    private ActivityMovieDetailBinding binding;
+    private FavoritesViewModel viewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_detail);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
         setSupportActionBar(toolbar);
+
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+
+        binding = DataBindingUtil.setContentView(MovieDetailActivity.this, R.layout.activity_movie_detail);
+        viewModel = ViewModelProviders.of(MovieDetailActivity.this).get(FavoritesViewModel.class);
 
         movieId = MovieCache.movieId;
         apiService = ApiUtils.getApiService();
@@ -78,6 +94,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         mBackdrop = findViewById(R.id.detail_backdrop);
         scrollView = (NestedScrollView) findViewById(R.id.nested_scroll);
         year = findViewById(R.id.movie_release_year);
+        btnAddRemoveFavorite = findViewById(R.id.sb_add_remove_favorite);
 
 
         scrollView.setFillViewport(true);
@@ -90,14 +107,42 @@ public class MovieDetailActivity extends AppCompatActivity {
         }
         this.selectedMovie = movie;
 
+        if(viewModel.getMovie(selectedMovie.getTitle()) != null){
+            binding.sbAddRemoveFavorite.setChecked(true);
+            binding.sbAddRemoveFavorite.setActiveImage(R.drawable.ic_favorite_orange);
+        } else {
+            binding.sbAddRemoveFavorite.setChecked(false);
+            binding.sbAddRemoveFavorite.setInactiveImage(R.drawable.ic_favorite);
+        }
+
+        binding.setMovie(selectedMovie);
+
+        binding.sbAddRemoveFavorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(((SparkButton)view).isChecked()){
+                    viewModel.DeleteFavorite(selectedMovie);
+                    binding.sbAddRemoveFavorite.playAnimation();
+                    Toast.makeText(MovieDetailActivity.this, "Removed from favorites", Toast.LENGTH_SHORT).show();
+                    binding.sbAddRemoveFavorite.setChecked(false);
+                    binding.sbAddRemoveFavorite.setInactiveImage(R.drawable.ic_favorite);
+                } else {
+                    viewModel.AddFavoriteMovie(selectedMovie);
+                    binding.sbAddRemoveFavorite.playAnimation();
+                    Toast.makeText(MovieDetailActivity.this, "Added to favorites", Toast.LENGTH_SHORT).show();
+                    binding.sbAddRemoveFavorite.setChecked(true);
+                    binding.sbAddRemoveFavorite.setActiveImage(R.drawable.ic_favorite_orange);
+                }
+            }
+        });
+
+
         String movie_title = selectedMovie.getTitle();
         String date = selectedMovie.getReleaseDate();
         String poster = selectedMovie.getPosterPath();
         String backdrop = selectedMovie.getBackdropPath();
         int mduration = selectedMovie.getRuntime();
-       // Toast.makeText(this, String.valueOf(mduration), Toast.LENGTH_SHORT).show();
         int mvotes = selectedMovie.getVoteCount();
-        setTitle(movie_title);
         try {
             populateDetails(movie_title, date, poster, backdrop, mduration, mvotes);
         } catch (ParseException e) {
@@ -121,8 +166,8 @@ public class MovieDetailActivity extends AppCompatActivity {
                                  int mduration,
                                  int mvotes) throws ParseException {
 
-        title.setText(movie_title);
-       // release_date.setText(date);
+        //title.setText(movie_title);
+        setTitle(movie_title);
 
         String release_year = AppConstants.getYear(date);
         Log.i(TAG, "Release year: " + release_year);
@@ -132,13 +177,13 @@ public class MovieDetailActivity extends AppCompatActivity {
         String image_url = IMAGE_URL_BASE_PATH + poster;
         String backdrop_url = BACKDROP_URL_BASE_PATH + backdrop;
 
-        Picasso.with(this)
+        Picasso.get()
                 .load(image_url)
                 .placeholder(R.drawable.ic_picture)
                 .error(R.drawable.ic_picture)
                 .into(mPoster);
 
-        Picasso.with(this)
+        Picasso.get()
                 .load(backdrop_url)
                 .placeholder(R.drawable.ic_picture)
                 .error(R.drawable.ic_picture)
