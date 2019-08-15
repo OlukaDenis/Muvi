@@ -3,7 +3,7 @@ package com.premar.muvi.activity;
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.net.http.SslError;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,7 +20,7 @@ import android.widget.TextView;
 import com.premar.muvi.R;
 import com.premar.muvi.temporary_storage.MovieCache;
 
-import static com.premar.muvi.constants.AppConstants.WIKIPEDIA_PAGE_URL;
+import static com.premar.muvi.utils.AppConstants.WIKIPEDIA_PAGE_URL;
 
 public class WikipediaProfile extends AppCompatActivity {
     private WebView webView;

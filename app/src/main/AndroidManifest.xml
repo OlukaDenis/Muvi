@@ -14,8 +14,10 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
 
-        <activity android:name=".activity.SearchActivity"
-            android:theme="@style/WithNoActionBar">
+        <activity android:name=".activity.SearchActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.HomeActivity" />
         </activity>
 
         <activity android:name=".activity.TvDetailActivity"

@@ -2,10 +2,10 @@ package com.premar.muvi.fragments.allmovies;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,7 +27,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.premar.muvi.constants.AppConstants.API_KEY;
+import static com.premar.muvi.utils.AppConstants.API_KEY;
 
 public class TrendingMoviesFragment extends Fragment {
     private RecyclerView trending_recycleview;
@@ -103,7 +103,7 @@ public class TrendingMoviesFragment extends Fragment {
 
                         totalPages = movies.getTotalPages();
                         movieList = movies.getResults();
-                        adapter = new MovieHomeAdapter(movieList, R.layout.layout_movies, getContext());
+                        adapter = new MovieHomeAdapter(getContext(), movieList);
                         trending_recycleview.setAdapter(adapter);
                         adapter.notifyDataSetChanged();
 

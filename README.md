@@ -4,20 +4,25 @@ This is an app that displays detailed information on Movies and TV Shows App bas
 
 ## Features
 
-* Trending Movies and TV Shows
-* Movie and TV Shows details
-* Cast list
+* Trending Movies, TV Shows and people
+* Movie, TV Shows and people details
+* Cast list for each movie or TV show.
+* Search movies, tv shows or people
+* View all movie and Tv show categories
 
 ## Prerequisites
 
-* Android Studio 3.4.1
+* Android Studio 3.4.1 and above
 * SDK
 * JDK
 
 ## Open-Source Libraries used
 
 * **[Retrofit](https://github.com/square/retrofit)**: Type-safe HTTP client for Android and Java by Square 
-* **[Picasso]()**: Image loading and caching library for Android
+* **[Picasso](https://github.com/square/picasso)**: Image loading and caching library for Android
+* **[OkHttp](https://github.com/square/okhttp)**: An efficient HTTP and HTTP/2 client. Supports SPDY
+* **[RxJava](https://github.com/ReactiveX/RxJava)**: Reactive Extensions for the JVM – a library for composing asynchronous and event-based programs using observable sequences for the Java VM.
+* **[Room](https://developer.android.com/topic/libraries/architecture/room)**: The Room persistence library provides an abstraction layer over SQLite to allow for more robust database access while harnessing the full power of SQLite.
 
 ## MIT License
     Copyright (c) 2019 Oluka Denis

@@ -2,24 +2,23 @@ package com.premar.muvi.fragments.movie_fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.premar.muvi.R;
 import com.premar.muvi.activity.WikipediaProfile;
 import com.premar.muvi.adapter.GenreAdapter;
 import com.premar.muvi.adapter.ImageAdapter;
 import com.premar.muvi.adapter.MovieTrailerAdapter;
-import com.premar.muvi.constants.AppConstants;
+import com.premar.muvi.utils.AppConstants;
 import com.premar.muvi.model.Genre;
 import com.premar.muvi.model.Movie;
 import com.premar.muvi.model.images.Backdrops;
@@ -37,7 +36,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.premar.muvi.constants.AppConstants.ENGLISH_LANGUAGE;
+import static com.premar.muvi.utils.AppConstants.ENGLISH_LANGUAGE;
 
 public class InfoFragment extends Fragment {
     private TextView overview, originalTitle, originalLanguage, budget, homepage, revenue, status, releaseDate;

@@ -76,16 +76,16 @@ public interface ApiService {
 
     @GET("tv/{tv_id}/videos")
     Call<TrailerResponse> getTvTrailers(@Path("tv_id") int vId,
-                                           @Query("api_key") String api_key,
-                                           @Query("language") String language);
+                                        @Query("api_key") String api_key,
+                                        @Query("language") String language);
 
     @GET("tv/{tv_id}/images")
     Call<ImageResponse> getTvImages(@Path("tv_id") int id,
-                                       @Query("api_key") String apiKey);
+                                    @Query("api_key") String apiKey);
 
     @GET("tv/{tv_id}/credits")
     Call<Credits> getTvCredits(@Path("tv_id") int cId,
-                             @Query("api_key") String key);
+                               @Query("api_key") String key);
 
 
     //people
@@ -93,21 +93,22 @@ public interface ApiService {
     Call<PersonResponse> getTrendingPeople(@Query("api_key") String apiKey);
 
     @GET("person/{person_id}/movie_credits")
-    Call<PersonMovieResponse> getPersonMovies (@Path("person_id") int personId,
-                                               @Query("api_key") String apiKey);
+    Call<PersonMovieResponse> getPersonMovies(@Path("person_id") int personId,
+                                              @Query("api_key") String apiKey);
 
     @GET("person/{person_id}")
-    Call<Person> getPersonDetails (@Path("person_id") int personId,
-                                   @Query("api_key") String apiKey);
+    Call<Person> getPersonDetails(@Path("person_id") int personId,
+                                  @Query("api_key") String apiKey);
 
 
     //Search
     @GET("search/multi")
-    Call<SearchResponse> getSearchResults (@Query("api_key") String apiKey,
-                                           @Query("query") String query);
+    Call<SearchResponse> getSearchResults(@Query("api_key") String apiKey,
+                                          @Query("query") String query);
 
     @GET("search/movie")
-    Call<SearchResponse> searchMovies (@Query("api_key") String apiKey,
-                                   @Query("query") String query);
+    Call<SearchResponse> searchMovies(@Query("api_key") String apiKey,
+                                      @Query("include_adult") Boolean adult,
+                                      @Query("query") String query);
 
 }

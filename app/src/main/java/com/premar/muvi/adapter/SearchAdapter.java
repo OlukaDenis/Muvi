@@ -2,75 +2,70 @@ package com.premar.muvi.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import android.database.Cursor;
+import android.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CursorAdapter;
+import android.widget.TextView;
 
 import com.premar.muvi.R;
 import com.premar.muvi.activity.MovieDetailActivity;
-import com.premar.muvi.constants.AppConstants;
 import com.premar.muvi.model.Movie;
-import com.premar.muvi.model.search.Search;
 import com.premar.muvi.temporary_storage.MovieCache;
-import com.premar.muvi.viewholders.MovieHomeViewHolder;
-import com.squareup.picasso.Picasso;
+import java.util.ArrayList;
 
-import java.util.List;
 
-import static com.premar.muvi.constants.AppConstants.BACKDROP_URL_BASE_PATH;
-import static com.premar.muvi.constants.AppConstants.IMAGE_URL_BASE_PATH;
+public class SearchAdapter extends CursorAdapter {
+    private LayoutInflater mLayoutInflater;
+    private Context mContext;
+    private SearchView searchView;
+    private ArrayList<Movie> movies;
 
-public class SearchAdapter extends RecyclerView.Adapter<MovieHomeViewHolder> {
-    private List<Search> searches;
-    private int rowLayout;
-    private Context context;
-
-    public SearchAdapter(List<Search> movies, int rowLayout, Context context) {
-        this.searches = movies;
-        this.rowLayout = rowLayout;
-        this.context = context;
-    }
-
-    @NonNull
-    @Override
-    public MovieHomeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(rowLayout, parent, false);
-        return new MovieHomeViewHolder(view);
+    public SearchAdapter(Context context, Cursor c, boolean autoRequery, SearchView searchView, ArrayList<Movie> movies) {
+        super(context, c, autoRequery);
+        this.searchView = searchView;
+        this.movies=movies;
+        mLayoutInflater = LayoutInflater.from(context);
+        mContext = context;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MovieHomeViewHolder movieHomeViewHolder, int position) {
-        String image_url = IMAGE_URL_BASE_PATH + searches.get(position).getPosterPath();
-        String backdrop_url = BACKDROP_URL_BASE_PATH + searches.get(position).getBackdropPath();
+    public View newView(Context context, Cursor cursor, ViewGroup parent) {
+        View view = mLayoutInflater.inflate(R.layout.layout_search_list, parent, false);
+        return view;
+    }
 
-        Picasso.with(context)
-                .load(image_url)
-                .placeholder(R.drawable.ic_picture)
-                .error(R.drawable.ic_picture)
-                .into(movieHomeViewHolder.movieImage);
-        movieHomeViewHolder.movieTitle.setText(searches.get(position).getTitle());
+    @Override
+    public View getView(int position, View convertview, ViewGroup arg2) {
+        if (convertview == null) {
+            LayoutInflater inflater = LayoutInflater.from(mContext);
+            convertview = inflater.inflate(R.layout.layout_search_list,
+                    null);
+        }
+        convertview.setTag(position);
+        return super.getView(position, convertview, arg2);
+    }
 
-        movieHomeViewHolder.setItemClickListener((view, position1, isLongClick) -> {
-            Intent detailIntent = new Intent(context, MovieDetailActivity.class);
-            //save temporary the movie details
-            MovieCache.movieId = searches.get(position1).getId();
-            MovieCache.movieTitle = searches.get(position1).getTitle();
+    @Override
+    public void bindView(View view, Context context, Cursor cursor) {
+        String title=cursor.getString(cursor.getColumnIndex("text"));
+        TextView textView=view.findViewById(R.id.tv_search_item);
+        textView.setText(title);
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int id=(Integer) view.getTag();//here is the position
+                Movie selectedMovie = movies.get(id);
+                Intent detailIntent = new Intent(mContext, MovieDetailActivity.class);
+                //save temporary the movie details
+                MovieCache.movieId = movies.get(id).getId();
 
-            detailIntent.putExtra("movie_title", searches.get(position1).getTitle());
-            detailIntent.putExtra("movie_date", searches.get(position1).getReleaseDate());
-            detailIntent.putExtra("movie_poster", image_url);
-            detailIntent.putExtra("movie_backdrop", backdrop_url);
-            detailIntent.putExtra("movie_duration", searches.get(position1).getRuntime());
-            detailIntent.putExtra("movie_votes", searches.get(position1).getVoteCount());
-            detailIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(detailIntent);
+                detailIntent.putExtra("movie", selectedMovie);
+               // detailIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                mContext.startActivity(detailIntent);
+            }
         });
-    }
-
-    @Override
-    public int getItemCount() {
-        return searches.size();
     }
 }

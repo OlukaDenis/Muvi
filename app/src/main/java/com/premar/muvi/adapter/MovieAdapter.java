@@ -1,8 +1,8 @@
 package com.premar.muvi.adapter;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,11 +17,12 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import static com.premar.muvi.utils.AppConstants.IMAGE_URL_BASE_PATH;
+
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
     private List<Movie> movies;
     private int rowLayout;
     private Context context;
-    public static final String IMAGE_URL_BASE_PATH="http://image.tmdb.org/t/p/w342//";
 
     public MovieAdapter(List<Movie> movies, int rowLayout, Context context) {
         this.movies = movies;
@@ -58,7 +59,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder movieViewHolder, final int position) {
         String image_url = IMAGE_URL_BASE_PATH + movies.get(position).getPosterPath();
-        Picasso.with(context)
+        Picasso.get()
                 .load(image_url)
                 .placeholder(android.R.drawable.sym_def_app_icon)
                 .error(android.R.drawable.sym_def_app_icon)

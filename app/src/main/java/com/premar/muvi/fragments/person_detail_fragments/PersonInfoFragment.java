@@ -3,7 +3,7 @@ package com.premar.muvi.fragments.person_detail_fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,12 +12,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.premar.muvi.R;
-import com.premar.muvi.activity.PersonDetailActivity;
 import com.premar.muvi.activity.WikipediaProfile;
 import com.premar.muvi.api.ApiService;
 import com.premar.muvi.api.ApiUtils;
-import com.premar.muvi.constants.AppConstants;
-import com.premar.muvi.model.credits.Cast;
+import com.premar.muvi.utils.AppConstants;
 import com.premar.muvi.model.people.Person;
 import com.premar.muvi.temporary_storage.MovieCache;
 
@@ -27,7 +25,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.premar.muvi.constants.AppConstants.API_KEY;
+import static com.premar.muvi.utils.AppConstants.API_KEY;
 
 /**
  * A simple {@link Fragment} subclass.
