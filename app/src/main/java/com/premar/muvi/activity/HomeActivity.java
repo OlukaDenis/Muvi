@@ -38,6 +38,7 @@ import com.premar.muvi.adapter.SearchAdapter;
 import com.premar.muvi.adapter.TvAdapter;
 import com.premar.muvi.databinding.ActivityHomeBinding;
 import com.premar.muvi.fragments.SearchFragment;
+import com.premar.muvi.my_collection.FavoritesActivity;
 import com.premar.muvi.room.viewmodel.FavoritesViewModel;
 import com.premar.muvi.utils.AppConstants;
 import com.premar.muvi.model.Movie;
@@ -74,7 +75,7 @@ public class HomeActivity extends AppCompatActivity
     private static final String API_KEY = AppConstants.API_KEY;
     private ApiService apiService;
     MovieHomeAdapter movieHomeAdapter;
-    private TextView more_trending, more_upcoming;
+    private TextView more_trending, more_upcoming, more_shows;
 
     private ArrayList<Search> searchList;
     private ArrayList<Search> mSearches;
@@ -114,6 +115,7 @@ public class HomeActivity extends AppCompatActivity
         refreshLayout = findViewById(R.id.pull_to_refresh);
         more_trending = findViewById(R.id.more_trending_movies);
         more_upcoming = findViewById(R.id.tv_more_upcoming_movies);
+        more_shows = findViewById(R.id.more_trending_shows);
         movieProgress = findViewById(R.id.home_trending_movies_progressbar);
         tvProgress = findViewById(R.id.home_trending_tv_progressbar);
         peopleProgress = findViewById(R.id.trending_people_progressbar);
@@ -148,7 +150,15 @@ public class HomeActivity extends AppCompatActivity
         });
         connectAndGetApiData();
         moreTrendingMovies();
+        moreTrendingShows();
         moreUpcoming();
+    }
+
+    private void moreTrendingShows() {
+        more_shows.setOnClickListener(view -> {
+            Intent intent = new Intent(getApplicationContext(), AllTvShowsActivity.class);
+            startActivity(intent);
+        });
     }
 
     private void moreTrendingMovies() {
@@ -191,7 +201,7 @@ public class HomeActivity extends AppCompatActivity
             }
         });
 
-        apiService.getTrendingShows(API_KEY).enqueue(new Callback<TvResponse>() {
+        apiService.getTrendingShows(API_KEY, 1).enqueue(new Callback<TvResponse>() {
             @Override
             public void onResponse(@NonNull Call<TvResponse> call, Response<TvResponse> response) {
                 if (response.isSuccessful()){
@@ -199,7 +209,7 @@ public class HomeActivity extends AppCompatActivity
                         TvResponse tvShows = response.body();
 
                         List<Tv> tv = tvShows.getResults();
-                        TvAdapter adapter = new TvAdapter(tv, R.layout.layout_movies, getApplicationContext());
+                        TvAdapter adapter = new TvAdapter(tv, getApplicationContext());
                         recyclerview_trendiing_shows.setAdapter(adapter);
 
                         tvProgress.setVisibility(View.INVISIBLE);
@@ -274,7 +284,7 @@ public class HomeActivity extends AppCompatActivity
             public boolean onQueryTextSubmit(String query) {
                 if (!query.isEmpty()) {
                     searchView.setQuery("",false);
-                    searchView.clearFocus();
+                    //searchView.clearFocus();
                     searchView.setIconified(false);
 
                     apiService.searchMovies(API_KEY, false, query).enqueue(new Callback<SearchResponse>() {
@@ -289,19 +299,6 @@ public class HomeActivity extends AppCompatActivity
                                 Intent searchIntent = new Intent(getApplicationContext(), SearchActivity.class);
                                 searchIntent.putExtra("search", query);
                                 startActivity(searchIntent);
-                                /*
-                                if(fragmentManager.getFragments().isEmpty()) {
-                                   // refreshLayout.setVisibility(View.GONE);
-                                    searchLayout.setVisibility(View.VISIBLE);
-                                    fragmentTransaction = fragmentManager.beginTransaction();
-                                    fragmentTransaction.addToBackStack(null);
-                                    fragmentTransaction.add(R.id.frame_layout, searchFragment).commitAllowingStateLoss();
-                                } else {
-                                    //refreshLayout.setVisibility(View.GONE);
-                                    fragmentTransaction = fragmentManager.beginTransaction();
-                                    fragmentTransaction.addToBackStack(null);
-                                    fragmentTransaction.replace(R.id.frame_layout, searchFragment).commitAllowingStateLoss();
-                                }*/
 
                             }
 
@@ -390,7 +387,7 @@ public class HomeActivity extends AppCompatActivity
         SearchView searchView = (SearchView) menuItem.getActionView();
         searchView.setQueryHint("Search");
        // searchView.setOnQueryTextListener(this);
-        searchView.setIconified(false);
+        searchView.setIconifiedByDefault(false);
         search(searchView);
         return true;
     }
@@ -416,17 +413,20 @@ public class HomeActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_home) {
+            startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+        } else if (id == R.id.nav_favorites) {
+            startActivity(new Intent(getApplicationContext(), FavoritesActivity.class));
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_watched) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_movies) {
+            startActivity(new Intent(getApplicationContext(), AllMoviesActivity.class));
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_tv) {
+            startActivity(new Intent(getApplicationContext(), AllTvShowsActivity.class));
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_feedback) {
 
         }
 

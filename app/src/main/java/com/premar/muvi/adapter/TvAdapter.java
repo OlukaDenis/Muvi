@@ -22,19 +22,17 @@ import static com.premar.muvi.utils.AppConstants.IMAGE_URL_BASE_PATH;
 
 public class TvAdapter extends RecyclerView.Adapter<TvViewHolder> {
     private List<Tv> shows;
-    private int rowLayout;
     private Context context;
 
-    public TvAdapter(List<Tv> shows, int rowLayout, Context context) {
+    public TvAdapter(List<Tv> shows, Context context) {
         this.shows = shows;
-        this.rowLayout = rowLayout;
         this.context = context;
     }
 
     @NonNull
     @Override
     public TvViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(rowLayout, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_movies, parent, false);
         return new TvViewHolder(view);
     }
 

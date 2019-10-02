@@ -76,12 +76,12 @@ public class TrendingMoviesFragment extends Fragment {
         trending_recycleview.addOnScrollListener(paginationScrollListener);
 
         getMovies();
-        refreshLayout();
+        refreshingLayout();
         return view;
 
     }
 
-    private void refreshLayout() {
+    private void refreshingLayout() {
         refreshLayout.setOnRefreshListener(() -> {
             new Handler().postDelayed(() -> {
                 getMovies();
@@ -169,7 +169,6 @@ public class TrendingMoviesFragment extends Fragment {
 
     @Override
     public void onResume() {
-        getMovies();
         Log.i(TAG, "onResume: ");
         super.onResume();
     }

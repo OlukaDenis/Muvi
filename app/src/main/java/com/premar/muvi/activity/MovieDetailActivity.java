@@ -61,18 +61,20 @@ public class MovieDetailActivity extends AppCompatActivity {
 
     private ActivityMovieDetailBinding binding;
     private FavoritesViewModel viewModel;
+
+    private boolean fav_switch = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_detail);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
-        setSupportActionBar(toolbar);
+        //Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
 
-        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         binding = DataBindingUtil.setContentView(MovieDetailActivity.this, R.layout.activity_movie_detail);
         viewModel = ViewModelProviders.of(MovieDetailActivity.this).get(FavoritesViewModel.class);
+        setSupportActionBar(binding.detailToolbar);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         movieId = MovieCache.movieId;
         apiService = ApiUtils.getApiService();
@@ -94,7 +96,6 @@ public class MovieDetailActivity extends AppCompatActivity {
         mBackdrop = findViewById(R.id.detail_backdrop);
         scrollView = (NestedScrollView) findViewById(R.id.nested_scroll);
         year = findViewById(R.id.movie_release_year);
-        btnAddRemoveFavorite = findViewById(R.id.sb_add_remove_favorite);
 
 
         scrollView.setFillViewport(true);
@@ -108,30 +109,28 @@ public class MovieDetailActivity extends AppCompatActivity {
         this.selectedMovie = movie;
 
         if(viewModel.getMovie(selectedMovie.getTitle()) != null){
-            binding.sbAddRemoveFavorite.setChecked(true);
-            binding.sbAddRemoveFavorite.setActiveImage(R.drawable.ic_favorite_orange);
+            fav_switch = true;
+            binding.favImage.setImageResource(R.drawable.ic_favorite_orange);
         } else {
-            binding.sbAddRemoveFavorite.setChecked(false);
-            binding.sbAddRemoveFavorite.setInactiveImage(R.drawable.ic_favorite);
+            fav_switch = false;
+            binding.favImage.setImageResource(R.drawable.ic_favorite);
         }
 
         binding.setMovie(selectedMovie);
 
-        binding.sbAddRemoveFavorite.setOnClickListener(new View.OnClickListener() {
+        binding.favImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(((SparkButton)view).isChecked()){
+                if(fav_switch){
                     viewModel.DeleteFavorite(selectedMovie);
-                    binding.sbAddRemoveFavorite.playAnimation();
                     Toast.makeText(MovieDetailActivity.this, "Removed from favorites", Toast.LENGTH_SHORT).show();
-                    binding.sbAddRemoveFavorite.setChecked(false);
-                    binding.sbAddRemoveFavorite.setInactiveImage(R.drawable.ic_favorite);
+                    fav_switch = false;
+                    binding.favImage.setImageResource(R.drawable.ic_favorite);
                 } else {
                     viewModel.AddFavoriteMovie(selectedMovie);
-                    binding.sbAddRemoveFavorite.playAnimation();
                     Toast.makeText(MovieDetailActivity.this, "Added to favorites", Toast.LENGTH_SHORT).show();
-                    binding.sbAddRemoveFavorite.setChecked(true);
-                    binding.sbAddRemoveFavorite.setActiveImage(R.drawable.ic_favorite_orange);
+                    fav_switch = true;
+                    binding.favImage.setImageResource(R.drawable.ic_favorite_orange);
                 }
             }
         });
@@ -169,10 +168,13 @@ public class MovieDetailActivity extends AppCompatActivity {
         //title.setText(movie_title);
         setTitle(movie_title);
 
-        String release_year = AppConstants.getYear(date);
-        Log.i(TAG, "Release year: " + release_year);
-        year.setText(release_year);
-
+        if (date == null){
+            year.setVisibility(View.GONE);
+        } else {
+            String release_year = AppConstants.getYear(date);
+            Log.i(TAG, "Release year: " + release_year);
+            year.setText(release_year);
+        }
 
         String image_url = IMAGE_URL_BASE_PATH + poster;
         String backdrop_url = BACKDROP_URL_BASE_PATH + backdrop;

@@ -27,4 +27,9 @@
     <string name="minutes">minutes</string>
     <string name="this_is_the_overview">This is the overview</string>
     <string name="view_more">View More</string>
+    <string name="also_known_as">Also known as:</string>
+    <string name="place_of_birth">Place of Birth:</string>
+    <string name="birthday">Birthday:</string>
+    <string name="profile">Profile</string>
+    <string name="read_more_on_wikipedia">Read more on Wikipedia</string>
 </resources>

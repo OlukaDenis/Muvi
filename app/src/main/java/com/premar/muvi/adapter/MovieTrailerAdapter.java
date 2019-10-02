@@ -3,12 +3,17 @@ package com.premar.muvi.adapter;
 import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.premar.muvi.Interface.ItemClickListener;
 import com.premar.muvi.R;
+import com.premar.muvi.activity.WatchTrailerActivity;
 import com.premar.muvi.model.trailers.Trailer;
+import com.premar.muvi.temporary_storage.MovieCache;
 import com.premar.muvi.viewholders.TrailerViewHolder;
 import com.squareup.picasso.Picasso;
 
@@ -50,6 +55,14 @@ public class MovieTrailerAdapter extends RecyclerView.Adapter<TrailerViewHolder>
 
 
         trailerViewHolder.trailerType.setText(trailers.get(position).getType());
+
+        trailerViewHolder.setItemClickListener(new ItemClickListener() {
+            @Override
+            public void onClick(View view, int position, boolean isLongClick) {
+                MovieCache.youtube_trailer_id = trailers.get(position).getTrailer_key();
+                context.startActivity(new Intent(context, WatchTrailerActivity.class));
+            }
+        });
     }
 
     @Override
