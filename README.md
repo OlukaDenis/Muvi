@@ -1,3 +1,7 @@
+[![platform](https://img.shields.io/badge/platform-Android-green.svg)](https://www.android.com)
+[![API](https://img.shields.io/badge/API-22%2B-blue.svg?style=flat)](https://android-arsenal.com/api?level=22) 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 # Muvi: The Movie Guide
 
 This is an app that displays detailed information on Movies and TV Shows App based on The Movie Database [API](https://developers.themoviedb.org/3).
