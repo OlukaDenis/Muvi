@@ -3,6 +3,8 @@ package com.premar.muvi.fragments.person_detail_fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.databinding.BindingAdapter;
 import androidx.fragment.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,10 +17,12 @@ import com.premar.muvi.R;
 import com.premar.muvi.activity.WikipediaProfile;
 import com.premar.muvi.api.ApiService;
 import com.premar.muvi.api.ApiUtils;
+import com.premar.muvi.databinding.FragmentPersonInfoBinding;
 import com.premar.muvi.utils.AppConstants;
 import com.premar.muvi.model.people.Person;
 import com.premar.muvi.temporary_storage.MovieCache;
 
+import java.text.ParseException;
 import java.util.List;
 
 import retrofit2.Call;
@@ -34,6 +38,7 @@ public class PersonInfoFragment extends Fragment {
     private int personId;
     private ApiService apiService;
     private TextView birthday, birthplace, profile, moreWiki, also_known_as;
+    FragmentPersonInfoBinding mBinding;
 
 
     public PersonInfoFragment() {
@@ -44,22 +49,13 @@ public class PersonInfoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_person_info, container, false);
+        mBinding = FragmentPersonInfoBinding.inflate(inflater);
 
-        //personId = MovieCache.personId;
-        //
-        // Cast selectedCast = PersonDetailActivity.selectedCast;
         personId = MovieCache.personId;
         apiService = ApiUtils.getApiService();
-        birthday = view.findViewById(R.id.person_birthday);
-        birthplace = view.findViewById(R.id.person_birthplace);
-        profile = view.findViewById(R.id.person_biography);
-        moreWiki = view.findViewById(R.id.person_profile_wiki);
-        also_known_as = view.findViewById(R.id.person_other_names);
 
         getPersonDetails();
-        return view;
+        return mBinding.getRoot();
     }
 
     private void getPersonDetails() {
@@ -69,42 +65,55 @@ public class PersonInfoFragment extends Fragment {
                 if (response.isSuccessful()){
                     if (response.body() != null){
                         Person person = response.body();
+                        mBinding.setPerson(person);
 
-                        String bd = person.getBirthday();
-                        if (bd.equals("")){
-                            birthday.setText("-");
-                        }else {
-                            birthday.setText(bd);
+                        mBinding.personLayout.setVisibility(View.VISIBLE);
+                        mBinding.knownAsLayout.setVisibility(View.VISIBLE);
+                        mBinding.placeLayout.setVisibility(View.VISIBLE);
+                        mBinding.personLayout.setVisibility(View.VISIBLE);
+                        mBinding.profileLayout.setVisibility(View.VISIBLE);
+
+                        if (person.getAlsoKnownAs().isEmpty()){
+                            mBinding.knownAsLayout.setVisibility(View.GONE);
+                        } else {
+                            mBinding.personOtherNames.setText(AppConstants.getKnownAsName(person.getAlsoKnownAs()));
                         }
 
-                        String bp = person.getPlace_of_birth();
-                        if (bp.equals("")){
-                                birthplace.setText("-");
+                        if (person.getBirthday() == null){
+                            mBinding.birthdayLayout.setVisibility(View.GONE);
+                        } else {
+                            try {
+                                mBinding.personBirthday.setText(AppConstants.formatDate(person.getBirthday()));
+                            } catch (ParseException e) {
+                                e.printStackTrace();
                             }
-                            else {
-                                birthplace.setText(bp);
-                            }
-
-                        profile.setText(person.getBiography());
-
-                        List<String> names = person.getAlsoKnownAs();
-                        if(names == null){
-                            also_known_as.setText("-");
-                        }else {
-                            String known_as = names.get(0);
-                            also_known_as.setText(known_as);
                         }
+
+                        if (person.getBiography() == null){
+                            mBinding.profileLayout.setVisibility(View.GONE);
+                        } else {
+                            mBinding.personBiography.setText(person.getBiography());
+                        }
+
+                        if (person.getPlace_of_birth() == null){
+                            mBinding.placeLayout.setVisibility(View.GONE);
+                        } else {
+                            mBinding.personBirthplace.setText(person.getPlace_of_birth());
+                        }
+
 
 
                         String name = person.getName();
                         MovieCache.wiki_profile_url = AppConstants.formatStringtoUnderscore(name);
-                        moreWiki.setOnClickListener(view -> {
+                        mBinding.personProfileWiki.setOnClickListener(view -> {
                             Intent wikiIntent = new Intent(getContext(), WikipediaProfile.class);
                             wikiIntent.putExtra("title", name);
                             startActivity(wikiIntent);
                         });
                     } else {
-                        Toast.makeText(getContext(), "No biography", Toast.LENGTH_SHORT).show();
+                        mBinding.personLayout.setVisibility(View.GONE);
+                        mBinding.noBiographyLayout.setVisibility(View.VISIBLE);
+                        //Toast.makeText(getContext(), "No biography", Toast.LENGTH_SHORT).show();
                         Log.i("PersonInfoFragment", "No biography: ");
                     }
                 }
@@ -116,5 +125,6 @@ public class PersonInfoFragment extends Fragment {
             }
         });
     }
+
 
 }

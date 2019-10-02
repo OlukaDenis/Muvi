@@ -1,11 +1,16 @@
 package com.premar.muvi.model.people;
 
+import android.view.View;
+
+import androidx.databinding.BindingAdapter;
+
 import com.google.gson.annotations.SerializedName;
 import com.premar.muvi.model.Movie;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Person {
+public class Person implements Serializable {
 
     @SerializedName("adult")
     private boolean adult;
@@ -39,6 +44,11 @@ public class Person {
 
     @SerializedName("place_of_birth")
     private String place_of_birth;
+
+    @BindingAdapter("android:visibility")
+    public static void setVisibility(View view, Person person){
+        view.setVisibility(person != null ? View.VISIBLE : View.GONE);
+    }
 
     public boolean isAdult() {
         return adult;

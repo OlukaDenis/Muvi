@@ -55,7 +55,7 @@
         <item name="android:indicatorStart">5dp</item>
         <item name="tabMode">scrollable</item>
         <item name="android:minHeight">?actionBarSize</item>
-        <item name="tabGravity">fill</item>
+        <item name="tabGravity">center</item>
         <item name="android:background">@color/colorPrimary</item>
     </style>
 

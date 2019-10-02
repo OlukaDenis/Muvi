@@ -1,11 +1,27 @@
 package com.premar.muvi.utils;
 
+import androidx.annotation.NonNull;
+
+import com.premar.muvi.R;
+import com.premar.muvi.adapter.PersonMoviesAdapter;
+import com.premar.muvi.api.ApiService;
+import com.premar.muvi.api.ApiUtils;
+import com.premar.muvi.model.Movie;
+import com.premar.muvi.model.PersonMovie;
+import com.premar.muvi.model.PersonMovieResponse;
+import com.premar.muvi.model.people.Person;
+
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AppConstants {
     public static final String API_KEY = "617e3f93f561c0a9a2b934055ba31e6a";
@@ -17,6 +33,7 @@ public class AppConstants {
     public static final String WIKIPEDIA_PAGE_URL = "https://en.m.wikipedia.org/wiki/";
 
     public static final String POPULARITY_DESC = "popularity.desc";
+    public static Movie movie;
 
 
     /**
@@ -99,6 +116,31 @@ public class AppConstants {
     public static String formatStringtoUnderscore(String word){
 
         return word.replaceAll(" ", "_");
+    }
+
+    public static String getKnownAsName(List<String> names){
+           return names.get(0);
+    }
+
+    public static Movie getSelectedMovie(int movieId){
+        ApiUtils.getApiService().getMovie(movieId, API_KEY).enqueue(new Callback<Movie>() {
+            @Override
+            public void onResponse(@NonNull Call<Movie> call, Response<Movie> response) {
+                if (response.isSuccessful()){
+                    if (response.body() != null){
+                       movie = response.body();
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<Movie> call, Throwable t) {
+
+            }
+        });
+
+        return movie;
     }
 
 }
