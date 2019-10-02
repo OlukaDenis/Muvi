@@ -19,4 +19,6 @@ public class MovieCache {
     public static void setTvId(int tvId) {
         MovieCache.tvId = tvId;
     }
+
+    public static String youtube_trailer_id;
 }

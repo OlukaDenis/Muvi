@@ -65,10 +65,24 @@ public interface ApiService {
     //tv shows
 
     @GET("tv/popular")
-    Call<MovieResponse> getPopularShows(@Query("api_key") String apiKey);
+    Call<TvResponse> getPopularShows(@Query("api_key") String apiKey,
+                                        @Query("page") int page);
+
+    @GET("tv/top_rated")
+    Call<TvResponse> getTopRatedShows(@Query("api_key") String apiKey,
+                                        @Query("page") int page);
+
+    @GET("tv/airing_today")
+    Call<TvResponse> getAiringToday(@Query("api_key") String apiKey,
+                                        @Query("page") int page);
+
+    @GET("tv/on_the_air")
+    Call<TvResponse> getOnAirShows(@Query("api_key") String apiKey,
+                                      @Query("page") int page);
 
     @GET("trending/tv/week")
-    Call<TvResponse> getTrendingShows(@Query("api_key") String apiKey);
+    Call<TvResponse> getTrendingShows(@Query("api_key") String apiKey,
+                                      @Query("page") int page);
 
     @GET("tv/{tv_id}")
     Call<Tv> getTvShow(@Path("tv_id") int id,

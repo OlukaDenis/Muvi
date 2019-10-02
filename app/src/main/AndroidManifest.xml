@@ -13,17 +13,25 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-
+        <activity android:name=".activity.WatchTrailerActivity"></activity>
+        <activity android:name=".activity.AllTvShowsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.HomeActivity" />
+        </activity>
+        <activity android:name=".my_collection.FavoritesActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.HomeActivity" />
+        </activity>
         <activity android:name=".activity.SearchActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.HomeActivity" />
         </activity>
-
-        <activity android:name=".activity.TvDetailActivity"
-            android:theme="@style/WithNoActionBar">
-        </activity>
-
+        <activity
+            android:name=".activity.TvDetailActivity"
+            android:theme="@style/WithNoActionBar" />
         <activity android:name=".activity.WikipediaProfile" />
         <activity android:name=".activity.AllMoviesActivity">
             <meta-data

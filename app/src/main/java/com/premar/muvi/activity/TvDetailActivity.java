@@ -56,7 +56,7 @@ public class TvDetailActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         tvId = MovieCache.getTvId();
-        Toast.makeText(this, String.valueOf(tvId), Toast.LENGTH_SHORT).show();
+       // Toast.makeText(this, String.valueOf(tvId), Toast.LENGTH_SHORT).show();
         apiService = ApiUtils.getApiService();
 
         moviePager = new TvDetailPagerAdapter(getSupportFragmentManager());

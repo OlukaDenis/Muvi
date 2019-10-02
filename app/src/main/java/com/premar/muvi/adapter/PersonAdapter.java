@@ -43,8 +43,8 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonViewHolder> {
         String image_url = IMAGE_URL_BASE_PATH + personList.get(position).getProfile_path();
         Picasso.get()
                 .load(image_url)
-                .placeholder(R.drawable.ic_picture)
-                .error(R.drawable.ic_picture)
+                .placeholder(R.drawable.ic_person_blue)
+                .error(R.drawable.ic_person_blue)
                 .into(holder.personImage);
 
         holder.personName.setText(personList.get(position).getName());
