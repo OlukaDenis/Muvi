@@ -49,7 +49,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     private MovieDetailPagerAdapter moviePager;
     private ViewPager viewPager;
     private TabLayout tabLayout;
-    public  Movie selectedMovie;
+   // public  Movie selectedMovie;
     Bundle bundle;
     private int movieId;
     private ApiService apiService;
@@ -100,54 +100,6 @@ public class MovieDetailActivity extends AppCompatActivity {
 
         scrollView.setFillViewport(true);
 
-        //Receive intent
-        Intent intent = getIntent();
-        Movie movie = (Movie) intent.getSerializableExtra("movie");
-        if (movie == null){
-            movie = new Movie();
-        }
-        this.selectedMovie = movie;
-
-        if(viewModel.getMovie(selectedMovie.getTitle()) != null){
-            fav_switch = true;
-            binding.favImage.setImageResource(R.drawable.ic_favorite_orange);
-        } else {
-            fav_switch = false;
-            binding.favImage.setImageResource(R.drawable.ic_favorite);
-        }
-
-        binding.setMovie(selectedMovie);
-
-        binding.favImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(fav_switch){
-                    viewModel.DeleteFavorite(selectedMovie);
-                    Toast.makeText(MovieDetailActivity.this, "Removed from favorites", Toast.LENGTH_SHORT).show();
-                    fav_switch = false;
-                    binding.favImage.setImageResource(R.drawable.ic_favorite);
-                } else {
-                    viewModel.AddFavoriteMovie(selectedMovie);
-                    Toast.makeText(MovieDetailActivity.this, "Added to favorites", Toast.LENGTH_SHORT).show();
-                    fav_switch = true;
-                    binding.favImage.setImageResource(R.drawable.ic_favorite_orange);
-                }
-            }
-        });
-
-
-        String movie_title = selectedMovie.getTitle();
-        String date = selectedMovie.getReleaseDate();
-        String poster = selectedMovie.getPosterPath();
-        String backdrop = selectedMovie.getBackdropPath();
-        int mduration = selectedMovie.getRuntime();
-        int mvotes = selectedMovie.getVoteCount();
-        try {
-            populateDetails(movie_title, date, poster, backdrop, mduration, mvotes);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
         // To remove the shadow
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -181,14 +133,14 @@ public class MovieDetailActivity extends AppCompatActivity {
 
         Picasso.get()
                 .load(image_url)
-                .placeholder(R.drawable.ic_picture)
-                .error(R.drawable.ic_picture)
+                .placeholder(R.drawable.ic_white_picture)
+                .error(R.drawable.ic_white_picture)
                 .into(mPoster);
 
         Picasso.get()
                 .load(backdrop_url)
-                .placeholder(R.drawable.ic_picture)
-                .error(R.drawable.ic_picture)
+                .placeholder(R.drawable.ic_white_picture)
+                .error(R.drawable.ic_white_picture)
                 .into(mBackdrop);
 
 
@@ -201,20 +153,25 @@ public class MovieDetailActivity extends AppCompatActivity {
         String[] pageTitles = new String[MovieDetailPagerAdapter.tabCount];
         pageTitles[0] = "Info";
         pageTitles[1] = "Cast";
-        pageTitles[2] = "Comments";
-        pageTitles[3] = "Reviews";
+//        pageTitles[2] = "Comments";
+//        pageTitles[3] = "Reviews";
         return pageTitles;
 
     }
 
     private void fetchMovieDetails() {
-        apiService.getMovie(selectedMovie.getId(), API_KEY).enqueue(new Callback<Movie>() {
+        apiService.getMovie(movieId, API_KEY).enqueue(new Callback<Movie>() {
             @Override
             public void onResponse(@NonNull Call<Movie> call, Response<Movie> response) {
                 if (response.isSuccessful()){
                     if (response.body() != null){
-                        Movie tvDetails = response.body();
-                        int mDuration = tvDetails.getRuntime();
+                        Movie movie = response.body();
+
+                        //selectedMovie = movie;
+
+                        loadMovie(movie);
+
+                        int mDuration = movie.getRuntime();
                         String hours = AppConstants.formatHoursAndMinutes(mDuration);
                         Log.i(TAG, "Movie duration: " + hours);
                         duration.setText(hours);
@@ -230,6 +187,52 @@ public class MovieDetailActivity extends AppCompatActivity {
         });
 
     }
+
+    private void loadMovie(Movie selectedMovie) {
+        if(viewModel.getMovie(selectedMovie.getTitle()) != null){
+            fav_switch = true;
+            binding.favImage.setImageResource(R.drawable.ic_favorite_orange);
+        } else {
+            fav_switch = false;
+            binding.favImage.setImageResource(R.drawable.ic_favorite);
+        }
+
+        binding.setMovie(selectedMovie);
+
+        binding.favImage.setOnClickListener(view -> {
+            if(fav_switch){
+                viewModel.DeleteFavorite(selectedMovie);
+                Toast.makeText(MovieDetailActivity.this, "Removed from favorites", Toast.LENGTH_SHORT).show();
+                fav_switch = false;
+                binding.favImage.setImageResource(R.drawable.ic_favorite);
+            } else {
+                viewModel.AddFavoriteMovie(selectedMovie);
+                Toast.makeText(MovieDetailActivity.this, "Added to favorites", Toast.LENGTH_SHORT).show();
+                fav_switch = true;
+                binding.favImage.setImageResource(R.drawable.ic_favorite_orange);
+            }
+        });
+
+        binding.shareMovie.setOnClickListener(v1 -> {
+            Toast.makeText(getApplicationContext(), "Coming soon....", Toast.LENGTH_SHORT).show();
+        });
+
+       binding.watchedMovie.setOnClickListener(v -> Toast.makeText(getApplicationContext(), "Coming soon....", Toast.LENGTH_SHORT).show());
+
+        String movie_title = selectedMovie.getTitle();
+        String date = selectedMovie.getReleaseDate();
+        String poster = selectedMovie.getPosterPath();
+        String backdrop = selectedMovie.getBackdropPath();
+        int mduration = selectedMovie.getRuntime();
+        int mvotes = selectedMovie.getVoteCount();
+        try {
+            populateDetails(movie_title, date, poster, backdrop, mduration, mvotes);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id =  item.getItemId();
@@ -243,13 +246,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-        //Receive intent
-        Intent intent = getIntent();
-        Movie movie = (Movie) intent.getSerializableExtra("movie");
-        if (movie == null){
-            movie = new Movie();
-        }
-        this.selectedMovie = movie;
+        fetchMovieDetails();
         super.onResume();
     }
 }

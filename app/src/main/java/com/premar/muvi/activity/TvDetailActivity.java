@@ -41,6 +41,7 @@ public class TvDetailActivity extends AppCompatActivity {
     Bundle bundle;
     private int tvId;
     private ApiService apiService;
+    private ImageView fav, watched, share;
 
     private TextView title, release_date, duration, votes, year;
     private ImageView mPoster, mBackdrop;
@@ -76,6 +77,9 @@ public class TvDetailActivity extends AppCompatActivity {
         mBackdrop = findViewById(R.id.tv_detail_backdrop);
         scrollView = (NestedScrollView) findViewById(R.id.tv_detail_nested_scroll);
         year = findViewById(R.id.tv_release_year);
+        fav = findViewById(R.id.tv_fav);
+        watched = findViewById(R.id.tv_watched);
+        share = findViewById(R.id.tv_share);
 
 
         scrollView.setFillViewport(true);
@@ -101,7 +105,14 @@ public class TvDetailActivity extends AppCompatActivity {
             }
         }
 
+        clickListeners();
         fetchTvDetails();
+    }
+
+    private void clickListeners() {
+        fav.setOnClickListener(view -> Toast.makeText(this, "Coming soon..", Toast.LENGTH_SHORT).show());
+        share.setOnClickListener(view -> Toast.makeText(this, "Coming soon..", Toast.LENGTH_SHORT).show());
+        watched.setOnClickListener(view -> Toast.makeText(this, "Coming soon..", Toast.LENGTH_SHORT).show());
     }
 
     private void populateDetails(String movie_title,
@@ -118,14 +129,14 @@ public class TvDetailActivity extends AppCompatActivity {
 
         Picasso.get()
                 .load(poster)
-                .placeholder(R.drawable.ic_picture)
-                .error(R.drawable.ic_picture)
+                .placeholder(R.drawable.ic_white_picture)
+                .error(R.drawable.ic_white_picture)
                 .into(mPoster);
 
         Picasso.get()
                 .load(backdrop)
-                .placeholder(R.drawable.ic_picture)
-                .error(R.drawable.ic_picture)
+                .placeholder(R.drawable.ic_white_picture)
+                .error(R.drawable.ic_white_picture)
                 .into(mBackdrop);
 
     }

@@ -44,8 +44,8 @@ public class MovieHomeAdapter extends RecyclerView.Adapter<MovieHomeViewHolder> 
 
         Picasso.get()
                 .load(image_url)
-                .placeholder(R.drawable.ic_picture)
-                .error(R.drawable.ic_picture)
+                .placeholder(R.drawable.ic_muvi_default)
+                .error(R.drawable.ic_muvi_default)
                 .into(movieHomeViewHolder.movieImage);
         movieHomeViewHolder.movieTitle.setText(movies.get(position).getTitle());
 
@@ -56,6 +56,7 @@ public class MovieHomeAdapter extends RecyclerView.Adapter<MovieHomeViewHolder> 
             MovieCache.movieId = movies.get(i).getId();
 
             detailIntent.putExtra("movie", selectedMovie);
+            detailIntent.putExtra("movie_title", movies.get(i).getTitle());
             detailIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(detailIntent);
         });

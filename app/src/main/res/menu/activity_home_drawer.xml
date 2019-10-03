@@ -7,41 +7,41 @@
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_home"
-            android:title="Home" />
+            android:title="@string/home" />
         <item
             android:id="@+id/nav_movies"
             android:icon="@drawable/ic_movie_black_24dp"
-            android:title="Movies" />
+            android:title="@string/movies" />
         <item
             android:id="@+id/nav_tv"
             android:icon="@drawable/ic_live_tv_black_24dp"
-            android:title="Tv Series" />
+            android:title="@string/tv_shows" />
     </group>
 
 
     <group>
-        <item android:title="My collection">
+        <item android:title="@string/my_collection">
             <menu>
                 <item
                     android:id="@+id/nav_favorites"
                     android:icon="@drawable/ic_favorite_black_24dp"
-                    android:title="Favorites" />
+                    android:title="@string/favorites" />
                 <item
                     android:id="@+id/nav_watched"
                     android:icon="@drawable/ic_assignment_turned_in_black_24dp"
-                    android:title="Watched" />
+                    android:title="@string/watched" />
             </menu>
         </item>
 
     </group>
 
     <group>
-        <item android:title="Developer">
+        <item android:title="@string/developer">
             <menu>
                 <item
                     android:id="@+id/nav_feedback"
                     android:icon="@drawable/ic_feedback_black_24dp"
-                    android:title="Feedback" />
+                    android:title="@string/feedback" />
             </menu>
         </item>
 
