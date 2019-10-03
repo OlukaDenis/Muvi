@@ -11,7 +11,7 @@ import com.premar.muvi.fragments.movie_fragment.InfoFragment;
 import com.premar.muvi.fragments.movie_fragment.ReviewsFragment;
 
 public class MovieDetailPagerAdapter extends FragmentPagerAdapter {
-    public static final int tabCount = 4;
+    public static final int tabCount = 2;
     private String[] pageTitles;
 
     public MovieDetailPagerAdapter(FragmentManager fragmentManager){
@@ -30,10 +30,10 @@ public class MovieDetailPagerAdapter extends FragmentPagerAdapter {
                 return new InfoFragment();
             case 1:
                 return new CastFragment();
-            case 2:
-                return new CommentsFragment();
-            case 3:
-                return new ReviewsFragment();
+//            case 2:
+//                return new CommentsFragment();
+//            case 3:
+//                return new ReviewsFragment();
         }
         return null;
 

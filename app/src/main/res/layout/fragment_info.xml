@@ -80,7 +80,6 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:justificationMode="inter_word"
-            android:text="This is the overview"
             android:textColor="#333" />
         <TextView
             android:id="@+id/textview_read_wikipedia"
@@ -359,7 +358,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="2dp"
-                        android:text="www"
+                        android:text=""
                         android:textColor="#555" />
                 </LinearLayout>
 

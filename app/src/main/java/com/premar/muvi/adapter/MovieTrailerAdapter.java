@@ -49,8 +49,8 @@ public class MovieTrailerAdapter extends RecyclerView.Adapter<TrailerViewHolder>
 
         Picasso.get()
                 .load(image_url)
-                .placeholder(R.drawable.ic_picture)
-                .error(R.drawable.ic_picture)
+                .placeholder(R.drawable.ic_muvi_default)
+                .error(R.drawable.ic_muvi_default)
                 .into(trailerViewHolder.trailerImage);
 
 
@@ -60,6 +60,7 @@ public class MovieTrailerAdapter extends RecyclerView.Adapter<TrailerViewHolder>
             @Override
             public void onClick(View view, int position, boolean isLongClick) {
                 MovieCache.youtube_trailer_id = trailers.get(position).getTrailer_key();
+
                 context.startActivity(new Intent(context, WatchTrailerActivity.class));
             }
         });

@@ -3,6 +3,8 @@ package com.premar.muvi.activity;
 import android.content.Intent;
 import android.database.MatrixCursor;
 import androidx.databinding.DataBindingUtil;
+
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import androidx.annotation.NonNull;
@@ -29,6 +31,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.premar.muvi.R;
@@ -419,6 +422,7 @@ public class HomeActivity extends AppCompatActivity
             startActivity(new Intent(getApplicationContext(), FavoritesActivity.class));
 
         } else if (id == R.id.nav_watched) {
+            Toast.makeText(getApplicationContext(), "Coming soon..", Toast.LENGTH_SHORT).show();
 
         } else if (id == R.id.nav_movies) {
             startActivity(new Intent(getApplicationContext(), AllMoviesActivity.class));
@@ -427,6 +431,12 @@ public class HomeActivity extends AppCompatActivity
             startActivity(new Intent(getApplicationContext(), AllTvShowsActivity.class));
 
         } else if (id == R.id.nav_feedback) {
+            Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+            emailIntent.setData(Uri.parse("mailto: olukadeno@gmail.com"));
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Crash or Bug report");
+            if (emailIntent.resolveActivity(getPackageManager()) != null){
+                startActivity(Intent.createChooser(emailIntent, "Send email via."));
+            }
 
         }
 

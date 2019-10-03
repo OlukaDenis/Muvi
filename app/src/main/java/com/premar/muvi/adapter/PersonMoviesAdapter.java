@@ -59,8 +59,8 @@ public class PersonMoviesAdapter extends RecyclerView.Adapter<MovieHomeViewHolde
 
         Picasso.get()
                 .load(image_url)
-                .placeholder(R.drawable.ic_picture)
-                .error(R.drawable.ic_picture)
+                .placeholder(R.drawable.ic_muvi_default)
+                .error(R.drawable.ic_muvi_default)
                 .into(movieHomeViewHolder.movieImage);
         movieHomeViewHolder.movieTitle.setText(personMovies.get(position).getTitle());
 
@@ -70,18 +70,18 @@ public class PersonMoviesAdapter extends RecyclerView.Adapter<MovieHomeViewHolde
             MovieCache.movieTitle = personMovies.get(i).getTitle();
             Movie movie = AppConstants.getSelectedMovie(personMovies.get(i).getId());
 
-            Intent detailIntent = new Intent(context, MovieDetailActivity.class);
-            detailIntent.putExtra("movie", movie);
-            detailIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(detailIntent);
-
 //            Intent detailIntent = new Intent(context, MovieDetailActivity.class);
-//            detailIntent.putExtra("movie_title", personMovies.get(i).getTitle());
-//            detailIntent.putExtra("movie_poster", image_url);
-//            detailIntent.putExtra("movie_backdrop", backdrop_url);
-//            detailIntent.putExtra("movie_date", personMovies.get(i).getRelease_date());
+//            detailIntent.putExtra("movie", movie);
 //            detailIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //            context.startActivity(detailIntent);
+
+            Intent detailIntent = new Intent(context, MovieDetailActivity.class);
+            detailIntent.putExtra("movie_title", personMovies.get(i).getTitle());
+            detailIntent.putExtra("movie_poster", image_url);
+            detailIntent.putExtra("movie_backdrop", backdrop_url);
+            detailIntent.putExtra("movie_date", personMovies.get(i).getRelease_date());
+            detailIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(detailIntent);
 
         });
     }

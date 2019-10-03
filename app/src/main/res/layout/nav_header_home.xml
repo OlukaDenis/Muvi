@@ -8,13 +8,14 @@
     android:gravity="center"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/nav_header_desc"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
-        app:srcCompat="@mipmap/ic_launcher_round" />
+<!--    <ImageView-->
+<!--        android:id="@+id/imageView"-->
+<!--        android:layout_width="150dp"-->
+<!--        android:layout_height="150dp"-->
+<!--        android:contentDescription="@string/nav_header_desc"-->
+<!--        android:paddingTop="20dp"-->
+<!--        android:scaleType="centerCrop"-->
+<!--        app:srcCompat="@mipmap/ic_launcher"/>-->
 
     <TextView
         android:id="@+id/tv_nav_title"
@@ -22,7 +23,8 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="30sp"
+        android:textSize="50sp"
+        android:textAllCaps="true"
         android:textStyle="bold"
         android:text="@string/muvi"/>
 
@@ -31,7 +33,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textColor="@color/colorAccent"
-        android:text="Your daily movie guide"
+        android:text="@string/your_daily_movie_guide"
         android:paddingBottom="5dp"/>
 
     <View

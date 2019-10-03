@@ -43,8 +43,8 @@ public class TvAdapter extends RecyclerView.Adapter<TvViewHolder> {
 
         Picasso.get()
                 .load(image_url)
-                .placeholder(R.drawable.ic_picture)
-                .error(R.drawable.ic_picture)
+                .placeholder(R.drawable.ic_muvi_default)
+                .error(R.drawable.ic_muvi_default)
                 .into(holder.movieImage);
         holder.movieTitle.setText(shows.get(position).getName());
 

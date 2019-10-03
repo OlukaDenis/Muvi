@@ -32,4 +32,14 @@
     <string name="birthday">Birthday:</string>
     <string name="profile">Profile</string>
     <string name="read_more_on_wikipedia">Read more on Wikipedia</string>
+    <string name="your_daily_movie_guide">Your daily movie guide</string>
+    <string name="movies">Movies</string>
+    <string name="tv_series">Tv Series</string>
+    <string name="home">Home</string>
+    <string name="my_collection">My collection</string>
+    <string name="favorites">Favorites</string>
+    <string name="watched">Watched</string>
+    <string name="developer">Developer</string>
+    <string name="feedback">Feedback</string>
+    <string name="tv_shows">TV Shows</string>
 </resources>

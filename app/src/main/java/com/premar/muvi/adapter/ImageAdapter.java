@@ -40,8 +40,8 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageViewHolder> {
         Picasso.get()
                 .load(image_url)
                 .noFade()
-                .placeholder(R.drawable.ic_picture)
-                .error(R.drawable.ic_picture)
+                .placeholder(R.drawable.ic_muvi_default)
+                .error(R.drawable.ic_muvi_default)
                 .into(holder.image);
 
         int votes = imageList.get(position).getVote_count();

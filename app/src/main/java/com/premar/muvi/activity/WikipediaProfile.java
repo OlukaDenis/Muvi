@@ -83,11 +83,6 @@ public class WikipediaProfile extends AppCompatActivity {
                 setProgressBarVisibility(View.GONE);
                 tvLoad.setVisibility(View.GONE);
             }
-
-            @Override
-            public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
-                handler.proceed();
-            }
         });
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
