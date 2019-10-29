@@ -88,5 +88,5 @@ If you would like to add more features or bugfixes, this section should help get
 
 # Author
 
-- :sunglasses:  [Denis Oluka](https://github.com/OlukaDenis) 
-   ![GitHub followers](https://img.shields.io/github/followers/OlukaDenis?label=Follow%20OlukaDenis&style=social) | ![Twitter Follow](https://img.shields.io/twitter/follow/dennylucaz?style=social)
+##### :sunglasses:  [Denis Oluka](https://github.com/OlukaDenis) 
+##### ![GitHub followers](https://img.shields.io/github/followers/OlukaDenis?label=Follow%20OlukaDenis&style=social) | ![Twitter Follow](https://img.shields.io/twitter/follow/dennylucaz?style=social)
