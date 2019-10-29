@@ -1,10 +1,16 @@
 [![platform](https://img.shields.io/badge/platform-Android-green.svg)](https://www.android.com)
 [![API](https://img.shields.io/badge/API-22%2B-blue.svg?style=flat)](https://android-arsenal.com/api?level=22)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/OlukaDenis/Muvi)
+![GitHub repo size](https://img.shields.io/github/repo-size/OlukaDenis/Muvi)
+![GitHub issues](https://img.shields.io/github/issues/OlukaDenis/Muvi)
+![Twitter Follow](https://img.shields.io/twitter/follow/dennylucaz?style=social)
 
 # Muvi: The Movie Guide
 
-This is an app that displays detailed information on Movies and TV Shows App based on The Movie Database [API](https://developers.themoviedb.org/3).
+This is an app that displays detailed information on :movie_camera: Movies and TV Shows App based on The Movie Database [API](https://developers.themoviedb.org/3).
+
+#### :point_right:  [Download App from Play Store](https://play.google.com/store/apps/details?id=com.premar.muvi) :point_left:
 
 ## Features
 
@@ -55,7 +61,7 @@ If you would like to add more features or bugfixes, this section should help get
 3. Commit your changes
    > `git commit -am 'Add some feature'`
 4. Push your changes to your branch
-   > `git push origin 'my-feature-branch'`
+   > `git push origin 'your-feature-branch'`
 5. Create new Pull Request
 
 ## MIT License
@@ -82,4 +88,5 @@ If you would like to add more features or bugfixes, this section should help get
 
 # Author
 
-- [Denis Oluka](https://github.com/OlukaDenis)
+- :sunglasses:  [Denis Oluka](https://github.com/OlukaDenis) 
+   ![GitHub followers](https://img.shields.io/github/followers/OlukaDenis?label=Follow%20OlukaDenis&style=social) | ![Twitter Follow](https://img.shields.io/twitter/follow/dennylucaz?style=social)
