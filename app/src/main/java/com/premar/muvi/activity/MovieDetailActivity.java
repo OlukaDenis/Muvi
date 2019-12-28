@@ -167,8 +167,6 @@ public class MovieDetailActivity extends AppCompatActivity {
                     if (response.body() != null){
                         Movie movie = response.body();
 
-                        //selectedMovie = movie;
-
                         loadMovie(movie);
 
                         int mDuration = movie.getRuntime();

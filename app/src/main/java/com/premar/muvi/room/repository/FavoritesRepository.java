@@ -5,7 +5,7 @@ import android.app.Application;
 import androidx.lifecycle.LiveData;
 
 import com.premar.muvi.model.Movie;
-import com.premar.muvi.room.favorite_movies_db.FavoritesDatabase;
+import com.premar.muvi.room.favorite_movies_db.MuviDatabase;
 import com.premar.muvi.room.favorite_movies_db.FavoritesDoa;
 
 import java.util.List;
@@ -14,8 +14,8 @@ public class FavoritesRepository {
     private FavoritesDoa favoritesDoa;
 
     public FavoritesRepository(Application application){
-        FavoritesDatabase database = FavoritesDatabase.getInstance(application);
-        favoritesDoa = database.getFavoritesDoa();
+        MuviDatabase database = MuviDatabase.getInstance(application);
+        favoritesDoa = database.favoritesDoa();
     }
 
     public LiveData<List<Movie>> getAllFavoriteMovies(){

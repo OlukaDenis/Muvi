@@ -32,6 +32,14 @@ public class AppConstants {
     public static final String ENGLISH_LANGUAGE = "en-US";
     public static final String WIKIPEDIA_PAGE_URL = "https://en.m.wikipedia.org/wiki/";
 
+    public static final int MOVIE_RETRIEVE = 110;
+    public static final int MOVIE_INSERT = 111;
+    public static final int MOVIE_RETRIEVE_SUCCESS = 115;
+    public static final int MOVIE_RETRIEVE_FAIL = 116;
+    public static final int MOVIE_DELETE = 120;
+    public static final int MOVIE_DELETE_SUCCESS = 121;
+    public static final int MOVIE_DELETE_FAIL = 122;
+
     public static final String POPULARITY_DESC = "popularity.desc";
     public static Movie movie;
 
