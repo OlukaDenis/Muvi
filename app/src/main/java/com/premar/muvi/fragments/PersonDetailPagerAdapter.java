@@ -6,9 +6,10 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.premar.muvi.fragments.person_detail_fragments.PersonInfoFragment;
 import com.premar.muvi.fragments.person_detail_fragments.PersonMoviesFragment;
+import com.premar.muvi.fragments.person_detail_fragments.PersonTvFragment;
 
 public class PersonDetailPagerAdapter extends FragmentPagerAdapter {
-    public static final int tabCount = 2;
+    public static final int tabCount = 3;
     private String[] pageTitles;
 
     public PersonDetailPagerAdapter(FragmentManager fragmentManager){
@@ -27,6 +28,8 @@ public class PersonDetailPagerAdapter extends FragmentPagerAdapter {
                 return new PersonInfoFragment();
             case 1:
                 return new PersonMoviesFragment();
+            case 2:
+                return new PersonTvFragment();
         }
         return null;
 

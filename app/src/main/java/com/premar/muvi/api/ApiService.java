@@ -3,6 +3,7 @@ package com.premar.muvi.api;
 import com.premar.muvi.model.Movie;
 import com.premar.muvi.model.MovieResponse;
 import com.premar.muvi.model.PersonMovieResponse;
+import com.premar.muvi.model.PersonTvResponse;
 import com.premar.muvi.model.credits.Credits;
 import com.premar.muvi.model.images.ImageResponse;
 import com.premar.muvi.model.people.Person;
@@ -109,6 +110,10 @@ public interface ApiService {
     @GET("person/{person_id}/movie_credits")
     Call<PersonMovieResponse> getPersonMovies(@Path("person_id") int personId,
                                               @Query("api_key") String apiKey);
+
+    @GET("person/{person_id}/tv_credits")
+    Call<PersonTvResponse> getPersonTv(@Path("person_id") int personId,
+                                       @Query("api_key") String apiKey);
 
     @GET("person/{person_id}")
     Call<Person> getPersonDetails(@Path("person_id") int personId,
