@@ -88,26 +88,6 @@ public class AppConstants {
     }
 
 
-
-    public static String formatLanguage(String language){
-        if (language.equals("en")){
-            return "English";
-        }
-        else if(language.equals("fr")){
-            return "French";
-        }
-        else if(language.equals("es")){
-            return "Spanish";
-        }
-        else if(language.equals("kr")){
-            return "Korean";
-        }
-        else {
-            return "-";
-        }
-    }
-
-
     public static String formatGender(int gender){
         if (gender == 1){
             return "Female";
@@ -151,4 +131,135 @@ public class AppConstants {
         return movie;
     }
 
+    public static String formatLanguage(String language){
+        if (language.equals("en")){
+            return "English";
+        }
+        else if(language.equals("fr")){
+            return "French";
+        }
+        else if(language.equals("es")){
+            return "Spanish";
+        }
+        else if(language.equals("kr")){
+            return "Korean";
+        }
+        else if(language.equals("cs")) {
+            return "Czech";
+        }
+
+        else if(language.equals("da")) {
+            return "Danish";
+        }
+
+        else if(language.equals("ge")) {
+            return "German";
+        }
+
+        else if(language.equals("fi")) {
+            return "Finnish";
+        }
+
+        else if(language.equals("id")) {
+            return "Indonesian";
+        }
+
+        else if(language.equals("it")) {
+            return "Italian";
+        }
+
+        else if(language.equals("ja")) {
+            return "Japanese";
+        }
+
+        else if(language.equals("la")) {
+            return "Latin";
+        }
+
+        else if(language.equals("ml")) {
+            return "Malayalam";
+        }
+
+        else if(language.equals("mn")) {
+            return "Mongolian";
+        }
+
+        else if(language.equals("ne")) {
+            return "Nepali";
+        }
+
+        else if(language.equals("nl")) {
+            return "Dutch";
+        }
+
+        else if(language.equals("no")) {
+            return "Norwegian";
+        }
+
+        else if(language.equals("ru")) {
+            return "Russian";
+        }
+
+        else if(language.equals("ta")) {
+            return "Tamil";
+        }
+
+        else if(language.equals("te")) {
+            return "Telugu";
+        }
+        else if(language.equals("th")) {
+            return "Thai";
+        }
+
+        else if(language.equals("uk")) {
+            return "Ukrainian";
+        }
+
+        else if(language.equals("pt")) {
+            return "Portuguese";
+        }
+
+        else if(language.equals("ur")) {
+            return "Urdu";
+        }
+
+        else if(language.equals("vi")) {
+            return "Vietnamese";
+        }
+
+        else if(language.equals("zh")) {
+            return "Mandarin";
+        }
+
+        else if(language.equals("ar")) {
+            return "Arabic";
+        }
+
+        else if(language.equals("bg")) {
+            return "Bulgarian";
+        }
+
+        else if(language.equals("hi")) {
+            return "Hindi";
+        }
+
+        else if(language.equals("pa")) {
+            return "Punjabi";
+        }
+
+        else if(language.equals("bn")) {
+            return "Bengali";
+        }
+
+        else if(language.equals("za")) {
+            return "Zhuang";
+        }
+
+        else if(language.equals("cn")) {
+            return "Cantonese";
+        }
+        else {
+            return "-";
+        }
+    }
 }
