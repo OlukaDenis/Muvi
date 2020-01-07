@@ -10,12 +10,12 @@ import androidx.annotation.Nullable;
 import androidx.core.widget.NestedScrollView;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,13 +27,13 @@ import com.premar.muvi.model.Movie;
 import com.premar.muvi.room.viewmodel.FavoritesViewModel;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FavoriteMoviesFragment extends Fragment {
+public class FavoriteMoviesFragment extends Fragment{
+    private static final String TAG = "FavoriteMoviesFragment";
    private FragmentFavoriteMoviesBinding binding;
    private RecyclerView recyclerView;
    private NestedScrollView scrollView;
@@ -60,11 +60,8 @@ public class FavoriteMoviesFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         Objects.requireNonNull(getActivity()).setTitle("Favorites Movies");
         context = getContext();
-        viewModel = ViewModelProviders.of(getActivity()).get(FavoritesViewModel.class);
-        viewModel.getAllMovies().observe(getActivity(), movies -> {
-            moviesList = (ArrayList<Movie>) movies;
-            showRecyclerView();
-        });
+        retrieveFavoriteMovies();
+
     }
 
     private void showRecyclerView() {
@@ -75,9 +72,19 @@ public class FavoriteMoviesFragment extends Fragment {
             recyclerView.setLayoutManager(new GridLayoutManager(context,3));
         }
         else{
-        recyclerView.setLayoutManager((new GridLayoutManager(context,4)));}
+        recyclerView.setLayoutManager((new GridLayoutManager(context,5)));
+        }
         recyclerView.setAdapter(adapter);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         adapter.notifyDataSetChanged();
+    }
+
+    private void retrieveFavoriteMovies(){
+        Log.d(TAG, "retrieveFavoriteMovies: called");
+        viewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(FavoritesViewModel.class);
+        viewModel.getAllMovies().observe(getActivity(), movies -> {
+            moviesList = (ArrayList<Movie>) movies;
+            showRecyclerView();
+        });
     }
 }

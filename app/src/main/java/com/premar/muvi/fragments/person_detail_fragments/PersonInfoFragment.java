@@ -23,6 +23,7 @@ import com.premar.muvi.model.people.Person;
 import com.premar.muvi.temporary_storage.MovieCache;
 
 import java.text.ParseException;
+import java.util.Calendar;
 import java.util.List;
 
 import retrofit2.Call;
@@ -84,6 +85,15 @@ public class PersonInfoFragment extends Fragment {
                         } else {
                             try {
                                 mBinding.personBirthday.setText(AppConstants.formatDate(person.getBirthday()));
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+
+                            try {
+                                int birth_year = Integer.parseInt( AppConstants.getYear(person.getBirthday()));
+                                int current_year = Calendar.getInstance().get(Calendar.YEAR);
+                                String age = String.valueOf(current_year - birth_year);
+                                mBinding.personAge.setText("("+age+")");
                             } catch (ParseException e) {
                                 e.printStackTrace();
                             }

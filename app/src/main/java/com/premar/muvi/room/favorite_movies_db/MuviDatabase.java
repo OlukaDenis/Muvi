@@ -10,16 +10,16 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.premar.muvi.model.Movie;
 
 @androidx.room.Database(entities = Movie.class,version = 1, exportSchema = false)
-public abstract class FavoritesDatabase extends RoomDatabase {
+public abstract class MuviDatabase extends RoomDatabase {
 
-    public abstract FavoritesDoa getFavoritesDoa();
-    private static FavoritesDatabase instance;
+    public abstract FavoritesDoa favoritesDoa();
+    private static MuviDatabase instance;
 
-    public  static  synchronized FavoritesDatabase getInstance(Context context) {
+    public  static  synchronized MuviDatabase getInstance(Context context) {
         if(instance ==null)
         {
             String MUVI_DB = "Muvi_Database";
-            instance= Room.databaseBuilder(context.getApplicationContext(), FavoritesDatabase.class, MUVI_DB)
+            instance= Room.databaseBuilder(context.getApplicationContext(), MuviDatabase.class, MUVI_DB)
                     .addCallback(callback)
                     .allowMainThreadQueries()
                     .fallbackToDestructiveMigration()
