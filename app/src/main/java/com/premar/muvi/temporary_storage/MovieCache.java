@@ -1,6 +1,10 @@
 package com.premar.muvi.temporary_storage;
 
 public class MovieCache {
+
+    public MovieCache() {
+    }
+
     public static int movieId;
 
     public static int tvId;

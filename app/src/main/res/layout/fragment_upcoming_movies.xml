@@ -3,11 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.allmovies.UpcomingMoviesFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
+    <com.cooltechworks.views.shimmer.ShimmerRecyclerView
         android:id="@+id/recycler_view_all_upcoming"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        tools:listitem="@layout/layout_movies"
+        app:shimmer_demo_layout="@layout/movie_shimmer_layout"
+        app:shimmer_demo_layout_manager_type="grid"
+        app:shimmer_demo_child_count="15"
+        app:shimmer_demo_angle="20"
+        app:shimmer_demo_grid_child_count="3"/>
 
 </FrameLayout>

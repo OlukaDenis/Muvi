@@ -82,18 +82,14 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
-                            <androidx.recyclerview.widget.RecyclerView
-                                android:id="@+id/home_recyclerview_trending"
+                            <com.cooltechworks.views.shimmer.ShimmerRecyclerView
+                                android:id="@+id/home_recyclerview_trending_movies"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal" />
-
-                            <ProgressBar
-                                android:id="@+id/home_trending_movies_progressbar"
-                                android:layout_width="35dp"
-                                android:layout_height="35dp"
-                                android:layout_alignParentBottom="true"
-                                android:layout_centerInParent="true" />
+                                android:orientation="horizontal"
+                                tools:listitem="@layout/layout_movies"
+                                app:shimmer_demo_layout="@layout/movie_shimmer_layout"
+                                app:shimmer_demo_layout_manager_type="linear_horizontal"/>
                         </RelativeLayout>
 
                     </LinearLayout>
@@ -136,18 +132,14 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
-                            <androidx.recyclerview.widget.RecyclerView
+                            <com.cooltechworks.views.shimmer.ShimmerRecyclerView
                                 android:id="@+id/home_recyclerview_popular"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal" />
-
-                            <ProgressBar
-                                android:id="@+id/home_trending_tv_progressbar"
-                                android:layout_width="35dp"
-                                android:layout_height="35dp"
-                                android:layout_alignParentBottom="true"
-                                android:layout_centerInParent="true" />
+                                android:orientation="horizontal"
+                                tools:listitem="@layout/layout_movies"
+                                app:shimmer_demo_layout="@layout/movie_shimmer_layout"
+                                app:shimmer_demo_layout_manager_type="linear_horizontal"/>
                         </RelativeLayout>
 
                     </LinearLayout>
@@ -189,18 +181,14 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
-                            <androidx.recyclerview.widget.RecyclerView
+                            <com.cooltechworks.views.shimmer.ShimmerRecyclerView
                                 android:id="@+id/home_recyclerview_upcoming"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal" />
-
-                            <ProgressBar
-                                android:id="@+id/playing_movies_progressbar"
-                                android:layout_width="35dp"
-                                android:layout_height="35dp"
-                                android:layout_alignParentBottom="true"
-                                android:layout_centerInParent="true" />
+                                android:orientation="horizontal"
+                                tools:listitem="@layout/layout_movies"
+                                app:shimmer_demo_layout="@layout/movie_shimmer_layout"
+                                app:shimmer_demo_layout_manager_type="linear_horizontal"/>
                         </RelativeLayout>
 
 
@@ -243,18 +231,14 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
-                            <androidx.recyclerview.widget.RecyclerView
+                            <com.cooltechworks.views.shimmer.ShimmerRecyclerView
                                 android:id="@+id/home_recyclerview_trending_people"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal" />
-
-                            <ProgressBar
-                                android:id="@+id/trending_people_progressbar"
-                                android:layout_width="35dp"
-                                android:layout_height="35dp"
-                                android:layout_alignParentBottom="true"
-                                android:layout_centerInParent="true" />
+                                android:orientation="horizontal"
+                                tools:listitem="@layout/layout_movies"
+                                app:shimmer_demo_layout="@layout/movie_shimmer_layout"
+                                app:shimmer_demo_layout_manager_type="linear_horizontal"/>
                         </RelativeLayout>
 
 

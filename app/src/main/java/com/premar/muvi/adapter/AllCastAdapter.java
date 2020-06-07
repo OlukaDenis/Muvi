@@ -51,7 +51,7 @@ public class AllCastAdapter extends RecyclerView.Adapter<CastViewHolder> {
                 .into(holder.castImage);
 
         holder.setItemClickListener((view, i, isLongClick) -> {
-            MovieCache.personId = castList.get(i).getCast_id();
+            MovieCache.personId = castList.get(i).getId();
             Cast selectedCast = castList.get(position);
 
             Intent personIntent = new Intent(context, PersonDetailActivity.class);

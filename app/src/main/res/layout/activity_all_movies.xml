@@ -12,7 +12,8 @@
         android:id="@+id/allmovies_tablayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="fill_horizontal"
+        android:layout_gravity="fill"
+        app:tabGravity="center"
         style="@style/MyTabLayout"/>
 
     <androidx.viewpager.widget.ViewPager

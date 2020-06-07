@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
+import com.cooltechworks.views.shimmer.ShimmerRecyclerView;
 import com.premar.muvi.R;
 import com.premar.muvi.adapter.TvAdapter;
 import com.premar.muvi.api.ApiService;
@@ -36,10 +37,9 @@ import static com.premar.muvi.utils.AppConstants.API_KEY;
  * A simple {@link Fragment} subclass.
  */
 public class AiringTodayShowsFragment extends Fragment {
-    private RecyclerView airing_recycleview;
+    private ShimmerRecyclerView airing_recycleview;
     private ApiService apiService;
     private static final String TAG = AiringTodayShowsFragment.class.getSimpleName();
-    private ProgressBar progressBar;
     private SwipeRefreshLayout refreshingLayout;
     private PaginationScrollListener paginationScrollListener;
     GridLayoutManager gridLayoutManager;
@@ -60,7 +60,6 @@ public class AiringTodayShowsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_airing_today_shows, container, false);
 
         airing_recycleview = view.findViewById(R.id.recycler_view_all_airing_tv);
-        progressBar = view.findViewById(R.id.progressbar_airing_tv);
         refreshingLayout = view.findViewById(R.id.airing_tv_refresh_layout);
 
         apiService = ApiUtils.getApiService();
@@ -110,10 +109,7 @@ public class AiringTodayShowsFragment extends Fragment {
                         airing_recycleview.setAdapter(adapter);
                         adapter.notifyDataSetChanged();
 
-                        progressBar.setVisibility(View.INVISIBLE);
                         Log.i(TAG, "onCreateView: TotalPages " + totalPages);
-                    } else {
-                        progressBar.setVisibility(View.VISIBLE);
                     }
                 }
 

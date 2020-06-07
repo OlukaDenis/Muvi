@@ -113,6 +113,7 @@ public class PersonDetailActivity extends AppCompatActivity {
         String[] pageTitles = new String[PersonDetailPagerAdapter.tabCount];
         pageTitles[0] = "Info";
         pageTitles[1] = "Movies";
+        pageTitles[2] = "Tv Shows";
         return pageTitles;
 
     }

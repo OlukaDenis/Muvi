@@ -40,7 +40,6 @@ public class PopularShowsFragment extends Fragment {
     private RecyclerView popular_recycleview;
     private ApiService apiService;
     private static final String TAG = PopularShowsFragment.class.getSimpleName();
-    private ProgressBar progressBar;
     private SwipeRefreshLayout refreshingLayout;
     private PaginationScrollListener paginationScrollListener;
     GridLayoutManager gridLayoutManager;
@@ -61,7 +60,6 @@ public class PopularShowsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_popular_shows, container, false);
 
         popular_recycleview = view.findViewById(R.id.recycler_view_all_popular_tv);
-        progressBar = view.findViewById(R.id.progressbar_popular_tv);
         refreshingLayout = view.findViewById(R.id.popular_tv_refresh_layout);
 
         apiService = ApiUtils.getApiService();
@@ -112,10 +110,7 @@ public class PopularShowsFragment extends Fragment {
                         popular_recycleview.setAdapter(adapter);
                         adapter.notifyDataSetChanged();
 
-                        progressBar.setVisibility(View.INVISIBLE);
                         Log.i(TAG, "onCreateView: TotalPages " + totalPages);
-                    } else {
-                        progressBar.setVisibility(View.VISIBLE);
                     }
                 }
 
