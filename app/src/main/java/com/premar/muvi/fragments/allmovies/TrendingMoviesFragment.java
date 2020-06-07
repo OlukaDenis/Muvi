@@ -10,8 +10,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 
+import com.cooltechworks.views.shimmer.ShimmerRecyclerView;
 import com.premar.muvi.R;
 import com.premar.muvi.activity.MainActivity;
 import com.premar.muvi.adapter.MovieHomeAdapter;
@@ -30,10 +30,9 @@ import retrofit2.Response;
 import static com.premar.muvi.utils.AppConstants.API_KEY;
 
 public class TrendingMoviesFragment extends Fragment {
-    private RecyclerView trending_recycleview;
+    private ShimmerRecyclerView trending_recycleview;
     private ApiService apiService;
     private static final String TAG = MainActivity.class.getSimpleName();
-    private ProgressBar progressBar;
     private SwipeRefreshLayout refreshLayout;
     private PaginationScrollListener paginationScrollListener;
     GridLayoutManager gridLayoutManager;
@@ -55,7 +54,6 @@ public class TrendingMoviesFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_trending_movies, container, false);
 
         trending_recycleview = view.findViewById(R.id.recycler_view_all_trending);
-        progressBar = view.findViewById(R.id.progressbar_trending);
         refreshLayout = view.findViewById(R.id.trending_refresh_layout);
 
         apiService = ApiUtils.getApiService();
@@ -107,13 +105,9 @@ public class TrendingMoviesFragment extends Fragment {
                         trending_recycleview.setAdapter(adapter);
                         adapter.notifyDataSetChanged();
 
-                        progressBar.setVisibility(View.INVISIBLE);
                         Log.i(TAG, "onCreateView: TotalPages " + totalPages);
                         Log.i(TAG, "Number of trending movies received:" + movieList.size());
 
-                    }
-                    else {
-                        progressBar.setVisibility(View.VISIBLE);
                     }
                 }
 

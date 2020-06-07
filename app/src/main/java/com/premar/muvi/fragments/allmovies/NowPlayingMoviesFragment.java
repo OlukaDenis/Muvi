@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.cooltechworks.views.shimmer.ShimmerRecyclerView;
 import com.premar.muvi.R;
 import com.premar.muvi.activity.MainActivity;
 import com.premar.muvi.adapter.MovieHomeAdapter;
@@ -31,7 +32,7 @@ import static com.premar.muvi.utils.AppConstants.API_KEY;
  * A simple {@link Fragment} subclass.
  */
 public class NowPlayingMoviesFragment extends Fragment {
-    private RecyclerView playing_recycleview;
+    private ShimmerRecyclerView playing_recycleview;
     private ApiService apiService;
     private static final String TAG = MainActivity.class.getSimpleName();
     private PaginationScrollListener paginationScrollListener;
