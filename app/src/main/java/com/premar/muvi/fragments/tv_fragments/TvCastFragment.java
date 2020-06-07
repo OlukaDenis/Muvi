@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.premar.muvi.R;
-import com.premar.muvi.activity.AllCastActivity;
+import com.premar.muvi.activity.AllTvCastActivity;
 import com.premar.muvi.adapter.CastAdapter;
 import com.premar.muvi.api.ApiService;
 import com.premar.muvi.api.ApiUtils;
@@ -59,8 +59,9 @@ public class TvCastFragment extends Fragment {
         castRecyclerView = view.findViewById(R.id.tv_info_cast_recycleView);
         allCast = view.findViewById(R.id.tv_more_cast);
         allCast.setOnClickListener(view1 -> {
-            Intent intent = new Intent(getContext(), AllCastActivity.class);
+            Intent intent = new Intent(getContext(), AllTvCastActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra("tvId", tvId);
             startActivity(intent);
         });
 

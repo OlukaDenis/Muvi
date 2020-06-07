@@ -1,0 +1,16 @@
+
+K
+java:S1444'"0Make this "public static totalPages" field final(†÷³¸üÿÿÿÿ
+E
+java:S1066j"/Merge this if statement with the enclosing one.(Á¢Ë
+q
+java:S1104'"VMake totalPages a static final constant or non-public and provide accessors if needed.(†÷³¸üÿÿÿÿ
+‚
+java:S1450%"gRemove the "paginationScrollListener" field and declare it as a local variable in the relevant methods.(‡¼Œëüÿÿÿÿ
+y	java:S116""_Rename this field "upcoming_recycleview" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(€Ù¨úÿÿÿÿ
+C
+java:S4274R"(Replace this assert with a proper check.(Îœ²¡üÿÿÿÿ
+Q
+java:S2696U"6Make the enclosing method "static" or remove this set.(Õª…åÿÿÿÿÿ
+Q
+java:S2696n"6Make the enclosing method "static" or remove this set.(Õª…åÿÿÿÿÿ

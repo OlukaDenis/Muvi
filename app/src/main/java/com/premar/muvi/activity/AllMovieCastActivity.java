@@ -1,6 +1,9 @@
 package com.premar.muvi.activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,9 +17,9 @@ import com.premar.muvi.model.credits.Cast;
 import com.premar.muvi.model.credits.Credits;
 import com.premar.muvi.api.ApiService;
 import com.premar.muvi.api.ApiUtils;
-import com.premar.muvi.temporary_storage.MovieCache;
 
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -24,11 +27,12 @@ import retrofit2.Response;
 
 import static com.premar.muvi.utils.AppConstants.API_KEY;
 
-public class AllCastActivity extends AppCompatActivity {
+public class AllMovieCastActivity extends AppCompatActivity {
     private ApiService apiService;
     private static String TAG = InfoFragment.class.getSimpleName();
     private RecyclerView castRecyclerView;
     private int movieId;
+    private int tvId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,13 +40,23 @@ public class AllCastActivity extends AppCompatActivity {
         setContentView(R.layout.activity_all_cast);
         setTitle("Cast");
 
-        this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(this.getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         this.getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
 
-        movieId = MovieCache.movieId;
+        Intent intent = getIntent();
+
+        movieId = Objects.requireNonNull(intent.getExtras()).getInt("movieId");
+
+//
+//        if (intent.hasExtra("movieId")) {
+//
+//        } else {
+//            tvId = Objects.requireNonNull(intent.getExtras()).getInt("tvId");
+//            getTvCredits();
+//        }
+
 
         apiService = ApiUtils.getApiService();
-
 
         castRecyclerView =findViewById(R.id.all_cast_recyclerview);
 
@@ -51,22 +65,24 @@ public class AllCastActivity extends AppCompatActivity {
         LinearLayoutManager castLayoutManager = new LinearLayoutManager(this);
         castRecyclerView.setLayoutManager(castLayoutManager);
 
-        getTrailers();
+        getMovieCredits();
     }
 
-    public void getTrailers() {
+    public void getMovieCredits() {
         apiService.getCredits(movieId, API_KEY).enqueue(new Callback<Credits>() {
             @Override
-            public void onResponse(Call<Credits> call, Response<Credits> response) {
-                assert response.body() != null;
+            public void onResponse(@NonNull Call<Credits> call, @NonNull Response<Credits> response) {
+               if (response.body() != null) {
 
-                Credits credits = response.body();
+                   Credits credits = response.body();
+                   Log.d(TAG, "Credits: " + credits.getCastList());
 
-                List<Cast> castList = credits.getCastList();
-                AllCastAdapter adapter = new AllCastAdapter(getApplicationContext(), castList, R.layout.layout_cast);
-                castRecyclerView.setAdapter(adapter);
+                   List<Cast> castList = credits.getCastList();
+                   AllCastAdapter adapter = new AllCastAdapter(getApplicationContext(), castList, R.layout.layout_cast);
+                   castRecyclerView.setAdapter(adapter);
 
-                Log.i(TAG, String.valueOf(credits.getMovie_id()));
+                   Log.i(TAG, String.valueOf(credits.getMovie_id()));
+               }
             }
 
             @Override
@@ -75,6 +91,7 @@ public class AllCastActivity extends AppCompatActivity {
             }
         });
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

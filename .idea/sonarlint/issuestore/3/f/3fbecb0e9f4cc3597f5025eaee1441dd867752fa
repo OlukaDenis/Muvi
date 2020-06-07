@@ -1,0 +1,34 @@
+
+A
+java:S1444,"+Make this "public static movie" field final(’¬¢õ
+E
+java:S1066v"/Merge this if statement with the enclosing one.(Á¢Ë
+g
+java:S1104,"QMake movie a static final constant or non-public and provide accessors if needed.(’¬¢õ
+w
+java:S1488A"\Immediately return this expression instead of assigning it to the temporary variable "year".(êƒºåşÿÿÿÿ
+V
+java:S1128"@Remove this unused import 'com.premar.muvi.model.people.Person'.(Í”²è
+V
+java:S1128";Remove this unused import 'com.premar.muvi.api.ApiService'.(©œù÷úÿÿÿÿ
+T
+java:S1128
+">Remove this unused import 'com.premar.muvi.model.PersonMovie'.(û“ü¨
+I
+java:S1128".Remove this unused import 'com.premar.muvi.R'.(ä—Ùßúÿÿÿÿ
+^
+java:S1128"HRemove this unused import 'com.premar.muvi.adapter.PersonMoviesAdapter'.(¿±‰ÿ
+\
+java:S1128"FRemove this unused import 'com.premar.muvi.model.PersonMovieResponse'.(Òì£
+P
+java:S1118":Add a private constructor to hide the implicit public one.(³ıƒ
+\
+java:S1075"ARefactor your code to get this URI from a customizable parameter.(Ò¡ñÖúÿÿÿÿ
+\
+java:S1075"ARefactor your code to get this URI from a customizable parameter.(ĞºÅ»ùÿÿÿÿ
+c
+java:S5361j"HReplace this call to "replaceAll()" by a call to the "replace()" method.(üãÚ­ùÿÿÿÿ
+œ
+java:S1186~"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.( ÷·ëûÿÿÿÿ
+n
+java:S3776†"RRefactor this method to reduce its Cognitive Complexity from 34 to the 15 allowed.(Ìø»Úùÿÿÿÿ
