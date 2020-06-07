@@ -12,8 +12,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activity.WatchTrailerActivity"></activity>
+        <activity
+            android:theme="@style/WithNoActionBar"
+            android:name=".activity.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.AllTvCastActivity" />
+        <activity android:name=".activity.WatchTrailerActivity" />
         <activity android:name=".activity.AllTvShowsActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -41,18 +52,13 @@
         <activity
             android:name=".activity.PersonDetailActivity"
             android:theme="@style/WithNoActionBar" />
-        <activity android:name=".activity.AllCastActivity" />
+        <activity android:name=".activity.AllMovieCastActivity" />
         <activity
             android:name=".activity.MovieDetailActivity"
             android:theme="@style/WithNoActionBar" />
         <activity
             android:name=".activity.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".activity.MainActivity" />
     </application>

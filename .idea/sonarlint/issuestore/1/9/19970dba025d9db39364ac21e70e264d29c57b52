@@ -1,0 +1,37 @@
+
+k	java:S117]"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(·þÀÙùÿÿÿÿ
+f	java:S117^"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(èÊä‚
+>
+java:S1148Y"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ
+>
+java:S1148b"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ
+[
+java:S1128"@Remove this unused import 'androidx.databinding.BindingAdapter'.(Ù¼íƒùÿÿÿÿ
+F
+java:S1128"+Remove this unused import 'java.util.List'.(Õë±Äøÿÿÿÿ
+C
+java:S1659)"(Declare "birthplace" on a separate line.(ÂðÄÞüÿÿÿÿ
+@
+java:S1659)"%Declare "profile" on a separate line.(ÂðÄÞüÿÿÿÿ
+A
+java:S1659)"&Declare "moreWiki" on a separate line.(ÂðÄÞüÿÿÿÿ
+F
+java:S1659)"+Declare "also_known_as" on a separate line.(ÂðÄÞüÿÿÿÿ
+r	java:S116)"XRename this field "also_known_as" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÂðÄÞüÿÿÿÿ
+m
+java:S3776>"RRefactor this method to reduce its Cognitive Complexity from 36 to the 15 allowed.(ƒ¹»Œúÿÿÿÿ
+˜
+java:S1186…"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(±ÙÞË
+L
+java:S2696u"6Make the enclosing method "static" or remove this set.(”¶è§
+G
+java:S1068)",Remove this unused "birthday" private field.(ÂðÄÞüÿÿÿÿ
+I
+java:S1068)".Remove this unused "birthplace" private field.(ÂðÄÞüÿÿÿÿ
+F
+java:S1068)"+Remove this unused "profile" private field.(ÂðÄÞüÿÿÿÿ
+G
+java:S1068)",Remove this unused "moreWiki" private field.(ÂðÄÞüÿÿÿÿ
+L
+java:S1068)"1Remove this unused "also_known_as" private field.(ÂðÄÞüÿÿÿÿ
+Q	java:S125~"<This block of commented-out lines of code should be removed.(ÓŸž»

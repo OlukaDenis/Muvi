@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.premar.muvi.R;
-import com.premar.muvi.activity.AllCastActivity;
+import com.premar.muvi.activity.AllMovieCastActivity;
 import com.premar.muvi.adapter.CastAdapter;
 import com.premar.muvi.utils.AppConstants;
 import com.premar.muvi.model.credits.Cast;
@@ -57,13 +57,11 @@ public class CastFragment extends Fragment {
 
         castRecyclerView = view.findViewById(R.id.cast_recycleView);
         allCast = view.findViewById(R.id.more_cast);
-        allCast.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getContext(), AllCastActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-            }
+        allCast.setOnClickListener(view1 -> {
+            Intent intent = new Intent(getContext(), AllMovieCastActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra("movieId", movieId);
+            startActivity(intent);
         });
 
         //genre layout manager

@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
+import com.cooltechworks.views.shimmer.ShimmerRecyclerView;
 import com.premar.muvi.R;
 import com.premar.muvi.adapter.TvAdapter;
 import com.premar.muvi.api.ApiService;
@@ -36,10 +37,9 @@ import static com.premar.muvi.utils.AppConstants.API_KEY;
  * A simple {@link Fragment} subclass.
  */
 public class TopRatedShowsFragment extends Fragment {
-    private RecyclerView toprated_recycleview;
+    private ShimmerRecyclerView toprated_recycleview;
     private ApiService apiService;
     private static final String TAG = PopularShowsFragment.class.getSimpleName();
-    private ProgressBar progressBar;
     private SwipeRefreshLayout refreshingLayout;
     private PaginationScrollListener paginationScrollListener;
     GridLayoutManager gridLayoutManager;
@@ -60,7 +60,6 @@ public class TopRatedShowsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_top_rated_shows, container, false);
 
         toprated_recycleview = view.findViewById(R.id.recycler_view_all_toprated_tv);
-        progressBar = view.findViewById(R.id.progressbar_toprated_tv);
         refreshingLayout = view.findViewById(R.id.toprated_tv_refresh_layout);
 
         apiService = ApiUtils.getApiService();
@@ -111,10 +110,7 @@ public class TopRatedShowsFragment extends Fragment {
                         toprated_recycleview.setAdapter(adapter);
                         adapter.notifyDataSetChanged();
 
-                        progressBar.setVisibility(View.INVISIBLE);
                         Log.i(TAG, "onCreateView: TotalPages " + totalPages);
-                    } else {
-                        progressBar.setVisibility(View.VISIBLE);
                     }
                 }
 
